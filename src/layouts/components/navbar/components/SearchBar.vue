@@ -27,6 +27,20 @@
           </div>
         </template>
 
+        <!-- Contacts Suggestion -->
+        <template v-slot:contacts="{ suggestion }">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <img :src="suggestion.img" :alt="suggestion.name" class="w-8 h-8 mr-3 rounded-full">
+              <div class="leading-none mt-1">
+                <p>{{ suggestion.name }}</p>
+                <small>{{ suggestion.email }}</small>
+              </div>
+            </div>
+            <small>{{ suggestion.time }}</small>
+          </div>
+        </template>
+
         <!-- No Items Slot -->
         <template v-slot:noResult="{ group_name }">
           <div class="flex items-center">

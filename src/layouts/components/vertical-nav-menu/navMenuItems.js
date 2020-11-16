@@ -18,10 +18,36 @@ export default [
     icon: "UsersIcon",
   },
   {
-    url: "/app/inventory",
-    name: "Inventory",
-    slug: "inventory",
-    icon: "ServerIcon",
+    url: null,
+    name: 'Inventory',
+    icon: 'ServerIcon',
+    i18n: 'Inventory',
+    submenu: [
+      {
+        url: '/app/products',
+        name: 'Products',
+        slug: 'products',
+        i18n: 'Products'
+      },
+      {
+        url: '/app/services',
+        name: 'Services',
+        slug: 'services',
+        i18n: 'Services'
+      }
+    ]
+  },
+  {
+    url: "/app/invoices",
+    name: "Invoice",
+    slug: "invoice",
+    icon: "InfoIcon",
+  },
+  {
+    url: "/app/sales",
+    name: "Sales",
+    slug: "sales",
+    icon: "FilterIcon",
   },
   {
     url: "/app/employees",
@@ -42,9 +68,23 @@ export default [
     icon: "SettingsIcon",
   },
   {
-    url: "",
-    name: "Logout",
-    slug: "logout",
-    icon: "LogOutIcon",
+    url: null,
+    name: 'More',
+    icon: 'PlusCircleIcon',
+    i18n: 'More',
+    submenu: [
+      {
+        url: '/app/units',
+        name: 'Units',
+        slug: 'units',
+        i18n: 'Units'
+      },
+      {
+        url: '/app/labels',
+        name: 'Labels',
+        slug: 'labels',
+        i18n: 'Labels'
+      }
+    ]
   },
 ]

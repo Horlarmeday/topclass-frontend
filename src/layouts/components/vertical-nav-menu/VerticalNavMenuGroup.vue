@@ -7,7 +7,7 @@
 
 <template>
   <div
-    class  = "vs-sidebar-group"
+    class  = "vs-sidebar-group mb-4"
     :class = "[
       {'vs-sidebar-group-open'            : openItems        },
       {'vs-sidebar-group-active'          : open             },

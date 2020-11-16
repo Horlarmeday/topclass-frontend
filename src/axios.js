@@ -1,9 +1,10 @@
 // axios
 import axios from 'axios'
 
-const baseURL = ""
 
-export default axios.create({
-  baseURL: baseURL
-  // You can add your headers here
-})
+const token = localStorage.getItem('user-token')
+axios.defaults.baseURL = '/api'
+axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+axios.defaults.timeout = 180000
+
+export default axios;

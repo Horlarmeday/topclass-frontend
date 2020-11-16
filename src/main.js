@@ -60,6 +60,7 @@ import 'prismjs/themes/prism-tomorrow.css'
 // Feather font icon
 require('./assets/css/iconfont.css')
 
+Vue.use(require('vue-moment'));
 
 // Vue select css
 // Note: In latest version you have to add it separately

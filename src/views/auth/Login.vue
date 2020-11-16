@@ -102,7 +102,7 @@ export default{
       });
     },
     login() {
-      let username = this.khuddam_no
+      let username = this.username
       let password = this.password
 
       this.$vs.loading()
@@ -115,7 +115,7 @@ export default{
           this.$vs.notify({
             title:'Success',
             text: response.data.message,
-            color:'primary',
+            color:'success',
             position:'top-center',
             iconPack: 'feather',
             icon:'icon-alert-circle'

@@ -1,8 +1,8 @@
 <template>
-  <div class="the-navbar__user-meta flex items-center" v-if="activeUserInfo.displayName">
+  <div class="the-navbar__user-meta flex items-center" v-if="user">
 
     <div class="text-right leading-tight hidden sm:block">
-      <p class="font-semibold">{{ activeUserInfo.displayName }}</p>
+      <p class="font-semibold">{{ user.fullname }}</p>
       <small>Available</small>
     </div>
 
@@ -25,21 +25,6 @@
             <span class="ml-2">Inbox</span>
           </li>
 
-          <li class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white">
-            <feather-icon icon="CheckSquareIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Tasks</span>
-          </li>
-
-          <li class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white">
-            <feather-icon icon="MessageSquareIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Chat</span>
-          </li>
-
-          <li class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white">
-            <feather-icon icon="HeartIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Wish List</span>
-          </li>
-
           <vs-divider class="m-1" />
 
           <li
@@ -55,11 +40,15 @@
 </template>
 
 <script>
+import { parseJwt } from '@/views/pages/app/utilities/helper'
 export default {
   data() {
     return {
-
+      user: ''
     }
+  },
+  created() {
+    this.user = parseJwt(localStorage.getItem('user-token'))
   },
   computed: {
     activeUserInfo() {
@@ -68,7 +57,7 @@ export default {
   },
   methods: {
     logout() {
-        this.$router.push('/pages/login').catch(() => {})
+      this.$store.dispatch('auth/logout').then(() => this.$router.push('/auth/login')).catch(() => {})
     },
   }
 }

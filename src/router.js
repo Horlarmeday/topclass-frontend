@@ -1,16 +1,12 @@
 /*=========================================================================================
   File Name: router.js
   Description: Routes for vue-router. Lazy loading is enabled.
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
 
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import store from './store/auth/moduleAuth'
 Vue.use(Router)
 
 const router = new Router({
@@ -38,7 +34,73 @@ const router = new Router({
               {
                 path: '/app/dashboard',
                 name: 'dashboard',
-                component: () => import('./views/Home.vue')
+                component: () => import('./views/pages/app/home/Dashboard.vue'),
+                meta: {
+                  requiresAuth: true
+                }
+              },
+              {
+                path: '/app/customers',
+                name: 'customers',
+                component: () => import('./views/pages/app/customers/CustomersList.vue'),
+                meta: {
+                  requiresAuth: true,
+                  pageTitle: 'Customers',
+                }
+              },
+              {
+                path: '/app/employees',
+                name: 'employees',
+                component: () => import('./views/pages/app/employees/EmployeeList.vue'),
+                meta: {
+                  requiresAuth: true,
+                  pageTitle: 'Employees',
+                }
+              },
+              {
+                path: '/app/units',
+                name: 'units',
+                component: () => import('./views/pages/app/utilities/UnitList.vue'),
+                meta: {
+                  requiresAuth: true,
+                  pageTitle: 'Units',
+                }
+              },
+              {
+                path: '/app/labels',
+                name: 'labels',
+                component: () => import('./views/pages/app/utilities/LabelList.vue'),
+                meta: {
+                  requiresAuth: true,
+                  pageTitle: 'Labels',
+                }
+              },
+              {
+                path: '/app/products',
+                name: 'products',
+                component: () => import('./views/pages/app/products/ProductsList.vue'),
+                meta: {
+                  requiresAuth: true,
+                  pageTitle: 'Products',
+                }
+              },
+              {
+                path: '/app/services',
+                name: 'services',
+                component: () => import('./views/pages/app/services/ServicesList.vue'),
+                meta: {
+                  requiresAuth: true,
+                  pageTitle: 'Services',
+                }
+              },
+              {
+                path: '/app/invoices',
+                name: 'invoices',
+                component: () => import('./views/pages/app/invoices/InvoiceList.vue'),
+                meta: {
+                  requiresAuth: true,
+                  pageTitle: 'Invoices',
+                }
               },
               {
                 path: '/page2',
@@ -83,6 +145,18 @@ router.afterEach(() => {
     if (appLoading) {
         appLoading.style.display = "none";
     }
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.state.token) {
+      next()
+      return
+    }
+    next('/auth/login')
+  } else {
+    next()
+  }
 })
 
 export default router
