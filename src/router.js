@@ -103,6 +103,14 @@ const router = new Router({
                 }
               },
               {
+                path: '/app/invoice/:invoiceId',
+                name: 'invoiceparam',
+                component: () => import('./views/pages/app/invoices/ViewInvoice.vue'),
+                meta: {
+                  requiresAuth: true,
+                }
+              },
+              {
                 path: '/page2',
                 name: 'page-2',
                 component: () => import('./views/Page2.vue')
