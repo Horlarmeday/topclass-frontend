@@ -61,4 +61,37 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
+
+  approveInvoice ({ commit }, invoice) {
+    return new Promise((resolve, reject) => {
+      axios.put(`/invoices/approve`, invoice)
+        .then((response) => {
+          commit('UPDATE_INVOICE', response.data.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+
+  stepDownInvoice ({ commit }, invoice) {
+    return new Promise((resolve, reject) => {
+      axios.put(`/invoices/stepdown`, invoice)
+        .then((response) => {
+          commit('UPDATE_INVOICE', response.data.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  
+  declineInvoice ({ commit }, invoice) {
+    return new Promise((resolve, reject) => {
+      axios.put(`/invoices/decline`, invoice)
+        .then((response) => {
+          commit('UPDATE_INVOICE', response.data.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
 }

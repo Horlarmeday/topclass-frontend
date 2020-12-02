@@ -18,6 +18,7 @@
               <p>Welcome back, please login to your account.</p>
           </div>
           <div>
+            <form @keypress.enter="login">
               <vs-input
                   v-validate="'required|min:3'"
                   data-vv-validate-on="blur"
@@ -27,6 +28,7 @@
                   icon-pack="feather"
                   label-placeholder="Username"
                   v-model="username"
+                  autocomplete="false"
                   class="w-full"/>
               <span class="text-danger text-sm">{{ errors.first('username') }}</span>
 
@@ -61,14 +63,9 @@
                   vs-align="center"
                   vs-w="8"
                 >
-                  <!-- <small class="pt-4 pb-4"
-                    >Can't Login with your Khuddam ID?
-                    <router-link to="/auth/register">
-                      Create Account</router-link
-                    ></small
-                  > -->
                 </vs-col>
               </vs-row>
+            </form>
           </div>
         </div>
       </vx-card>

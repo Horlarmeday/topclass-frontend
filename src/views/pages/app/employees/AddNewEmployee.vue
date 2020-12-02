@@ -1,7 +1,7 @@
 <template>
   <div>
         <vs-prompt
-            title="Create Customer"
+            title="Create Employee"
             accept-text= "Submit"
             button-cancel = "border"
             @cancel="initValues"

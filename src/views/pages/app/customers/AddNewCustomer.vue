@@ -71,6 +71,12 @@
                       </div>
                       <div class="vx-row mb-2">
                         <div class="vx-col w-full">
+                          <vs-input class="w-full" label="Address" v-model="address" name="address" />
+                          <span class="text-danger text-sm">{{errors.first('address')}}</span>
+                        </div>
+                      </div>
+                      <div class="vx-row mb-2">
+                        <div class="vx-col w-full">
                           <small class="ml-2">Customer Type</small>
                           <v-select 
                             v-validate="'required'"
@@ -112,6 +118,7 @@ export default {
             name: '',
             email: '',
             state: '',
+            address: '',
             lga: '',
             states: [],
             cities: [],
@@ -134,6 +141,7 @@ export default {
              this.email !== '' && 
              this.state !== '' && 
              this.lga !== '' && 
+             this.address !== '' && 
              this.customer_type !== ''
         },
         activePrompt:{
@@ -186,7 +194,8 @@ export default {
             email: this.email,
             customer_type: this.customer_type,
             state: this.state,
-            lga: this.lga
+            lga: this.lga,
+            address: this.address
         }
         this.$vs.loading()
         this.$validator.validateAll().then(result => {
@@ -207,6 +216,7 @@ export default {
         this.customer_type = ''
         this.state = ''
         this.lga = ''
+        this.address = ''
       }
     },
     created() {

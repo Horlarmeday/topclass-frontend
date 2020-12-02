@@ -2,10 +2,6 @@
   File Name: TheNavbar.vue
   Description: Navbar component
   Component Name: TheNavbar
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
 ========================================================================================== -->
 
 
@@ -25,7 +21,11 @@
 
         <search-bar />
 
-        <notification-drop-down />
+        <!-- <notification-drop-down /> -->
+        
+        <feather-icon icon="ActivityIcon" class="cursor-pointer mb-1 sm:mr-6 mr-2" @click.stop="showNotification" :badge="1" />
+
+        <activity :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" />
 
         <profile-drop-down />
 
@@ -38,8 +38,9 @@
 <script>
 import Bookmarks            from "./components/Bookmarks.vue"
 import SearchBar            from "./components/SearchBar.vue"
-import NotificationDropDown from "./components/NotificationDropDown.vue"
+// import NotificationDropDown from "./components/NotificationDropDown.vue"
 import ProfileDropDown      from "./components/ProfileDropDown.vue"
+import Activity      from "./components/Activity.vue"
 
 export default {
   name: "the-navbar-vertical",
@@ -49,11 +50,17 @@ export default {
       default: "#fff",
     },
   },
+  data() {
+    return {
+      addNewDataSidebar: false,
+    }
+  }, 
   components: {
     Bookmarks,
     SearchBar,
-    NotificationDropDown,
+    // NotificationDropDown,
     ProfileDropDown,
+    Activity
   },
   computed: {
     navbarColorLocal() {
@@ -79,6 +86,14 @@ export default {
   methods: {
     showSidebar() {
       this.$store.commit('TOGGLE_IS_VERTICAL_NAV_MENU_ACTIVE', true);
+    },
+    
+    showNotification () {
+      this.toggleDataSidebar(true)
+    },
+
+    toggleDataSidebar (val = false) {
+      this.addNewDataSidebar = val
     }
   }
 }

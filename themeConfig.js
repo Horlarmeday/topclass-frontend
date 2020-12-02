@@ -10,6 +10,7 @@ let colors = {
   danger  : '#EA5455',
   warning : '#FF9F43',
   dark    : '#1E1E1E',
+  violet  : '#6256ea'
 }
 
 // CONFIGS

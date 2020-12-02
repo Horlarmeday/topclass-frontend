@@ -71,12 +71,12 @@
 
                   <vs-dropdown-menu class="w-32">
                     <vs-dropdown-item>
-                      <div @click="$router.push('/pages/profile').catch(() => {})" class="flex items-center">
+                      <div @click="$router.push('/app/settings').catch(() => {})" class="flex items-center">
                         <feather-icon icon="UserIcon" class="inline-block mr-2" svgClasses="w-4 h-4" />
                         <span>Profile</span>
                       </div>
                     </vs-dropdown-item>
-                    <vs-dropdown-item>
+                    <!-- <vs-dropdown-item>
                       <div @click="$router.push('/apps/todo').catch(() => {})" class="flex items-center">
                         <feather-icon icon="CheckSquareIcon" class="inline-block mr-2" svgClasses="w-4 h-4" />
                         <span>Tasks</span>
@@ -87,7 +87,7 @@
                         <feather-icon icon="MailIcon" class="inline-block mr-2" svgClasses="w-4 h-4" />
                         <span>Inbox</span>
                       </div>
-                    </vs-dropdown-item>
+                    </vs-dropdown-item> -->
                   </vs-dropdown-menu>
 
                 </vs-dropdown>

@@ -45,6 +45,27 @@ export default {
     REMOVE_LABEL (state, labelId) {
         const ItemIndex = state.labels.findIndex((l) => l.lid === labelId)
         state.labels.splice(ItemIndex, 1)
+    },
+
+    ADD_DEFAULT (state, item) {
+      state.defaults.unshift(item)
+    },
+
+    SET_DEFAULTS (state, defaults) {
+        state.defaults = defaults
+    },
+
+    SET_DEFAULTS_TOTAL (state, total) {
+        state.defaultTotal = total
+    },
+
+    SET_DEFAULT_NUMB_PAGES (state, pages) {
+        state.defaultPages = pages
+    },
+
+    REMOVE_DEFAULT (state, defaultId) {
+        const ItemIndex = state.defaults.findIndex((d) => d.did === defaultId)
+        state.defaults.splice(ItemIndex, 1)
     }
 }
   

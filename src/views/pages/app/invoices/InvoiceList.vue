@@ -82,6 +82,7 @@
         <vs-th sort-key="s/n">S/N</vs-th>
         <vs-th sort-key="name">Name</vs-th>
         <vs-th sort-key="invoice_type">Invoice Type</vs-th>
+        <vs-th sort-key="status">Status</vs-th>
         <vs-th sort-key="createdAt">Date Created</vs-th>
         <vs-th>Action</vs-th>
       </template>
@@ -100,6 +101,12 @@
 
               <vs-td>
                 <p class="product-category">{{ tr.invoice_type }}</p>
+              </vs-td>
+
+              <vs-td>
+                <vs-chip v-if="tr.is_approved === 0" :color="getOrderStatusColor(tr.is_approved)" class="product-order-status">Pending</vs-chip>
+                <vs-chip v-if="tr.is_approved === 1" :color="getOrderStatusColor(tr.is_approved)" class="product-order-status">Approved</vs-chip>
+                <vs-chip v-if="tr.is_approved === 2" :color="getOrderStatusColor(tr.is_approved)" class="product-order-status">Declined</vs-chip>
               </vs-td>
 
               <vs-td>
@@ -223,6 +230,10 @@ export default {
       this.displayPrompt = false
     },
 
+    goToCreateInvoice () {
+      this.$router.push('/app/invoices/create')
+    },
+
     getOverallIndex(index) {
       return this.currentPage * this.itemsPerPage - this.itemsPerPage + index + 1
     },
@@ -240,9 +251,9 @@ export default {
       this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, filter: value })
     },
     getOrderStatusColor (type) {
-      if (type === 'Individual')   return 'primary'
-      if (type === 'Government') return 'success'
-      if (type === 'NGO')  return 'danger'
+      if (type === 0)   return 'warning'
+      if (type === 1) return 'success'
+      if (type === 2)  return 'danger'
       return 'dark'
     },
     toggleDataSidebar (val = false) {

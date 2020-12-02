@@ -22,6 +22,9 @@ Vue.prototype.$http = axios
 // Theme Configurations
 import '../themeConfig.js'
 
+// ACL
+import acl from './acl/acl'
+
 
 // Globally Registered Components
 import './globalComponents.js'
@@ -72,5 +75,6 @@ Vue.config.productionTip = false
 new Vue({
     router,
     store,
+    acl,
     render: h => h(App)
 }).$mount('#app')

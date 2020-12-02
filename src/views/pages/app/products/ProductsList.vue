@@ -82,7 +82,7 @@
         <vs-th sort-key="s/n">S/N</vs-th>
         <vs-th sort-key="name">Name</vs-th>
         <vs-th sort-key="quantity">Quantity</vs-th>
-        <vs-th sort-key="price">Price</vs-th>
+        <vs-th sort-key="price">Price (₦)</vs-th>
         <vs-th sort-key="label">Label</vs-th>
         <vs-th sort-key="createdAt">Date Created</vs-th>
         <vs-th>Action</vs-th>
@@ -109,7 +109,7 @@
               </vs-td>
 
               <vs-td>
-                <p class="product-category">{{ tr.label }}</p>
+                <vs-chip :color="getOrderStatusColor(tr.label)" class="product-order-status">{{ tr.label }}</vs-chip>
               </vs-td>
 
               <vs-td>
@@ -127,7 +127,7 @@
         <div>
           <vs-pagination class="float-right" :total="pages" v-model="currentPage" :max="6"></vs-pagination>
         </div>
-      <add-new-product :displayPrompt="displayPrompt" :data="productToEdit" @hideDisplayPrompt="hidePrompt" v-if="displayPrompt"></add-new-product>
+      <add-new-product :displayPrompt="displayPrompt" :data="productToEdit" @hideDisplayPrompt="hidePrompt"></add-new-product>
   </div>
 </template>
 
@@ -243,9 +243,9 @@ export default {
       this.$store.dispatch('product/fetchProducts', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, filter: value })
     },
     getOrderStatusColor (type) {
-      if (type === 'Inactive')   return 'primary'
-      if (type === 'Active') return 'success'
-      if (type === 'Suspended')  return 'warning'
+      if (type === 'spare part')   return 'primary'
+      if (type === 'generator') return 'success'
+      if (type === 'solar panels')  return 'warning'
       return 'dark'
     },
     toggleDataSidebar (val = false) {

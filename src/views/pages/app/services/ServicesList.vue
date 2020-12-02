@@ -82,7 +82,7 @@
         <vs-th sort-key="s/n">S/N</vs-th>
         <vs-th sort-key="name">Name</vs-th>
         <vs-th sort-key="quantity">Quantity</vs-th>
-        <vs-th sort-key="price">Price</vs-th>
+        <vs-th sort-key="price">Price (₦)</vs-th>
         <vs-th sort-key="createdAt">Date Created</vs-th>
         <vs-th>Action</vs-th>
       </template>

@@ -20,8 +20,9 @@
       <search-bar />
 
       <notification-drop-down />
-
+      
       <profile-drop-down />
+
 
     </vs-navbar>
   </div>
@@ -71,7 +72,7 @@ export default {
     scrollY()              { return this.$store.state.scrollY                                                                     },
     verticalNavMenuWidth() { return this.$store.state.verticalNavMenuWidth                                                        },
     windowWidth()          { return this.$store.state.windowWidth                                                                 },
-  }
+  },
 }
 
 </script>

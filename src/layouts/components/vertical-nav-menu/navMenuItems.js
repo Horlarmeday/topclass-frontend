@@ -84,7 +84,19 @@ export default [
         name: 'Labels',
         slug: 'labels',
         i18n: 'Labels'
-      }
+      },
+      {
+        url: '/app/defaults',
+        name: 'Defaults',
+        slug: 'defaults',
+        i18n: 'Defaults'
+      },
+      {
+        url: '/app/waybills',
+        name: 'Waybill',
+        slug: 'waybill',
+        i18n: 'Waybill'
+      },
     ]
   },
 ]

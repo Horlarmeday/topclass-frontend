@@ -1,13 +1,7 @@
 <template>
   <div>
-        <vs-prompt
+        <vs-popup
             title="Create Product"
-            accept-text= "Submit"
-            button-cancel = "border"
-            @cancel="initValues"
-            @accept="createProduct"
-            @close="activePrompt = false"
-            :is-valid="validateForm"
             :active.sync="activePrompt">
         <div>
             <div class="vx-row">
@@ -108,29 +102,27 @@
                 <div class="vx-col sm:w-1/2 w-full mb-2">
                     <small class="ml-2">Description</small>
                     <vs-textarea
-                        v-validate="'required'"
-                        data-vv-validate-on="blur"
                         name="desc"
                         v-model="desc"
                         class="w-full"
                     />
-                    <span class="text-danger text-sm">{{errors.first('desc')}}</span>
                 </div>
                 <div class="vx-col sm:w-1/2 w-full mb-2">
                     <small class="ml-2">Comment</small>
                     <vs-textarea
-                        v-validate="'required'"
-                        data-vv-validate-on="blur"
                         name="comment"
                         v-model="comment"
                         class="w-full"
                     />
-                    <span class="text-danger text-sm">{{errors.first('comment')}}</span>
                 </div>
+              </div>
+              <div slot="footer" class="pt-8">
+                    <vs-button class="mr-6" @click="createProduct" :disabled="!validateForm">Submit</vs-button>
+                    <vs-button type="border" color="danger" @click="activePrompt = false">Cancel</vs-button>
               </div>
             </div>
         </div>
-    </vs-prompt>
+    </vs-popup>
   </div>
 </template>
 
@@ -172,9 +164,7 @@ export default {
              this.name !== '' &&
              this.quantity !== '' && 
              this.cost !== '' && 
-             this.desc !== '' && 
              this.selling_price !== '' && 
-             this.comment !== '' &&
              this.label !== '' 
         },
         activePrompt:{
@@ -228,6 +218,7 @@ export default {
                 .then(response => {
                     this.handleSuccess(response)
                     this.initValues()
+                     this.$emit('hideDisplayPrompt', false)
                 })
                 .catch(err => { this.handleError(err) })
             }

@@ -136,7 +136,6 @@ export default {
              this.unit !== '' &&
              this.name !== '' &&
              this.quantity !== '' && 
-             this.desc !== '' && 
              this.selling_price !== ''
         },
 

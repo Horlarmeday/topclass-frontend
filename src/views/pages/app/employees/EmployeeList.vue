@@ -266,6 +266,7 @@ export default {
       if (status === 'Suspended')  return 'warning'
       return 'dark'
     },
+    
     toggleDataSidebar (val = false) {
       this.addNewDataSidebar = val
     }

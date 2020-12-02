@@ -70,5 +70,40 @@ export default {
         })
         .catch((error) => { reject(error) })
     })
-  }
+  },
+
+  addDefault({ commit }, item) {
+    return new Promise((resolve, reject) => {
+      axios.post('/utilities/default/create', item)
+        .then((response) => {
+          commit('ADD_DEFAULT',  response.data.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+
+  fetchDefaults ({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      axios.get('/utilities/default', { params: { currentPage: payload.currentPage, pageLimit: payload.itemsPerPage, search: payload.search, filter: payload.filter } })
+        .then((response) => {
+          commit('SET_DEFAULTS', response.data.data.docs)
+          commit('SET_DEFAULTS_TOTAL', response.data.data.total)
+          commit('SET_DEFAULT_NUMB_PAGES', response.data.data.pages)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+
+  deleteDefault ({ commit }, item) {
+    return new Promise((resolve, reject) => {
+      axios.delete(`/utilities/default`, { data: { did: item }})
+        .then((response) => {
+          commit('REMOVE_DEFAULT', response.data.data.did)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
 }

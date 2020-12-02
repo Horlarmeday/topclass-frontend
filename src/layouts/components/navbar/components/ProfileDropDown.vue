@@ -3,13 +3,14 @@
 
     <div class="text-right leading-tight hidden sm:block">
       <p class="font-semibold">{{ user.fullname }}</p>
-      <small>Available</small>
+      <small>{{ user.role }}</small>
     </div>
 
     <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
 
       <div class="con-img ml-3">
-        <img v-if="activeUserInfo.photoURL" key="onlineImg" :src="activeUserInfo.photoURL" alt="user-img" width="40" height="40" class="rounded-full shadow-md cursor-pointer block" />
+        <vs-avatar color="primary" :text="user.fullname" size="40px"/>
+        <!-- <img v-if="activeUserInfo.photoURL" key="onlineImg" :src="activeUserInfo.photoURL" alt="user-img" width="40" height="40" class="rounded-full shadow-md cursor-pointer block" /> -->
       </div>
 
       <vs-dropdown-menu class="vx-navbar-dropdown">

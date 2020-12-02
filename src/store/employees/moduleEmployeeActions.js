@@ -59,5 +59,16 @@ export default {
         })
         .catch((error) => { reject(error) })
     })
-  }
+  },
+
+  changePassword ({ commit }, password) {
+    return new Promise((resolve, reject) => {
+      axios.post('/staffs/change-password', password)
+        .then((response) => {
+          commit('ADD_EMPLOYEE',  response.data.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
 }
