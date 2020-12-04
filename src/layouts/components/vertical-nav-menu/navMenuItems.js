@@ -56,10 +56,50 @@ export default [
     icon: "UserPlusIcon",
   },
   {
-    url: "/app/reports",
-    name: "Reports",
-    slug: "reports",
-    icon: "BarChartIcon",
+    url: null,
+    name: 'Reports',
+    icon: 'BarChartIcon',
+    i18n: 'Reports',
+    submenu: [
+      {
+        url: '/app/revenue-report',
+        name: 'Revenue Report',
+        slug: 'revenue',
+        i18n: 'Revenue'
+      },
+      {
+        url: '/app/expenses-report',
+        name: 'Expenses Report',
+        slug: 'expenses',
+        i18n: 'Expenses'
+      },
+      {
+        url: '/app/inventory-report',
+        name: 'Inventory Report',
+        slug: 'inventory',
+        i18n: 'Inventory'
+      },
+    ]
+  },
+  {
+    url: null,
+    name: 'Expenditure',
+    icon: 'CreditCardIcon',
+    i18n: 'Expenditure',
+    submenu: [
+      {
+        url: '/app/expenses',
+        name: 'Expenses',
+        slug: 'expenses',
+        i18n: 'Expenses'
+      },
+      {
+        url: '/app/assets',
+        name: 'Assets',
+        slug: 'assets',
+        i18n: 'Assets'
+      }
+    ]
   },
   {
     url: "/app/settings",

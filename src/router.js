@@ -201,6 +201,36 @@ const router = new Router({
                   requiresAuth: true,
                 }
               },
+              {
+                path: '/app/assets',
+                name: 'assets',
+                component: () => import('./views/pages/app/assets/AssetList.vue'),
+                meta: {
+                  rule: 'Public',
+                  requiresAuth: true,
+                  pageTitle: 'Assets',
+                }
+              },
+              {
+                path: '/app/expenses',
+                name: 'expenses',
+                component: () => import('./views/pages/app/expenses/ExpensesList.vue'),
+                meta: {
+                  rule: 'Public',
+                  requiresAuth: true,
+                  pageTitle: 'Expenses',
+                }
+              },
+              {
+                path: '/app/revenue-report',
+                name: 'revenuereport',
+                component: () => import('./views/pages/app/reports/RevenueReport.vue'),
+                meta: {
+                  rule: 'Public',
+                  requiresAuth: true,
+                  pageTitle: 'Revenue Report',
+                }
+              },
             ],
         },
     // =============================================================================

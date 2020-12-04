@@ -1,13 +1,7 @@
 <template>
   <div>
-        <vs-prompt
+        <vs-popup
             title="Create Employee"
-            accept-text= "Submit"
-            button-cancel = "border"
-            @cancel="initValues"
-            @accept="createEmployee"
-            @close="activePrompt = false"
-            :is-valid="validateForm"
             :active.sync="activePrompt">
         <div>
             <div class="vx-row">
@@ -38,35 +32,51 @@
                 </div>
                 </div>
                 <div class="vx-row mb-2">
-                <div class="vx-col w-full">
-                    <vs-input class="w-full" type="text" label="Username" v-model="username" name="username" />
-                    <span class="text-danger text-sm">{{errors.first('username')}}</span>
-                </div>
-                </div>
-                <div class="vx-row mb-2">
-                <div class="vx-col w-full">
-                    <vs-input class="w-full" type="text" label="Password" v-model="password" name="password" />
-                    <span class="text-danger text-sm">{{errors.first('password')}}</span>
-                </div>
+                    <div class="vx-col w-full">
+                        <vs-input class="w-full" type="text" label="Username" v-model="username" name="username" />
+                        <span class="text-danger text-sm">{{errors.first('username')}}</span>
+                    </div>
                 </div>
                 <div class="vx-row mb-2">
-                <div class="vx-col w-full">
-                    <small class="ml-2">Role</small>
-                    <v-select 
-                    v-validate="'required'"
-                    data-vv-validate-on="blur"
-                    v-model="role"
-                    name="role"
-                    :closeOnSelect="true" 
-                    :options="roles" 
-                    :dir="$vs.rtl ? 'rtl' : 'ltr'" 
-                    />
-                    <span class="text-danger text-sm">{{errors.first('role')}}</span>
+                    <div class="vx-col w-full">
+                        <vs-input class="w-full" type="text" label="Password" v-model="password" name="password" />
+                        <span class="text-danger text-sm">{{errors.first('password')}}</span>
+                    </div>
                 </div>
+                <div class="vx-row mb-2">
+                    <div class="vx-col w-full">
+                        <vs-input class="w-full" type="text" label="Guarantor Name" v-model="guarantor_name" name="guarantor_name" />
+                        <span class="text-danger text-sm">{{errors.first('guarantor_name')}}</span>
+                    </div>
+                </div>
+                <div class="vx-row mb-2">
+                    <div class="vx-col w-full">
+                        <vs-input class="w-full"  v-validate="'required|min:11|max:11'" maxLength="11" data-vv-validate-on="blur" type="text" label="Guarantor Phone" v-model="guarantor_phone" name="guarantor_phone" />
+                        <span class="text-danger text-sm">{{errors.first('guarantor_phone')}}</span>
+                    </div>
+                </div>
+                <div class="vx-row mb-2">
+                    <div class="vx-col w-full">
+                        <small class="ml-2">Role</small>
+                        <v-select 
+                        v-validate="'required'"
+                        data-vv-validate-on="blur"
+                        v-model="role"
+                        name="role"
+                        :closeOnSelect="true" 
+                        :options="roles" 
+                        :dir="$vs.rtl ? 'rtl' : 'ltr'" 
+                        />
+                        <span class="text-danger text-sm">{{errors.first('role')}}</span>
+                    </div>
+                </div>
+                <div slot="footer" class="pt-8">
+                    <vs-button class="mr-6" @click="createEmployee" :disabled="!validateForm">Submit</vs-button>
+                    <vs-button type="border" color="danger" @click="activePrompt = false">Cancel</vs-button>
                 </div>
             </div>
         </div>
-    </vs-prompt>
+    </vs-popup>
   </div>
 </template>
 
@@ -91,6 +101,8 @@ export default {
             email: '',
             username: '',
             password: '',
+            guarantor_name: '',
+            guarantor_phone: '',
             roles: data,
         }
     },
@@ -110,6 +122,8 @@ export default {
              this.email !== '' && 
              this.role !== '' && 
              this.username !== '' && 
+             this.guarantor_name !== '' && 
+             this.guarantor_phone !== '' && 
              this.password !== ''
         },
         activePrompt:{
@@ -152,7 +166,9 @@ export default {
             email: this.email,
             username: this.username,
             password: this.password,
-            role: this.role
+            role: this.role,
+            guarantor_name: this.guarantor_name,
+            guarantor_phone: this.guarantor_phone,
         }
         this.$vs.loading()
         this.$validator.validateAll().then(result => {
@@ -161,6 +177,7 @@ export default {
                 .then(response => {
                     this.handleSuccess(response)
                     this.initValues()
+                    this.$emit('hideDisplayPrompt', false)
                 })
                 .catch(err => { this.handleError(err) })
             }

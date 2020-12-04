@@ -1,16 +1,14 @@
 <!-- =========================================================================================
-  File Name: ProductsList.vue
-  Description: Product List - List View
+  File Name: ExpensesList.vue
+  Description: Expenses List - List View
 ========================================================================================== -->
 
 <template>
   <div id="data-list-list-view" class="data-list-container">
 
-    <edit-product :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" />
+    <view-expense :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" />
 
-    <export-products :displayExport="displayExport" @hideDisplay="hideDisplayExport" v-if="displayExport"/>
-
-    <vs-table :sst="true" @search="handleSearch" ref="table" multiple v-model="selected" :max-items="itemsPerPage" search :data="products" :total="queriedItems">
+    <vs-table :sst="true" @search="handleSearch" ref="table" :max-items="itemsPerPage" search :data="expenses" :total="queriedItems">
       
       <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
 
@@ -46,7 +44,7 @@
           <!-- ADD NEW -->
           <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="showDisplayPrompt">
               <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-              <span class="ml-2 text-base text-primary">Add New Product</span>
+              <span class="ml-2 text-base text-primary">Create Expenditure</span>
           </div>
 
           <p class="mb-2">Total: <span class="total">{{ queriedItems ? queriedItems : 0 }}</span></p>
@@ -55,7 +53,7 @@
         <!-- ITEMS PER PAGE -->
         <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
           <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
-            <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ products.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : products.length }} of {{ queriedItems }}</span>
+            <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ expenses.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : expenses.length }} of {{ queriedItems }}</span>
             <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
           </div>
           <!-- <vs-button class="btn-drop" type="line" color="primary" icon-pack="feather" icon="icon-chevron-down"></vs-button> -->
@@ -81,9 +79,9 @@
       <template slot="thead">
         <vs-th sort-key="s/n">S/N</vs-th>
         <vs-th sort-key="name">Name</vs-th>
-        <vs-th sort-key="quantity">Quantity</vs-th>
-        <vs-th sort-key="price">Price (₦)</vs-th>
-        <vs-th sort-key="label">Label</vs-th>
+        <vs-th sort-key="description">Description</vs-th>
+        <vs-th sort-key="cost">Cost</vs-th>
+        <vs-th sort-key="unit">Unit</vs-th>
         <vs-th sort-key="createdAt">Date Created</vs-th>
         <vs-th>Action</vs-th>
       </template>
@@ -100,24 +98,25 @@
                 <p class="product-name font-medium truncate">{{ tr.name.toUpperCase() }}</p>
               </vs-td>
 
-              <vs-td>
-                <p class="product-name font-medium truncate">{{ tr.quantity }} {{ tr.unit }}</p>
+                <vs-td>
+                <p class="product-category">{{ tr.description }}</p>
               </vs-td>
 
               <vs-td>
-                <p class="product-category">{{ Number(tr.selling_price).toLocaleString() }}</p>
+                <p class="product-category">{{ Number(tr.cost).toLocaleString() }}</p>
               </vs-td>
 
               <vs-td>
-                <vs-chip :color="getOrderStatusColor(tr.label)" class="product-order-status">{{ tr.label }}</vs-chip>
+                <p class="product-category">{{ tr.unit }}</p>
               </vs-td>
 
               <vs-td>
                 <p class="product-price">{{ tr.createdAt | moment('ddd, MMMM Do YYYY') }}</p>
               </vs-td>
               <vs-td class="whitespace-no-wrap">
-                  <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" />
-                  <feather-icon icon="EyeIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="viewData(tr.pid)" />
+                  <!-- <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" /> -->
+                  <feather-icon icon="EyeIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="viewData(tr)" />
+                  <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="deleteData(tr.exid)" />
               </vs-td>
             </vs-tr>
           </tbody>
@@ -127,25 +126,21 @@
         <div>
           <vs-pagination class="float-right" :total="pages" v-model="currentPage" :max="6"></vs-pagination>
         </div>
-      <add-new-product :displayPrompt="displayPrompt" :data="productToEdit" @hideDisplayPrompt="hidePrompt"></add-new-product>
+      <add-new-expenses :displayPrompt="displayPrompt" @hideDisplayPrompt="hidePrompt"></add-new-expenses>
   </div>
 </template>
 
 <script>
-import AddNewProduct from './AddNewProduct.vue'
-import EditProduct from './EditProduct.vue'
-import ExportProducts from './ExportProducts'
-
+import AddNewExpenses from './AddNewExpenses'
+import ViewExpense from './ViewExpense'
 export default {
   components: {
-    EditProduct,
-    AddNewProduct,
-    ExportProducts
+    AddNewExpenses,
+    ViewExpense
   },
   data () {
     return {
       selected: [],
-      // products: [],
       itemsPerPage: 10,
       isMounted: false,
 
@@ -154,19 +149,24 @@ export default {
       sidebarData: {},
       currentPage: 1,
       displayPrompt: false,
-      productToEdit: {},
       displayExport: false
     }
   },
   computed: {
-    products () {
-      return this.$store.state.product.products
+    // currentPage () {
+    //   if (this.isMounted) {
+    //     return this.$refs.table.currentx
+    //   }
+    //   return 0
+    // },
+    expenses () {
+      return this.$store.state.expense.expenses
     },
     queriedItems () {
-      return this.$store.state.product.total
+      return this.$store.state.expense.total
     },
     pages() {
-      return this.$store.state.product.pages
+      return this.$store.state.expense.pages
     }
   },
   methods: {
@@ -185,33 +185,29 @@ export default {
     handleSuccess(response) {
       this.$vs.loading.close()
       this.$vs.notify({
-        title:'Success',
-        text: response.data.message,
-        color:'success',
-        position:'top-center',
-        iconPack: 'feather',
-        icon:'icon-alert-circle'
+          title:'Success',
+          text: response.data.message,
+          color:'success',
+          position:'top-center',
+          iconPack: 'feather',
+          icon:'icon-alert-circle'
       });
     },
     addNewData () {
       this.sidebarData = {}
       this.toggleDataSidebar(true)
     },
-    deleteData (pid) {
-      this.$store.dispatch('product/removeProduct', pid).then(response => this.handleSuccess(response)).catch(err => { this.handleError(err) })
+    deleteData (exid) {
+      this.$store.dispatch('expense/removeExpense', exid).then(response => this.handleSuccess(response)).catch(err => { this.handleError(err) })
     },
-    editData (data) {
+    viewData (data) {
       // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
       this.sidebarData = data
       this.toggleDataSidebar(true)
     },
-    viewData(id) {
-      this.$router.push(`/app/product/${id}`)
-    },
 
-    showDisplayPrompt (product) {
-      this.productToEditproduct  = product
-      this.displayPrompt = true 
+    showDisplayPrompt () {
+      this.displayPrompt = true
     },
 
     showDisplayExport () {
@@ -232,20 +228,20 @@ export default {
 
     handleSearch(search) {
       this.currentPage = 1
-      this.$store.dispatch('product/fetchProducts', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, search })
+      this.$store.dispatch('expense/fetchExpenses', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, search })
     },
 
     handlePageChange() {
-      this.$store.dispatch('product/fetchProducts', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
+      this.$store.dispatch('expense/fetchExpenses', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
     },
 
     filterPage(value) {
-      this.$store.dispatch('product/fetchProducts', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, filter: value })
+      this.$store.dispatch('expense/fetchExpenses', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, filter: value })
     },
     getOrderStatusColor (type) {
-      if (type === 'spare part')   return 'primary'
-      if (type === 'generator') return 'success'
-      if (type === 'solar panels')  return 'warning'
+      if (type === 0)   return 'warning'
+      if (type === 1) return 'success'
+      if (type === 2)  return 'danger'
       return 'dark'
     },
     toggleDataSidebar (val = false) {
@@ -253,7 +249,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('product/fetchProducts', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
+    this.$store.dispatch('expense/fetchExpenses', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
   },
   mounted () {
     this.isMounted = true
@@ -304,14 +300,14 @@ export default {
       }
     }
 
+    .product-name {
+      max-width: 23rem;
+    }
+
     .total {
       background: #b22334d9;
       padding: 4px;
       color: #fff
-    }
-
-    .product-name {
-      max-width: 23rem;
     }
 
     .vs-table--header {

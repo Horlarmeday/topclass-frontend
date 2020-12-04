@@ -50,6 +50,17 @@ export default {
     })
   },
 
+  applyDiscount ({ commit }, sale) {
+    return new Promise((resolve, reject) => {
+      axios.put(`/sales/discount`, sale)
+        .then((response) => {
+          commit('SET_SALE', response.data.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+
   addPayment({ commit }, payment) {
     return new Promise((resolve, reject) => {
       axios.post('/sales/payment', payment)

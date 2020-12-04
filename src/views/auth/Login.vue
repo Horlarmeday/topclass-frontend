@@ -28,7 +28,8 @@
                   icon-pack="feather"
                   label-placeholder="Username"
                   v-model="username"
-                  autocomplete="false"
+                  autocomplete="off"
+                  autofocus
                   class="w-full"/>
               <span class="text-danger text-sm">{{ errors.first('username') }}</span>
 

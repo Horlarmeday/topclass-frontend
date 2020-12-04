@@ -136,7 +136,7 @@
         <div>
           <vs-pagination class="float-right" :total="pages" v-model="currentPage" :max="6"></vs-pagination>
         </div>
-      <add-new-employee :displayPrompt="displayPrompt" @hideDisplayPrompt="hidePrompt" v-if="displayPrompt" />
+      <add-new-employee :displayPrompt="displayPrompt" @hideDisplayPrompt="hidePrompt" />
   </div>
 </template>
 

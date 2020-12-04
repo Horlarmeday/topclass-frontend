@@ -24,6 +24,8 @@ import moduleInvoice from './invoices/moduleInvoice.js'
 import moduleSale from './sales/moduleSale.js'
 import moduleSetting from './settings/moduleSetting.js'
 import moduleWaybill from './waybills/moduleWaybill.js'
+import moduleAsset from './assets/moduleAsset.js'
+import moduleExpense from './expenses/moduleExpense.js'
 
 export default new Vuex.Store({
   getters,
@@ -40,7 +42,9 @@ export default new Vuex.Store({
     invoice: moduleInvoice,
     sale: moduleSale,
     setting: moduleSetting,
-    waybill: moduleWaybill
+    waybill: moduleWaybill,
+    asset: moduleAsset,
+    expense: moduleExpense
   },
   strict: process.env.NODE_ENV !== 'production'
 })

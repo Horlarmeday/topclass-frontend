@@ -27,6 +27,7 @@
 
       <template slot="thead">
         <vs-th sort-key="s/n">S/N</vs-th>
+        <vs-th sort-key="customer">Customer</vs-th>
         <vs-th sort-key="name">Name</vs-th>
         <vs-th sort-key="invoice_type">Invoice Type</vs-th>
         <vs-th sort-key="status">Status</vs-th>
@@ -40,6 +41,10 @@
 
               <vs-td>
                 <p class="product-name font-medium truncate">{{ getOverallIndex(indextr) }}</p>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-name font-medium truncate">{{ tr.Customer.name.toUpperCase() }}</p>
               </vs-td>
 
               <vs-td>

@@ -127,12 +127,18 @@
               <th>Subtotal</th>
               <td>₦{{ Number(subtotal).toLocaleString() }}</td>
             </tr>
+
             
-            <tr data-iterate="tax">
-              <th>VAT({{ invoice.VAT }}%)</th>
-              <td>{{ invoice.invoice.vat.toLocaleString() }}</td>
+            <tr data-iterate="tax" v-if="invoice.invoice.vat">
+              <th>VAT ({{ invoice.VAT }}%)</th>
+              <td>₦{{ invoice.invoice.vat.toLocaleString() }}</td>
             </tr>
             
+            <tr v-if="invoice.discount">
+              <th>Discount ({{ invoice.discount }}%)</th>
+              <td>₦{{ Number(discount).toLocaleString() }}</td>
+            </tr>
+
             <tr class="amount-total">
               <th>TOTAL</th>
               <td>₦{{ Number(total).toLocaleString() }}</td>
@@ -181,7 +187,7 @@
         
         <section id="terms">
 
-          <div class="notes">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Thank you very much. We really appreciate your patronage.<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Please quote proforma invoice number when remitting funds.</div>
+          <div class="notes">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Thank you very much. We really appreciate your patronage.<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Please quote invoice number when remitting funds.</div>
 
           <br />
 
@@ -219,9 +225,17 @@ export default {
           return this.invoice.invoice.InvoiceItems.map(cost => Number(cost.price)).reduce((a, b)  => a + b, 0)
         },
 
+        amount_due() {
+          return this.subtotal + this.invoice.invoice.vat
+        },
+
+        discount() {
+          return this.amount_due * (this.invoice.discount / 100)
+        },
+
         total() {
-            return this.subtotal + this.invoice.invoice.vat
-        }
+          return (this.subtotal - this.discount) + this.invoice.invoice.vat
+        },
     },
 
     methods: {

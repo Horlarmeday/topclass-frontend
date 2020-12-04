@@ -97,15 +97,23 @@
                 <vs-table hoverFlat class="w-1/2 ml-auto mt-4 bg-trans" :data="invoiceData.tasks">
                     <vs-tr>
                         <vs-th class="pointer-events-none">SUBTOTAL</vs-th>
-                        <vs-td>₦{{ sale.amount_due }}</vs-td>
+                        <vs-td>₦{{ Number(subtotal).toLocaleString() }}</vs-td>
+                    </vs-tr>
+                    <vs-tr v-if="sale.Invoice.vat">
+                        <vs-th class="pointer-events-none">VAT (7.5%)</vs-th>
+                        <vs-td>₦{{ Number(sale.Invoice.vat).toLocaleString() }}</vs-td>
+                    </vs-tr>
+                    <vs-tr v-if="sale.discount">
+                        <vs-th class="pointer-events-none">DISCOUNT ({{sale.discount}}%)</vs-th>
+                        <vs-td>₦{{ discount.toLocaleString() }}</vs-td>
                     </vs-tr>
                     <vs-tr>
                         <vs-th class="pointer-events-none">AMOUNT PAID</vs-th>
-                        <vs-td>₦{{ sale.amount_paid }}</vs-td>
+                        <vs-td>₦{{ Number(sale.amount_paid).toLocaleString() }}</vs-td>
                     </vs-tr>
                     <vs-tr>
                         <vs-th class="pointer-events-none bg-topclass mb-2">TOTAL</vs-th>
-                        <vs-td class="bg-topclass font-semibold">₦{{ sale.amount_due }}</vs-td>
+                        <vs-td class="bg-topclass font-semibold">₦{{ Number(sale.amount_due).toLocaleString() }}</vs-td>
                     </vs-tr>
                 </vs-table>
             </div>
@@ -168,7 +176,19 @@ export default{
   computed: {
     sale () {
       return this.$store.state.sale.sale
-    }
+    },
+
+    subtotal() {
+      return this.sale.Invoice.InvoiceItems.map(cost => Number(cost.price)).reduce((a, b)  => a + b, 0)
+    },
+
+    amount_due() {
+      return this.subtotal + this.sale.Invoice.vat
+    },
+
+    discount() {
+      return this.amount_due * (this.sale.discount / 100)
+    },
   },
   methods: {
     printInvoice () {

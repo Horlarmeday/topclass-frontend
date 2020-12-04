@@ -8,6 +8,11 @@
     <div id="user-data">
 
       <div class="flex flex-wrap items-center justify-between">
+        <div class="flex">
+          <vs-button class="mb-base mr-3" type="border" icon-pack="feather" @click="goToInvoice" icon="icon icon-download">View Invoice</vs-button>
+          <vs-button v-if="!sale.discount" class="mb-base" type="filled" icon-pack="feather" @click="showDisplayPrompt" icon="icon icon-plus">Add Discount</vs-button>
+        </div>
+
           <!-- <vx-input-group class="mb-base mr-3">
             <vs-input v-model="mailTo" placeholder="Email" />
 
@@ -18,7 +23,7 @@
             </template>
           </vx-input-group> -->
           <div class="flex items-center">
-            <vs-button v-if="sale.status !== 'Pending'" class="mb-base mr-3" type="border" icon-pack="feather" icon="icon icon-download">View Receipt</vs-button>
+            <vs-button v-if="sale.status !== 'Pending'" class="mb-base mr-3" type="border" icon-pack="feather" icon="icon icon-download" @click="goToReceipt">View Receipt</vs-button>
             <vs-button v-if="sale.status !== 'Pending'" class="mb-base mr-3" icon-pack="feather" icon="icon icon-file" @click="goToReceipt">Generate Receipt</vs-button>
           </div>
         </div>
@@ -52,6 +57,10 @@
               <tr>
                 <td class="font-semibold">Customer Type</td>
                 <td>{{ sale.Customer.customer_type }}</td>
+              </tr>
+              <tr v-if="sale.discount">
+                <td class="font-semibold">Discount</td>
+                <td>{{ sale.discount }}%</td>
               </tr>
             </table>
           </div>
@@ -172,19 +181,23 @@
             </vs-tab>
         </vs-tabs>
       </vx-card>
-
+      <apply-discount :displayPrompt="displayPrompt" @hideDisplayPrompt="hidePrompt" v-if="displayPrompt"/>
     </div>
   </div>
 </template>
 
 <script>
-
+import ApplyDiscount from './ApplyDiscount'
 export default {
   data () {
     return {
       user_data: null,
-      user_not_found: false
+      user_not_found: false,
+      displayPrompt: false,
     }
+  },
+  components: {
+    ApplyDiscount
   },
   computed: {
     sale () {
@@ -197,7 +210,19 @@ export default {
   methods: {
     goToReceipt() {
       this.$router.push(`/app/sale/${this.$route.params.saleId}/receipt`)
-    }
+    },
+
+    goToInvoice() {
+      this.$router.push(`/app/invoice/${this.sale.ivid}`)
+    },
+
+    showDisplayPrompt () {
+      this.displayPrompt = true
+    },
+
+    hidePrompt () {
+      this.displayPrompt = false
+    },
   }
 }
 

@@ -1,17 +1,17 @@
 <template>
   <vs-tabs>
-    <vs-tab label="System Analytics">
-        <div class="mt-6">
-            <tab-analytics></tab-analytics>
-        </div>
-    </vs-tab>
     <vs-tab label="Invoices">
-        <div class="mt-6">
+        <div class="mt-4">
             <tab-table></tab-table>
         </div>
     </vs-tab>
+    <vs-tab label="System Analytics" class="mr-6">
+        <div class="mt-4">
+            <tab-analytics></tab-analytics>
+        </div>
+    </vs-tab>
     <vs-tab label="Creditors">
-        <div class="mt-6">
+        <div class="mt-4">
             <tab-creditors></tab-creditors>
         </div>
     </vs-tab>

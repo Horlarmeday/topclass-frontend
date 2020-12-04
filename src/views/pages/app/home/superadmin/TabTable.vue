@@ -12,6 +12,40 @@
       <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
 
         <div class="flex flex-wrap-reverse items-center data-list-btn-container">
+                    <!-- ACTION - DROPDOWN -->
+          <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
+
+            <div class="p-4 shadow-drop rounded-lg d-theme-dark-bg cursor-pointer flex items-center justify-center text-lg font-medium w-32 w-full">
+              <span class="mr-2">Filter</span>
+              <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
+            </div>
+
+            <vs-dropdown-menu>
+
+              <vs-dropdown-item @click="handlePageChange">
+                <span class="flex items-center">
+                  <span>All</span>
+                </span>
+              </vs-dropdown-item>
+
+              <vs-dropdown-item @click="filterPage(0)">
+                <span class="flex items-center">
+                  <span>Pending</span>
+                </span>
+              </vs-dropdown-item>
+               <vs-dropdown-item @click="filterPage(1)">
+                <span class="flex items-center">
+                  <span>Approved</span>
+                </span>
+              </vs-dropdown-item>
+               <vs-dropdown-item @click="filterPage(2)">
+                <span class="flex items-center">
+                  <span>Declined</span>
+                </span>
+              </vs-dropdown-item>
+
+            </vs-dropdown-menu>
+          </vs-dropdown>
           <p class="mb-2">Total: <span class="total">{{ queriedItems ? queriedItems : 0 }}</span></p>
         </div>
 
@@ -27,7 +61,8 @@
 
       <template slot="thead">
         <vs-th sort-key="s/n">S/N</vs-th>
-        <vs-th sort-key="name">Name</vs-th>
+        <vs-th sort-key="customer">Customer</vs-th>
+        <vs-th sort-key="name">Invoice Title</vs-th>
         <vs-th sort-key="invoice_type">Invoice Type</vs-th>
         <vs-th sort-key="status">Status</vs-th>
         <vs-th sort-key="createdAt">Date Created</vs-th>
@@ -43,7 +78,11 @@
               </vs-td>
 
               <vs-td>
-                <p class="product-name font-medium truncate">{{ tr.name.toUpperCase() }}</p>
+                <p class="product-name font-medium truncate">{{ tr.Customer.name.toUpperCase() }}</p>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-name font-medium truncate">{{ tr.name }}</p>
               </vs-td>
 
               <vs-td>
