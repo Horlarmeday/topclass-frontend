@@ -18,7 +18,7 @@ export default {
   },
   fetchInvoices ({ commit }, payload) {
     return new Promise((resolve, reject) => {
-      axios.get('/invoices', { params: { currentPage: payload.currentPage, pageLimit: payload.itemsPerPage, search: payload.search, filter: payload.filter } })
+      axios.get('/invoices', { params: { currentPage: payload.currentPage, pageLimit: payload.itemsPerPage, search: payload.search, filter: payload.filter, stepdown: payload.stepdown } })
         .then((response) => {
           commit('SET_INVOICES', response.data.data.docs)
           commit('SET_INVOICES_TOTAL', response.data.data.total)
@@ -29,7 +29,16 @@ export default {
     })
   },
 
-  
+  fetchInvoiceItems ({ commit }, invoice) {
+    return new Promise((resolve, reject) => {
+      axios.post('/invoices/items', invoice)
+        .then((response) => {
+          commit('SET_ITEMS',  response.data.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
   fetchParamInvoice({ commit }, invoiceId) {
     return new Promise((resolve, reject) => {
       axios.get(`/invoices/${invoiceId}`)
@@ -45,6 +54,17 @@ export default {
       axios.put(`/invoices`, invoice)
         .then((response) => {
           commit('UPDATE_INVOICE', response.data.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+
+  dispenseItem ({ commit }, invoice) {
+    return new Promise((resolve, reject) => {
+      axios.put(`/invoices/dispense`, invoice)
+        .then((response) => {
+          commit('DISPENSE_ITEM', response.data.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })

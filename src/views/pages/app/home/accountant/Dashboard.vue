@@ -7,7 +7,8 @@
                   class="mb-base"
                   icon="UsersIcon"
                   icon-right
-                  :statistic="12"
+                  :statistic="figures.customerCount"
+                  color="violet"
                   statisticTitle="Total Customers" />
             </div>
 
@@ -17,8 +18,8 @@
                   class="mb-base"
                   icon="FileTextIcon"
                   icon-right
-                  :statistic="10"
-                  statisticTitle="Total Receipt Generated"
+                  :statistic="figures.invoiceCount"
+                  statisticTitle="Stepped Down Invoice"
                   color="success" />
             </div>
 
@@ -26,10 +27,10 @@
                 <statistics-card-line
                   hideChart
                   class="mb-base"
-                  icon="FilterIcon"
+                  icon="LayersIcon"
                   icon-right
-                  :statistic="100"
-                  statisticTitle="Total Sales"
+                  :statistic="figures.assetsCount"
+                  statisticTitle="Total Assets"
                   color="danger" />
             </div>
 
@@ -39,7 +40,7 @@
                   class="mb-base"
                   icon="HashIcon"
                   icon-right
-                  :statistic="`₦${100000}`"
+                  :statistic="`₦${Number(figures.generatedAmount).toLocaleString()}`"
                   statisticTitle="Total Revenue"
                   color="warning" />
             </div>
@@ -50,6 +51,7 @@
 
 <script>
 import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
+import axios from '../../../../../axios'
 // import analyticsData from './analyticsData.js'
 import Tabs from './Tabs'
     export default {
@@ -63,9 +65,13 @@ import Tabs from './Tabs'
                 settings: { // perfectscrollbar settings
                     maxScrollbarLength: 60,
                     wheelSpeed: .60
-                }
+                },
+                figures: {}
             }
         },
+        created() {
+            axios.get('/dashboard/accountant').then(response => this.figures = response.data.data).catch(e => this.handleError(e))
+        }
     }
     
 </script>

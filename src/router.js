@@ -51,6 +51,16 @@ const router = new Router({
                 }
               },
               {
+                path: '/app/customer/:customerId',
+                name: 'customerparam',
+                component: () => import('./views/pages/app/customers/ViewCustomer.vue'),
+                meta: {
+                  rule: 'Public',
+                  requiresAuth: true,
+                  pageTitle: 'Customer',
+                }
+              },
+              {
                 path: '/app/employees',
                 name: 'employees',
                 component: () => import('./views/pages/app/employees/EmployeeList.vue'),
@@ -58,6 +68,16 @@ const router = new Router({
                   rule: 'Public',
                   requiresAuth: true,
                   pageTitle: 'Employees',
+                }
+              },
+              {
+                path: '/app/employee/:staffId',
+                name: 'employeeparam',
+                component: () => import('./views/pages/app/employees/ViewEmployee.vue'),
+                meta: {
+                  rule: 'Public',
+                  requiresAuth: true,
+                  pageTitle: 'Employee',
                 }
               },
               {
@@ -222,6 +242,16 @@ const router = new Router({
                 }
               },
               {
+                path: '/app/payments',
+                name: 'payments',
+                component: () => import('./views/pages/app/payments/PaymentList.vue'),
+                meta: {
+                  rule: 'Public',
+                  requiresAuth: true,
+                  pageTitle: 'Payments',
+                }
+              },
+              {
                 path: '/app/revenue-report',
                 name: 'revenuereport',
                 component: () => import('./views/pages/app/reports/RevenueReport.vue'),
@@ -229,6 +259,16 @@ const router = new Router({
                   rule: 'Public',
                   requiresAuth: true,
                   pageTitle: 'Revenue Report',
+                }
+              },
+              {
+                path: '/app/expenses-report',
+                name: 'expensesreport',
+                component: () => import('./views/pages/app/reports/ExpensesReport.vue'),
+                meta: {
+                  rule: 'Public',
+                  requiresAuth: true,
+                  pageTitle: 'Expenses Report',
                 }
               },
             ],

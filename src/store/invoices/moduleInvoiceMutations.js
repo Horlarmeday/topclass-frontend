@@ -12,6 +12,10 @@ export default {
       state.invoices = invoices
     },
 
+    SET_ITEMS (state, items) {
+      state.items = items
+    },
+
     SET_INVOICES_TOTAL (state, total) {
       state.total = total
     },
@@ -27,6 +31,11 @@ export default {
     UPDATE_INVOICE (state, invoice) {
       const invoiceIndex = state.invoices.findIndex((i) => i.ivid === invoice.ivid)
       Object.assign(state.invoices[invoiceIndex], invoice)
+    },
+
+    DISPENSE_ITEM (state, item) {
+      const itemIndex = state.items.findIndex((i) => i.inv_id === item.inv_id)
+      Object.assign(state.items[itemIndex], item)
     },
 
     REMOVE_INVOICE (state, invoiceId) {

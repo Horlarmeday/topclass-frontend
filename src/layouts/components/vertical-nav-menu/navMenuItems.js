@@ -50,6 +50,12 @@ export default [
     icon: "FilterIcon",
   },
   {
+    url: "/app/payments",
+    name: "Payments",
+    slug: "payments",
+    icon: "BriefcaseIcon",
+  },
+  {
     url: "/app/employees",
     name: "Employees",
     slug: "employees",

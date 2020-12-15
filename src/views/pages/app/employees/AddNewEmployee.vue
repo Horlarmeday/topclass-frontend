@@ -45,6 +45,21 @@
                 </div>
                 <div class="vx-row mb-2">
                     <div class="vx-col w-full">
+                        <small class="ml-2">Gender</small>
+                        <v-select 
+                        v-validate="'required'"
+                        data-vv-validate-on="blur"
+                        v-model="gender"
+                        name="gender"
+                        :closeOnSelect="true" 
+                        :options="['Female', 'Male']" 
+                        :dir="$vs.rtl ? 'rtl' : 'ltr'" 
+                        />
+                        <span class="text-danger text-sm">{{errors.first('gender')}}</span>
+                    </div>
+                </div>
+                <div class="vx-row mb-2">
+                    <div class="vx-col w-full">
                         <vs-input class="w-full" type="text" label="Guarantor Name" v-model="guarantor_name" name="guarantor_name" />
                         <span class="text-danger text-sm">{{errors.first('guarantor_name')}}</span>
                     </div>
@@ -59,13 +74,13 @@
                     <div class="vx-col w-full">
                         <small class="ml-2">Role</small>
                         <v-select 
-                        v-validate="'required'"
-                        data-vv-validate-on="blur"
-                        v-model="role"
-                        name="role"
-                        :closeOnSelect="true" 
-                        :options="roles" 
-                        :dir="$vs.rtl ? 'rtl' : 'ltr'" 
+                            v-validate="'required'"
+                            data-vv-validate-on="blur"
+                            v-model="role"
+                            name="role"
+                            :closeOnSelect="true" 
+                            :options="roles" 
+                            :dir="$vs.rtl ? 'rtl' : 'ltr'" 
                         />
                         <span class="text-danger text-sm">{{errors.first('role')}}</span>
                     </div>
@@ -100,6 +115,7 @@ export default {
             fullname: '',
             email: '',
             username: '',
+            gender: '',
             password: '',
             guarantor_name: '',
             guarantor_phone: '',
@@ -124,6 +140,7 @@ export default {
              this.username !== '' && 
              this.guarantor_name !== '' && 
              this.guarantor_phone !== '' && 
+             this.gender !== '' && 
              this.password !== ''
         },
         activePrompt:{
@@ -167,6 +184,7 @@ export default {
             username: this.username,
             password: this.password,
             role: this.role,
+            gender: this.gender,
             guarantor_name: this.guarantor_name,
             guarantor_phone: this.guarantor_phone,
         }

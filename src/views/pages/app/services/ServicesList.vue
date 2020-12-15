@@ -122,7 +122,7 @@
         <div>
           <vs-pagination class="float-right" :total="pages" v-model="currentPage" :max="6"></vs-pagination>
         </div>
-      <add-new-service :displayPrompt="displayPrompt" :data="serviceToEdit" @hideDisplayPrompt="hidePrompt" v-if="displayPrompt"></add-new-service>
+      <add-new-service :displayPrompt="displayPrompt" :data="serviceToEdit" @hideDisplayPrompt="hidePrompt"></add-new-service>
   </div>
 </template>
 

@@ -106,7 +106,8 @@
                                             :reduce="products => ({
                                                 item_id: products.pid,
                                                 item: products.name,
-                                                price: products.selling_price
+                                                price: products.selling_price,
+                                                label: products.label,
                                             })" 
                                             :dir="$vs.rtl ? 'rtl' : 'ltr'" 
                                         />
@@ -134,7 +135,9 @@
                                         :reduce="services => ({
                                             item_id: services.svid,
                                             item: services.name,
-                                            price: services.selling_price
+                                            price: services.selling_price,
+                                            label: products.label,
+                                            
                                         })"
                                         :dir="$vs.rtl ? 'rtl' : 'ltr'" 
                                     />
@@ -199,14 +202,16 @@ export default {
                 item: '',
                 item_id: '',
                 price: '',
-                service: ''
+                service: '',
+                label: ''
             }],
             productItems: [{
                 quantity: '',
                 item: '',
                 item_id: '',
                 price: '',
-                product: ''
+                product: '',
+                label: ''
             }],
 
             showModal: true
@@ -279,7 +284,8 @@ export default {
             item: '',
             item_id: '',
             price: '',
-            product: ''
+            product: '',
+            label: ''
         })
       },
 
@@ -293,7 +299,8 @@ export default {
             item: '',
             item_id: '',
             price: '',
-            service: ''
+            service: '',
+            label: ''
         })
       },
 
@@ -309,12 +316,14 @@ export default {
         this.productItems[index].item = this.productItems[index].product.item
         this.productItems[index].item_id = this.productItems[index].product.item_id
         this.productItems[index].price = this.productItems[index].product.price
+        this.productItems[index].label = this.productItems[index].product.label
       },
 
       selectService(index) {
         this.serviceItems[index].item = this.serviceItems[index].service.item
         this.serviceItems[index].item_id = this.serviceItems[index].service.item_id
         this.serviceItems[index].price = this.serviceItems[index].service.price
+        this.serviceItems[index].label = this.serviceItems[index].service.label
       },
       
       createInvoice () {
@@ -328,13 +337,20 @@ export default {
                 invoice_type: this.invoice_type,
                 should_include_vat: this.should_include_vat
             }
-        }
-        if(this.serviceItems[0].service) {
+        } else if(this.serviceItems[0].service) {
             this.items = [...this.defaults, ...this.serviceItems]
             obj = {
                 name: this.name,
                 cid: this.cid,
                 product: this.items,
+                invoice_type: this.invoice_type,
+                should_include_vat: this.should_include_vat
+            }
+        } else {
+            obj = {
+                name: this.name,
+                cid: this.cid,
+                product: this.defaults,
                 invoice_type: this.invoice_type,
                 should_include_vat: this.should_include_vat
             }
@@ -369,14 +385,16 @@ export default {
             item: '',
             item_id: '',
             price: '',
-            product: ''
+            product: '',
+            label: ''
         }]
         this.productItems = [{
             quantity: '',
             item: '',
             item_id: '',
             price: '',
-            product: ''
+            product: '',
+            label: ''
         }]
       },
 

@@ -25,10 +25,10 @@
 
             <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4">
                 <statistics-card-line
-                  icon="UserXIcon"
+                  icon="FileIcon"
                   icon-right
-                  :statistic="figures.debtorsCount"
-                  statisticTitle="Debtors"
+                  :statistic="figures.invoiceCount"
+                  statisticTitle="Total Invoice Created"
                   :chartData="newsletter.series"
                   color="danger" />
             </div>
@@ -83,7 +83,7 @@ import axios from '../../../../../axios'
                 newsletter: {
                     series: [
                         {
-                            name: 'Debtors',
+                            name: 'Invoices',
                             data: [36, 39, 36, 40, 38, 40]
                         }
                     ]
@@ -112,7 +112,7 @@ import axios from '../../../../../axios'
             },
         },
         created() {
-            axios.get('/dashboard/superadmin').then(response => this.figures = response.data.data).catch(e => this.handleError(e))
+            axios.get('/dashboard/admin').then(response => this.figures = response.data.data).catch(e => this.handleError(e))
         }
     }
     

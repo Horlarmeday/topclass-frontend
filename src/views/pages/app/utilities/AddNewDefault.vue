@@ -33,7 +33,8 @@
                                 :reduce="products => ({
                                     item_id: products.pid,
                                     name: products.name,
-                                    price: products.selling_price
+                                    price: products.selling_price,
+                                    label: products.label
                                 })" 
                                 :options="products" 
                                 :dir="$vs.rtl ? 'rtl' : 'ltr'" 
@@ -51,7 +52,8 @@
                                 :reduce="services => ({
                                     item_id: services.svid,
                                     name: services.name,
-                                    price: services.selling_price
+                                    price: services.selling_price,
+                                    label: services.label
                                 })"
                                 :dir="$vs.rtl ? 'rtl' : 'ltr'" 
                             />
@@ -114,6 +116,7 @@ export default {
             type: '',
             item: '',
             item_id: '',
+            label: '',
             pid: '',
             sid: '',
             quantity: '',
@@ -187,6 +190,7 @@ export default {
             type: this.type,
             item: this.item,
             item_id: this.item_id,
+            label: this.label,
             quantity: this.quantity,
             price: this.price,
         }
@@ -212,6 +216,7 @@ export default {
         this.type = ''
         this.item = ''
         this.item_id = ''
+        this.label = ''
         this.checkProduct = 'products'
       },
 
@@ -227,12 +232,14 @@ export default {
         this.item = this.pid.name,
         this.item_id = this.pid.item_id
         this.price = this.pid.price
+        this.label = this.pid.label
       },
 
       selectServicePrice() {
         this.item = this.sid.name,
         this.item_id = this.sid.item_id
         this.price = this.sid.price
+        this.label = this.sid.label
       },
 
       calculateTotalPrice() {

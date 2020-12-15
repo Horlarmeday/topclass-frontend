@@ -126,7 +126,7 @@
     </component>
 
     <div class="flex flex-wrap items-center p-6" slot="footer">
-      <vs-button class="mr-6" @click="submitData" :disabled="!isFormValid">Submit</vs-button>
+      <vs-button class="mr-6" @click="submitData">Submit</vs-button>
       <vs-button type="border" color="danger" @click="isSidebarActiveLocal = false">Cancel</vs-button>
     </div>
   </vs-sidebar>
@@ -204,16 +204,16 @@ export default {
         }
       }
     },
-    isFormValid () {
-      return !this.errors.any() &&
-             this.name !== '' &&
-             this.selling_price !== '' && 
-             this.desc !== '' && 
-             this.quantity !== '' && 
-             this.cost !== '' && 
-             this.unit !== '' &&
-             this.label !== ''
-    },
+    // isFormValid () {
+    //   return !this.errors.any() &&
+    //          this.name !== '' &&
+    //          this.selling_price !== '' && 
+    //          this.desc !== '' && 
+    //          this.quantity !== '' && 
+    //          this.cost !== '' && 
+    //          this.unit !== '' &&
+    //          this.label !== ''
+    // },
     scrollbarTag () { return this.$store.getters.scrollbarTag }
   },
   methods: {

@@ -1,12 +1,11 @@
 /*=========================================================================================
-  File Name: moduleInvoiceState.js
-  Description: Invoice Module State
+  File Name: modulePaymentState.js
+  Description: Payment Module State
 ==========================================================================================*/
 
 export default {
-    invoices: [],
+    payments: [],
     total: null,
-    invoice: null,
-    items: [],
+    payment: null,
     pages: 0
 }

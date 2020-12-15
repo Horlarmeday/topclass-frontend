@@ -1,13 +1,7 @@
 <template>
   <div>
-        <vs-prompt
+        <vs-popup
             title="Create Service"
-            accept-text= "Submit"
-            button-cancel = "border"
-            @cancel="initValues"
-            @accept="createService"
-            @close="activePrompt = false"
-            :is-valid="validateForm"
             :active.sync="activePrompt">
         <div>
             <div class="vx-row">
@@ -76,6 +70,22 @@
               </div>
               <div class="vx-row mb-3">
                 <div class="vx-col sm:w-1/2 w-full mb-2">
+                    <small class="ml-2">Label</small>
+                    <v-select 
+                        v-validate="'required'"
+                        data-vv-validate-on="blur"
+                        name="label"
+                        label="name"
+                        @search="searchLabels"
+                        v-model="label"
+                        :reduce="labels => labels.name"
+                        :closeOnSelect="true" 
+                        :options="labels" 
+                        :dir="$vs.rtl ? 'rtl' : 'ltr'" 
+                    />
+                    <span class="text-danger text-sm">{{errors.first('label')}}</span>
+                </div>
+                <div class="vx-col sm:w-1/2 w-full mb-2">
                     <small class="ml-2">Description</small>
                     <vs-textarea
                         v-validate="'required'"
@@ -98,9 +108,13 @@
                     <span class="text-danger text-sm">{{errors.first('comment')}}</span>
                 </div>
               </div>
+              <div slot="footer" class="pt-8">
+                    <vs-button class="mr-6" @click="createService" :disabled="!validateForm">Submit</vs-button>
+                    <vs-button type="border" color="danger" @click="activePrompt = false">Cancel</vs-button>
+              </div>
             </div>
         </div>
-    </vs-prompt>
+    </vs-popup>
   </div>
 </template>
 
@@ -124,6 +138,7 @@ export default {
             desc: '',
             selling_price: '',
             comment: '',
+            label: ''
         }
     },
     computed: {
@@ -131,11 +146,16 @@ export default {
           return this.$store.state.utilities.units
         },
 
+        labels () {
+          return this.$store.state.utilities.labels
+        },
+
         validateForm () {
             return !this.errors.any() &&
              this.unit !== '' &&
              this.name !== '' &&
              this.quantity !== '' && 
+             this.label !== '' && 
              this.selling_price !== ''
         },
 
@@ -179,6 +199,7 @@ export default {
             quantity: this.quantity,
             selling_price: this.selling_price,
             desc: this.desc,
+            label: this.label,
             comment: this.comment
         }
         this.$vs.loading()
@@ -201,11 +222,16 @@ export default {
         this.desc = ''
         this.comment = ''
         this.quantity = ''
+        this.label = ''
       },
 
       searchUnits(search) {
         this.$store.dispatch('utilities/fetchUnits', { currentPage: 1, itemsPerPage: 20, search })
-      }
+      },
+
+      searchLabels(search) {
+        this.$store.dispatch('utilities/fetchLabels', { currentPage: 1, itemsPerPage: 20, search })
+      },
     }
     
 }

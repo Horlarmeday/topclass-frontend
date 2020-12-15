@@ -13,7 +13,6 @@
     <vs-divider class="mb-0"></vs-divider>
 
     <component :is="scrollbarTag" class="scroll-area--data-list-add-new" :settings="settings" :key="$vs.rtl">
-
       <div class="p-6">
         <vs-tabs alignment="fixed">
             <vs-tab label="Notifications">
@@ -23,7 +22,7 @@
             </vs-tab>
             <vs-tab label="Audit Logs">
                 <div class="mt-6">
-                    <div></div>
+                    <tab-audit-log></tab-audit-log>
                 </div>
             </vs-tab>
         </vs-tabs>
@@ -34,6 +33,7 @@
 
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
+import TabAuditLog from './TabAuditLog'
 export default {
   props: {
     isSidebarActive: {
@@ -43,6 +43,7 @@ export default {
   },
   components: {
     VuePerfectScrollbar,
+    TabAuditLog
   },
   data () {
     return {
