@@ -22,7 +22,7 @@
 
 <script>
 import vSelect from 'vue-select'
-// import axios from '../../../../axios'
+import axios from '../../../../axios'
 export default {
     props: {
         displayExport: {
@@ -30,7 +30,7 @@ export default {
           required: true
         },
         data: {
-          type: Array,
+          type: Object,
           required: true
         }
     },
@@ -41,20 +41,18 @@ export default {
             cellAutoWidth: true,
             selectedFormat: 'xlsx',
             headerTitle: [
-                'Item',
-                'Amount Generated', 
-                'VAT', 
-                'Label', 
+                'Name',
+                'Quantity Dispensed',
+                'Cost', 
                 'Date', 
             ],
             headerVal: [
-              'item', 
-              'totalAmount', 
-              'vat', 
-              'label',
+              'name', 
+              'quantityCount', 
+              'selling_price', 
               'createdAt',
             ],
-            revenue: []
+            inventory: []
         }
     },
     components: {
@@ -73,7 +71,7 @@ export default {
     },
 
     mounted() {
-      this.getRevenue()
+      this.getInventoryReport()
     },
 
     methods: {
@@ -88,22 +86,20 @@ export default {
                 icon:'icon-alert-circle'
             });
         },
-
-        // getRevenue() {
-        //   axios.get('/reports/revenue-report',
-        //     { 
-        //       params: { 
-        //         typeOfProduct: this.data.typeOfProduct,
-        //         paymentMethod: this.data.paymentMethod,
-        //         start: this.data.start,
-        //         end: this.data.end,
-        //         should_export: this.data.should_export
-        //       } 
-        //     })
-        //   .then(response => { 
-        //     this.revenue = response.data.data
-        //   }).catch(error => this.handleError(error))
-        // // },
+        getInventoryReport() {
+          axios.get('/reports/inventory-report',
+            { 
+              params: {
+                search: this.data.search,
+                start: this.data.start,
+                end: this.data.end,
+                should_export: this.data.should_export 
+              }
+            })
+          .then(response => { 
+            this.inventory = response.data.data
+          }).catch(error => this.handleError(error))
+        },
         // async getExportedMembers() {
         //     const data = {
         //         muqam: this.muqam.value
@@ -120,7 +116,7 @@ export default {
 
         async exportToExcel () {
             // const members = await this.getExportedMembers()
-            const data = await this.formatJson(this.headerVal, this.data)
+            const data = await this.formatJson(this.headerVal, this.inventory)
             const excel = await import('@/vendor/Export2Excel')
             excel.export_json_to_excel({
                 header: this.headerTitle,
@@ -145,7 +141,7 @@ export default {
         },
         clearFields () {
             this.filename = ''
-            this.revenue = []
+            this.expenses = []
             this.cellAutoWidth = true
             this.selectedFormat = 'xlsx'
         }

@@ -271,6 +271,16 @@ const router = new Router({
                   pageTitle: 'Expenses Report',
                 }
               },
+              {
+                path: '/app/inventory-report',
+                name: 'inventoryreport',
+                component: () => import('./views/pages/app/reports/InventoryReport.vue'),
+                meta: {
+                  rule: 'Public',
+                  requiresAuth: true,
+                  pageTitle: 'Inventory Report',
+                }
+              },
             ],
         },
     // =============================================================================

@@ -183,7 +183,7 @@ export default {
     },
 
     handlePageChange() {
-      this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, filter: 1 })
+      this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, stepdown: 0 })
     },
     getOrderStatusColor (type) {
       if (type === 1) return 'success'
@@ -195,7 +195,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, filter: 1 })
+    this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, stepdown: 0 })
   },
   mounted () {
     this.isMounted = true

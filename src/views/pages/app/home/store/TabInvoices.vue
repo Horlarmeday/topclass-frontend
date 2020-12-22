@@ -150,7 +150,7 @@ export default {
     },
 
     handlePageChange() {
-      this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, filter: 1 })
+      this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, dispense: 0 })
     },
 
     toggleDataSidebar (val = false) {
@@ -158,7 +158,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, stepdown: 1 })
+    this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, dispense: 0 })
   },
   mounted () {
     this.isMounted = true

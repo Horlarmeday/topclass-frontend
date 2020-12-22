@@ -18,7 +18,13 @@ export default {
   },
   fetchInvoices ({ commit }, payload) {
     return new Promise((resolve, reject) => {
-      axios.get('/invoices', { params: { currentPage: payload.currentPage, pageLimit: payload.itemsPerPage, search: payload.search, filter: payload.filter, stepdown: payload.stepdown } })
+      axios.get('/invoices', { params: { 
+        currentPage: payload.currentPage, 
+        pageLimit: payload.itemsPerPage, 
+        search: payload.search, 
+        filter: payload.filter, 
+        stepdown: payload.stepdown, 
+        dispense: payload.dispense } })
         .then((response) => {
           commit('SET_INVOICES', response.data.data.docs)
           commit('SET_INVOICES_TOTAL', response.data.data.total)
@@ -42,6 +48,16 @@ export default {
   fetchParamInvoice({ commit }, invoiceId) {
     return new Promise((resolve, reject) => {
       axios.get(`/invoices/${invoiceId}`)
+        .then((response) => {
+          commit('SET_INVOICE', response.data.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  fetchOneInvoice({ commit }, invoiceId) {
+    return new Promise((resolve, reject) => {
+      axios.post(`/invoices/getById`, invoiceId)
         .then((response) => {
           commit('SET_INVOICE', response.data.data)
           resolve(response)

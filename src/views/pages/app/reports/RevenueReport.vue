@@ -24,26 +24,15 @@
             </vs-dropdown-menu>
           </vs-dropdown>
 
-           <!-- PAYMENT METHOD - DROPDOWN -->
-           <v-select 
-              v-validate="'required'"
-              data-vv-validate-on="blur"
-              name="payment_method"
-              style="width: 200px;"
-              v-model="paymentMethod"
-              :closeOnSelect="true" 
-              :options="['Cheque', 'Bank Transfer', 'Card', 'Cash']" 
-              :dir="$vs.rtl ? 'rtl' : 'ltr'" 
-            />
-
             <!-- TYPE OF PRODUCT -->
             <v-select 
               style="width: 200px; margin-left: 10px"
               label="name"
               v-model="typeOfProduct"
-              :reduce="labels => labels.name"
+              @search="searchProducts"
+              :reduce="products => products.name"
               :closeOnSelect="true" 
-              :options="labels" 
+              :options="products" 
               :dir="$vs.rtl ? 'rtl' : 'ltr'" 
             />
           <!-- <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
@@ -116,7 +105,6 @@
           </vx-input-group>
           <datepicker input-class="" placeholder="to" v-model="end"></datepicker>
           <vs-button class="ml-6" @click="getRevenue">Apply Filter</vs-button>
-          
           <!-- <p class="mb-2">Total: <span class="total">{{ queriedItems ? queriedItems : 0 }}</span></p> -->
         </div>
         <!-- ITEMS PER PAGE -->
@@ -146,17 +134,14 @@
       <div class="vx-col w-full">
           <vx-card title="Revenue Report">
             <div slot="no-body" class="mt-4">
-                <vs-table :data="revenue" class="table-dark-inverted" search  :sst="true" stripe @change-page="getRevenue" :max-items="itemsPerPage">
+                <vs-table :data="revenue" class="table-dark-inverted" pagination :sst="true" stripe :max-items="itemsPerPage">
                 <template slot="thead">
                     <vs-th>S/N</vs-th>
-                    <vs-th>CUSTOMER</vs-th>
-                    <vs-th>INVOICE</vs-th>
-                    <vs-th>INVOICE ID</vs-th>
-                    <vs-th>AMOUNT PAID</vs-th>
-                    <vs-th>PAYMENT METHOD</vs-th>
-                    <vs-th>BANK</vs-th>
-                    <vs-th>DATE ADDED</vs-th>
-                    <vs-th>ACTION</vs-th>
+                    <vs-th>ITEM</vs-th>
+                    <vs-th>AMOUNT GENERATED</vs-th>
+                    <vs-th>VAT</vs-th>
+                    <vs-th>LABEL</vs-th>
+                    <vs-th>DATE</vs-th>
                 </template>
 
                 <template slot-scope="{data}">
@@ -164,39 +149,27 @@
                         <vs-td :data="data[indextr]">
                             <span>{{getOverallIndex(indextr)}}</span>
                         </vs-td>
-                        <vs-td :data="data[indextr].Invoice.Customer.name">
-                            <span>{{data[indextr].Invoice.Customer.name.toUpperCase() }}</span>
+                        <vs-td :data="data[indextr].item">
+                            <span>{{data[indextr].item.toUpperCase() }}</span>
                         </vs-td>
-                        <vs-td :data="data[indextr].Invoice.name">
-                            <span>{{data[indextr].Invoice.name}}</span>
+                        <vs-td :data="data[indextr].totalAmount">
+                            <span>₦{{Number(data[indextr].totalAmount).toLocaleString()}}</span>
                         </vs-td>
-                        <vs-td :data="data[indextr].Invoice.invoice_numb">
-                            <span>{{data[indextr].Invoice.invoice_numb}}</span>
+                        <vs-td :data="data[indextr].vat">
+                            <span>{{data[indextr].vat}}</span>
                         </vs-td>
-                        <vs-td :data="data[indextr].amount">
-                            <span>₦{{Number(data[indextr].amount).toLocaleString()}}</span>
+                        <vs-td :data="data[indextr].label">
+                          <vs-chip :color="getOrderStatusColor(data[indextr].label)" class="product-order-status">{{ data[indextr].label }}</vs-chip>
                         </vs-td>
-                        <vs-td :data="data[indextr].payment_method">
-                            <span>{{data[indextr].payment_method}}</span>
-                        </vs-td>
-                        <vs-td :data="data[indextr].bank">
-                            <span>{{data[indextr].bank}}</span>
-                        </vs-td>
-                        <!-- <vs-td :data="data[indextr].status">
-                            <span class="flex items-center px-2 py-1 rounded"><div class="h-3 w-3 rounded-full mr-2" :class="'bg-' + getOrderStatusColor(data[indextr].status)"></div>{{data[indextr].status}}</span>
-                        </vs-td> -->
                         <vs-td :data="data[indextr].createdAt">
                             <span>{{data[indextr].createdAt | moment('DD/MM/YYYY')}}</span>
-                        </vs-td>
-                        <vs-td :data="data[indextr].ptid" class="whitespace-no-wrap">
-                            <a href="#" @click="viewData(data[indextr].ptid)"><feather-icon icon="EyeIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" /></a>
                         </vs-td>
                     </vs-tr>
                 </template>
                 </vs-table>
-                <div class="mt-4">
+                <!-- <div class="mt-4">
                     <vs-pagination class="float-right" :total="pages" v-model="currentPage" :max="6"></vs-pagination>
-                </div>
+                </div> -->
             </div>
           </vx-card>
       </div>
@@ -235,6 +208,10 @@ export default {
       labels () {
        return this.$store.state.utilities.labels
       },
+
+      products () {
+          return this.$store.state.product.products
+      },
     },
 
     methods: {
@@ -260,13 +237,7 @@ export default {
 
         showDisplayExport () {
           this.should_export = true
-          this.dataToExport = {
-            typeOfProduct: this.typeOfProduct,
-            paymentMethod: this.paymentMethod,
-            start: this.start,
-            end: this.end,
-            should_export: this.should_export,
-          }
+          this.dataToExport = this.revenue
           this.displayExport = true
         },
 
@@ -278,31 +249,30 @@ export default {
         getRevenue() {
           axios.get('/reports/revenue-report',
             { 
-              params: { 
-                currentPage: this.currentPage, 
-                pageLimit: this.itemsPerPage,
-                typeOfProduct: this.typeOfProduct,
-                paymentMethod: this.paymentMethod,
+              params: {
+                search: this.typeOfProduct,
                 start: this.start,
                 end: this.end 
               } 
             })
           .then(response => { 
-            this.revenue = response.data.data.revenue.docs
-            this.pages = response.data.data.revenue.pages
-            this.queriedItems = response.data.data.revenue.total
+            this.revenue = response.data.data
           }).catch(error => this.handleError(error))
         },
 
-        getOrderStatusColor (type) {
-            if (type === 'Partial')   return 'primary'
-            if (type === 'Paid') return 'success'
-            if (type === 'Pending')  return 'warning'
-            return 'dark'
-        },
+      getOrderStatusColor (type) {
+        if (type === 'spare part')   return 'dark'
+        if (type === 'generator') return 'success'
+        if (type === 'solar panels')  return 'warning'
+        return 'dark'
+      },
+        
+      searchProducts(search) {
+        this.$store.dispatch('product/fetchProducts', { currentPage: 1, itemsPerPage: 20, search })
+      },
     },
     created() {
-      this.$store.dispatch('utilities/fetchLabels', { currentPage: 1, itemsPerPage: 10 })
+      this.getRevenue()
     },
     watch: {
         currentPage: function () {

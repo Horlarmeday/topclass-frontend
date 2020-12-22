@@ -1,6 +1,6 @@
 <!-- =========================================================================================
-  File Name: EditEmployee.vue
-  Description: Edit Employee - Sidebar component
+  File Name: Activity.vue
+  Description: Activity - Sidebar component
 ========================================================================================== -->
 
 
@@ -17,7 +17,7 @@
         <vs-tabs alignment="fixed">
             <vs-tab label="Notifications">
                 <div class="mt-6">
-                    <div></div>
+                    <tab-notification></tab-notification>
                 </div>
             </vs-tab>
             <vs-tab label="Audit Logs">
@@ -34,6 +34,7 @@
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import TabAuditLog from './TabAuditLog'
+import TabNotification from './Notifications'
 export default {
   props: {
     isSidebarActive: {
@@ -43,7 +44,8 @@ export default {
   },
   components: {
     VuePerfectScrollbar,
-    TabAuditLog
+    TabAuditLog,
+    TabNotification
   },
   data () {
     return {

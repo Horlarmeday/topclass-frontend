@@ -23,7 +23,7 @@
 
         <!-- <notification-drop-down /> -->
         
-        <feather-icon icon="ActivityIcon" class="cursor-pointer mb-1 sm:mr-6 mr-2" @click.stop="showNotification" :badge="1" />
+        <feather-icon icon="ActivityIcon" class="cursor-pointer mb-1 sm:mr-6 mr-2" @click.stop="showNotification" :badge="count" />
 
         <activity :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" />
 
@@ -63,6 +63,9 @@ export default {
     Activity
   },
   computed: {
+    count() {
+      return this.$store.state.notification.total
+    },
     navbarColorLocal() {
       return this.$store.state.theme === "dark" && this.navbarColor === "#fff" ? "#10163a" : this.navbarColor
     },
@@ -94,7 +97,10 @@ export default {
 
     toggleDataSidebar (val = false) {
       this.addNewDataSidebar = val
-    }
+    },
+  },
+  created() {
+    this.$store.dispatch('notification/fetchNotificationsCount')
   }
 }
 </script>

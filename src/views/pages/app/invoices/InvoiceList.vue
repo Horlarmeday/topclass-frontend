@@ -256,6 +256,7 @@ export default {
       if (type === 2)  return 'danger'
       return 'dark'
     },
+    
     toggleDataSidebar (val = false) {
       this.addNewDataSidebar = val
     }

@@ -13,6 +13,8 @@ import 'material-icons/iconfont/material-icons.css' //Material Icons
 import 'vuesax/dist/vuesax.css'; // Vuesax
 Vue.use(Vuesax)
 
+// socket
+// import VueSocketIO from 'vue-socket.io'
 
 // axios
 import axios from "./axios.js"
@@ -68,6 +70,16 @@ Vue.use(require('vue-moment'));
 // Vue select css
 // Note: In latest version you have to add it separately
 // import 'vue-select/dist/vue-select.css';
+
+// Vue.use(new VueSocketIO({
+//   debug: true,
+//   connection: 'http://localhost:4050',
+//   vuex: {
+//       store,
+//       actionPrefix: 'SOCKET_',
+//       mutationPrefix: 'SOCKET_'
+//   },
+// }))
 
 
 Vue.config.productionTip = false

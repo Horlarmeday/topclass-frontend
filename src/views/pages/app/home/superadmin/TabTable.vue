@@ -7,7 +7,7 @@
 
     <!-- <edit-invoice :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" /> -->
 
-    <vs-table :sst="true" @search="handleSearch" ref="table" :max-items="itemsPerPage" search :data="invoices" :total="queriedItems">
+    <vs-table v-if="invoices.length" :sst="true" @search="handleSearch" ref="table" :max-items="itemsPerPage" search :data="invoices" :total="queriedItems">
       
       <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
 
@@ -113,6 +113,10 @@
         </template>
 
     </vs-table>
+    <div v-else class="vx-col flex items-center justify-center flex-col sm:w-1/2 md:w-3/5 lg:w-3/4 xl:w-1/2 mx-auto text-center">
+          <img src="@/assets/images/pages/500.png" alt="graphic-500" class="mx-auto mb-4">
+          <h4 class="sm:mx-0 mx-4 mb-4 sm:mb-12 text-5xl d-theme-heading-color">No Invoice Created!</h4>
+    </div>
         <div>
           <vs-pagination class="float-right" :total="pages" v-model="currentPage" :max="6"></vs-pagination>
         </div>
@@ -263,7 +267,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
+    this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, filter: 0 })
   },
   mounted () {
     this.isMounted = true
