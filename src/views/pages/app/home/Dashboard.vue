@@ -9,13 +9,15 @@ import AccountantDashboard from './accountant/Dashboard'
 import SecretaryDashboard from './secretary/Dashboard'
 import WorkshopDashboard from './workshop/Dashboard'
 import StoreDashboard from './store/Dashboard'
+import AdminDashboard from './admin/Dashboard'
 
 const RoleDashboardMapping = {
   'SuperAdmin': SuperAdminDashboard,
   'Accountant': AccountantDashboard,
   'Secretary': SecretaryDashboard,
   'Workshop': WorkshopDashboard,
-  'Store': StoreDashboard
+  'Store': StoreDashboard,
+  'Admin': AdminDashboard
 }
 export default {
   data(){

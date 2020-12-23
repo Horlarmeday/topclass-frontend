@@ -51,6 +51,7 @@
 <script>
 import analyticsData from './analyticsData.js'
 import VueApexCharts from 'vue-apexcharts'
+import axios from '../../../../../axios'
 export default {
     components: {
         VueApexCharts,
@@ -73,6 +74,8 @@ export default {
                     }
                 ]
             },
+
+            revenue: [],
 
             browserStatistics: [
                 {
@@ -112,6 +115,9 @@ export default {
             }
         }
     },
+    created() {
+        axios.get('/dashboard/revenue-analytics-data').then(response => this.figures = response.data.data).catch(e => this.handleError(e))
+    }
 }
 </script>
 

@@ -268,6 +268,7 @@ export default {
   },
   created () {
     this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, filter: 0 })
+    this.$socket.emit('new_invoice', 'Hello there!')
   },
   mounted () {
     this.isMounted = true

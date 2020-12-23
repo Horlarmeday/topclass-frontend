@@ -35,6 +35,10 @@ export default {
     })
   },
 
+  // SOCKET_send({commit}, payload) {
+  //   this.$socket.emit('new_invoice', payload)
+  // },
+
   fetchInvoiceItems ({ commit }, invoice) {
     return new Promise((resolve, reject) => {
       axios.post('/invoices/items', invoice)

@@ -49,7 +49,7 @@
 
 <script>
 import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
-import analyticsData from './analyticsData.js'
+import analyticsData from '../superadmin/analyticsData'
 import Tabs from './Tabs'
 import axios from '../../../../../axios'
     export default {
