@@ -64,9 +64,9 @@
               </vs-td>
               <vs-td class="whitespace-no-wrap">
                   <!-- <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" /> -->
-                  <feather-icon icon="EyeIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="viewData(tr.ivid)" />
+                  <feather-icon icon="EyeIcon" svgClasses="w-5 h-5 stroke-current" class="ml-2" @click="viewData(tr.ivid)" />
                   <feather-icon v-if="!tr.has_step_down" icon="CheckSquareIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="openConfirm(tr.ivid)" />
-                  <feather-icon v-else icon="CheckSquareIcon" svgClasses="w-5 h-5 hover:text-danger text-success stroke-current" class="ml-2" />
+                  <feather-icon v-else icon="CheckSquareIcon" svgClasses="w-5 h-5 text-success stroke-current" class="ml-2" />
               </vs-td>
             </vs-tr>
           </tbody>

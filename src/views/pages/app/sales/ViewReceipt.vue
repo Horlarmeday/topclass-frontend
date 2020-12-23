@@ -87,8 +87,8 @@
                         <vs-tr v-for="(tr, index) in data" :key="index">
                             <vs-td :data="data[index].item">{{ data[index].item }}</vs-td>
                             <vs-td :data="data[index].quantity">{{ data[index].quantity }}</vs-td>
-                            <vs-td :data="data[index].price">{{ data[index].price }}</vs-td>
-                            <vs-td :data="data[index].price">{{ data[index].price }}</vs-td>
+                            <vs-td :data="data[index].price">{{ Number(data[index].price).toLocaleString() }}</vs-td>
+                            <vs-td :data="data[index].price">{{ Number(data[index].price).toLocaleString() }}</vs-td>
                         </vs-tr>
                     </template>
                 </vs-table>
@@ -107,13 +107,17 @@
                         <vs-th class="pointer-events-none">DISCOUNT ({{sale.discount}}%)</vs-th>
                         <vs-td>₦{{ discount.toLocaleString() }}</vs-td>
                     </vs-tr>
+                     <vs-tr>
+                        <vs-th class="pointer-events-none">TOTAL</vs-th>
+                        <vs-td>₦{{ total.toLocaleString() }}</vs-td>
+                    </vs-tr>
                     <vs-tr>
                         <vs-th class="pointer-events-none">AMOUNT PAID</vs-th>
                         <vs-td>₦{{ Number(sale.amount_paid).toLocaleString() }}</vs-td>
                     </vs-tr>
                     <vs-tr>
-                        <vs-th class="pointer-events-none bg-topclass mb-2">TOTAL</vs-th>
-                        <vs-td class="bg-topclass font-semibold">₦{{ Number(sale.amount_due).toLocaleString() }}</vs-td>
+                        <vs-th class="pointer-events-none bg-topclass mb-2">BALANCE</vs-th>
+                        <vs-td class="bg-topclass font-semibold">₦{{ Number(sale.amount_remaining).toLocaleString() }}</vs-td>
                     </vs-tr>
                 </vs-table>
             </div>
@@ -123,7 +127,7 @@
                 <p class="mb-4"> <span class="mr-2">AMOUNT IN WORDS:</span> <span class="font-semibold mr-2">{{ converter.toWords(sale.amount_paid).toUpperCase() + ' NAIRA ONLY' }}</span> .</p>
                 <p>
                     <span class="mr-8">PREPARED BY: <span class="font-semibold">{{ sale.Staff.fullname }}</span></span>
-                    <span>IBAN: <span class="font-semibold"> G882-1111-2222-3333 </span></span>
+                    <!-- <span>IBAN: <span class="font-semibold"> G882-1111-2222-3333 </span></span> -->
                 </p>
             </div>
         </vx-card>
@@ -189,6 +193,11 @@ export default{
     discount() {
       return this.amount_due * (this.sale.discount / 100)
     },
+
+    total() {
+      return this.subtotal + this.sale.Invoice.vat - this.discount
+    }
+    
   },
   methods: {
     printInvoice () {

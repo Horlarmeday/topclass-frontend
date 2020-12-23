@@ -10,7 +10,7 @@
             <tab-analytics></tab-analytics>
         </div>
     </vs-tab>
-    <vs-tab label="Creditors">
+    <vs-tab label="Debtors">
         <div class="mt-4">
             <tab-creditors></tab-creditors>
         </div>

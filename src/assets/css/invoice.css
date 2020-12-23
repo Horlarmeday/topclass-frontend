@@ -85,7 +85,7 @@ b, strong, .bold {
 }
 
 #container {
-  margin: 0 10%;
+  margin: 0 5%;
   min-height: 1158px;
   background: #F7EDEB url("../images/pages/bg.png") 0 0 no-repeat;
   background-size: 100% auto;
@@ -99,16 +99,17 @@ b, strong, .bold {
 
 #memo {
   padding-top: 50px;
-  margin: 0 110px 0 60px;
+  padding-bottom: 30px;
+  margin: 0 30px 0 30px;
+
   border-bottom: 1px solid #ddd;
-  height: 115px;
+  /* height: 115px; */
 }
 #memo .logo {
   float: left;
   margin-right: 20px;
 }
 #memo .logo img {
-  width: 150px;
   height: 100px;
 }
 #memo .company-info {
@@ -143,16 +144,18 @@ b, strong, .bold {
 }
 #invoice-title-number #title {
   text-transform: uppercase;
-  padding: 0px 2px 0px 60px;
-  font-size: 40px;
-  background: #F4846F;
+  padding: 0px 10px 0px 10px;
+  margin-left: 30px;
+  font-size: 30px;
+  background: #B32C39;
   color: white;
 }
 #invoice-title-number #number {
-  margin-left: 10px;
-  font-size: 35px;
+  margin-right: 30px;
+  font-size: 25px;
   position: relative;
-  top: -5px;
+  top: -1px;
+  float: right;
 }
 
 #client-info {
@@ -281,14 +284,19 @@ table th, table td {
 }
 
 #terms {
-  float: left;
-  margin-top: 50px;
+  padding-top: 50px;
+  margin: 0 30px 0 30px;
 }
+#terms .date{
+  float: left;
+}
+
 #terms .notes {
+  float: right;
   min-height: 30px;
-  min-width: 50px;
   color: #B32C39;
 }
+
 #terms .payment-info div {
   margin-bottom: 3px;
   min-width: 20px;
@@ -303,8 +311,8 @@ table th, table td {
   line-height: 0.88em;
   float: right;
   padding: 0px 30px 0px 2px;
-  font-size: 50px;
-  background: #F4846F;
+  font-size: 30px;
+  background: #B32C39;
   color: white;
 }
 
@@ -322,7 +330,7 @@ table th, table td {
     visibility: hidden;
   }
 
-  #container {
+  #container * {
     visibility: visible;
   }
 
@@ -331,13 +339,67 @@ table th, table td {
     left: 0;
     top: 0;
     box-shadow: none;
+    margin: 0 2%;
   }
 
   .button-area {
     visibility: hidden;
   }
 
+  #memo {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0 30px 0 30px;
+
+  }
+
+  #memo .logo {
+    float: left;
+  }
+
+  #memo .logo img {
+    height: 70px;
+  }
+
+  #memo .company-info {
+    float: right;
+    text-align: right;
+  }
+
   #content-area {
     margin: 0 !important;
+  }
+
+  #invoice-title-number {
+    font-weight: bold;
+    margin: 0 0;
+  }
+
+  #items table th {
+    font-weight: bold;
+    padding: 2px 4px;
+    text-align: right;
+    background: #B32C39;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  #client-info .to {
+    margin-top: 5px;
+  }
+
+  #terms {
+    padding-top: 30px;
+    margin: 0 30px 0 30px;
+  }
+  #terms .date{
+    font-size: 15px;
+    float: left;
+  }
+  
+  #terms .notes {
+    font-size: 15px;
+    float: right;
+    color: #B32C39;
   }
 }

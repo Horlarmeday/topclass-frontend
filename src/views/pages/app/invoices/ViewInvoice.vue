@@ -15,19 +15,19 @@
           <vs-button class="mb-base mr-3" icon-pack="feather" icon="icon icon-file" @click="print">Print</vs-button>
         </div>
     </div>
-    <div id="container">
 
+    <div id="container">
         <section id="memo">
           <div class="logo">
-            <img src="@/assets/images/pages/logo-bg.png" style="width: 130px; height: 50px"/>
+            <img src="@/assets/images/pages/logo-bg.png" />
           </div>
           
           <div class="company-info">
-            <div>TopClass Power Limited</div>
+            <div>TopClass Power Ltd</div>
 
             <br />
             
-            <span>Plot C13 Enoch Jarumi Street,</span>
+            <span>Plot C13 Enoch Jarumi Street,</span> <br />
             <span>Aco Estate AMAC, off Shehu Musa Yaradua Express way, Sabon Lugbe</span>
 
             <br />
@@ -36,7 +36,7 @@
             <span>info@topclassng.com</span>
           </div>
 
-        </section>
+        </section> <br />
 
         <section id="invoice-title-number">
         
@@ -48,7 +48,7 @@
         <div class="clearfix"></div>
         
         <section id="client-info">
-          <span>To:</span>
+          <span class="to">To:</span>
           <div>
             <span class="bold">{{ invoice.invoice.Customer.name }}</span>
           </div>
@@ -81,19 +81,19 @@
           <table cellpadding="0" cellspacing="0" v-if="invoice.invoice.InvoiceItems.length">
           
             <tr>
-              <th>S/N</th> <!-- Dummy cell for the row number and row commands -->
+              <th>S/N</th> 
               <th>ITEM</th>
               <th>QUANTITY</th>
               <th>UNIT COST(₦)</th>
-              <th>TOTAL COST(₦)</th>
+              <th>TOTAL(₦)</th>
             </tr>
             
             <tr data-iterate="item" v-for="(prd, index) in invoice.invoice.InvoiceItems" :key="index">
               <td>{{ index + 1 }}</td> <!-- Don't remove this column as it's needed for the row commands -->
               <td>{{ prd.item }}</td>
               <td>{{ prd.quantity }}</td>
-              <td>{{ Number(prd.price) / prd.quantity }}</td>
-              <td>{{ prd.price }}</td>
+              <td>{{ Number(Number(prd.price) / prd.quantity).toLocaleString() }}</td>
+              <td>{{ Number(prd.price).toLocaleString() }}</td>
             </tr>
             
           </table>
@@ -164,7 +164,7 @@
         
         <div class="clearfix"></div>
 
-        <section id="invoice-info">
+        <!-- <section id="invoice-info">
           <div>
             <span class="ml">Issue Date: </span> <span>{{ invoice.invoice.updatedAt | moment('DD/MM/YYYY') }}</span>
           </div>
@@ -173,39 +173,19 @@
           </div>
 
           <br />
-
-          <!-- <div>
-            <span class="ml">Currency: </span> <span>NGN</span>
-          </div> -->
-          <!-- <div>
-            <span>{po_number_label}</span> <span>{po_number}</span>
-          </div>
-          <div>
-            <span>{net_term_label}</span> <span>{net_term}</span>
-          </div> -->
-        </section>
+        </section> -->
         
         <section id="terms">
-
-          <div class="notes">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Thank you very much. We really appreciate your patronage.<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Please quote invoice number when remitting funds.</div>
-
-          <br />
-
-          <div class="payment-info">
-            <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Payment details:</div>
-            <div>&nbsp; &nbsp; &nbsp; &nbsp; ● ACC 123006705</div>
-            <div>&nbsp; &nbsp; ● TopClass Nigeria Limited</div>
-            <div>● First Bank Plc</div>
-            <div></div>
-          </div>
-          
+          <p class="date"><span>Issue Date: </span> {{ invoice.invoice.updatedAt | moment('DD/MM/YYYY') }}</p>
+          <!-- <p><span>Due On: </span> {{ invoice.invoice.updatedAt | moment('DD/MM/YYYY') }}</p> -->
+          <div class="notes">Thank you very much. We really appreciate your patronage.<br>Please quote invoice number when remitting funds.</div>
         </section>
-
+<!-- 
         <div class="clearfix"></div>
 
-        <div class="thank-you">Thanks!</div>
-
-        <div class="clearfix"></div>
+        <div class="thank-you">Thanks!</div> -->
+<!-- 
+        <div class="clearfix"></div> -->
     </div>
   </div>
 </template>
@@ -268,5 +248,5 @@ export default {
 </script>
 
 <style scoped>
-@import url('../../../../assets/css/invoice.css');
+  @import url('../../../../assets/css/invoice.css');
 </style>

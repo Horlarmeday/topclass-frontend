@@ -17,7 +17,7 @@
         <div class="flex flex-wrap-reverse items-center data-list-btn-container">
 
           <!-- ACTION - DROPDOWN -->
-          <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
+          <!-- <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
 
             <div class="p-4 shadow-drop rounded-lg d-theme-dark-bg cursor-pointer flex items-center justify-center text-lg font-medium w-32 w-full">
               <span class="mr-2">Actions</span>
@@ -41,6 +41,40 @@
               </vs-dropdown-item>
 
             </vs-dropdown-menu>
+          </vs-dropdown> -->
+
+          <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
+
+            <div class="p-4 shadow-drop rounded-lg d-theme-dark-bg cursor-pointer flex items-center justify-center text-lg font-medium w-32 w-full">
+              <span class="mr-2">Filter</span>
+              <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
+            </div>
+
+            <vs-dropdown-menu>
+
+              <vs-dropdown-item @click="handlePageChange">
+                <span class="flex items-center">
+                  <span>All</span>
+                </span>
+              </vs-dropdown-item>
+
+              <vs-dropdown-item @click="filterPage(0)">
+                <span class="flex items-center">
+                  <span>Pending</span>
+                </span>
+              </vs-dropdown-item>
+               <vs-dropdown-item @click="filterPage(1)">
+                <span class="flex items-center">
+                  <span>Approved</span>
+                </span>
+              </vs-dropdown-item>
+               <vs-dropdown-item @click="filterPage(2)">
+                <span class="flex items-center">
+                  <span>Declined</span>
+                </span>
+              </vs-dropdown-item>
+
+            </vs-dropdown-menu>
           </vs-dropdown>
 
           <!-- ADD NEW -->
@@ -49,7 +83,13 @@
               <span class="ml-2 text-base text-primary">Create Invoice</span>
           </div>
 
-          <p class="mb-2">Total: <span class="total">{{ queriedItems ? queriedItems : 0 }}</span></p>
+          <!-- ADD NEW -->
+          
+          <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="showFilterPrompt">
+              <feather-icon icon="FilterIcon" svgClasses="h-4 w-4" />
+              <span class="ml-2 text-base text-primary">Custom Filter</span>
+          </div>
+        <p class="mb-2">Total: <span class="total">{{ queriedItems ? queriedItems : 0 }}</span></p>
         </div>
 
         <!-- ITEMS PER PAGE -->
@@ -115,7 +155,7 @@
               <vs-td class="whitespace-no-wrap">
                   <!-- <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" /> -->
                   <feather-icon icon="EyeIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="viewData(tr.ivid)" />
-                  <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="deleteData(tr.ivid)" />
+                  <!-- <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="deleteData(tr.ivid)" /> -->
               </vs-td>
             </vs-tr>
           </tbody>
@@ -126,6 +166,7 @@
           <vs-pagination class="float-right" :total="pages" v-model="currentPage" :max="6"></vs-pagination>
         </div>
       <add-new-invoice :displayPrompt="displayPrompt" @hideDisplayPrompt="hidePrompt"></add-new-invoice>
+      <apply-filter :promptFilter="promptFilter" @hidepromptFilter="hideFilter"  v-if="promptFilter" />
   </div>
 </template>
 
@@ -134,13 +175,13 @@ import AddNewInvoice from './AddNewInvoice.vue'
 // import EditInvoice from './EditInvoice.vue'
 // import {calculateAge} from '../helper/index'
 import ExportInvoice from './ExportInvoice'
-// import moduleDataList from '@/store/members-list/moduleMember.js'
-
+import ApplyFilter from './ApplyFilter'
 export default {
   components: {
     // EditInvoice,
     AddNewInvoice,
-    ExportInvoice
+    ExportInvoice,
+    ApplyFilter
   },
   data () {
     return {
@@ -153,7 +194,8 @@ export default {
       sidebarData: {},
       currentPage: 1,
       displayPrompt: false,
-      displayExport: false
+      displayExport: false,
+      promptFilter: false,
     }
   },
   computed: {
@@ -230,6 +272,14 @@ export default {
       this.displayPrompt = false
     },
 
+    showFilterPrompt () {
+      this.promptFilter = true
+    },
+
+    hideFilter () {
+      this.promptFilter = false
+    },
+
     goToCreateInvoice () {
       this.$router.push('/app/invoices/create')
     },
@@ -245,6 +295,10 @@ export default {
 
     handlePageChange() {
       this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
+    },
+
+    getInvoicesByDate() {
+      this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, start: this.start, end: this.end })
     },
 
     filterPage(value) {

@@ -268,7 +268,7 @@ export default {
     },
 
     handlePageChange() {
-      this.$store.dispatch('sale/fetchSales', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
+      this.$store.dispatch('sale/fetchSales', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, pending: 'Pending' })
     },
 
     filterPage(value) {
@@ -285,7 +285,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('sale/fetchSales', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
+    this.$store.dispatch('sale/fetchSales', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, pending: 'Pending' })
   },
   mounted () {
     this.isMounted = true

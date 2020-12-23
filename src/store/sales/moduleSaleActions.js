@@ -18,7 +18,14 @@ export default {
 //   },
   fetchSales ({ commit }, payload) {
     return new Promise((resolve, reject) => {
-      axios.get('/sales', { params: { currentPage: payload.currentPage, pageLimit: payload.itemsPerPage, search: payload.search, filter: payload.filter, data: payload.data } })
+      axios.get('/sales', { params: 
+        { currentPage: payload.currentPage,
+          pageLimit: payload.itemsPerPage, 
+          search: payload.search, 
+          filter: payload.filter,
+          data: payload.data,
+          pending: payload.pending
+        } })
         .then((response) => {
           commit('SET_SALES', response.data.data.docs)
           commit('SET_SALES_TOTAL', response.data.data.total)

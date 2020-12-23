@@ -24,7 +24,10 @@ export default {
         search: payload.search, 
         filter: payload.filter, 
         stepdown: payload.stepdown, 
-        dispense: payload.dispense } })
+        dispense: payload.dispense,
+        start: payload.start,
+        end: payload.end
+      }})
         .then((response) => {
           commit('SET_INVOICES', response.data.data.docs)
           commit('SET_INVOICES_TOTAL', response.data.data.total)
