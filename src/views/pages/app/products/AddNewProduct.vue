@@ -163,8 +163,6 @@ export default {
              this.unit !== '' &&
              this.name !== '' &&
              this.quantity !== '' && 
-             this.cost !== '' && 
-             this.selling_price !== '' && 
              this.label !== '' 
         },
         activePrompt:{
