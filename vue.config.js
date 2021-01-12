@@ -24,12 +24,12 @@ module.exports = {
         changeOrigin: true,
         secure: false
       },
-      '/': {
-        target: 'http://localhost:4050',
-        changeOrigin: true,
-        secure: false,
-        ws: true
-      }
+      // '/': {
+      //   target: 'http://localhost:4050',
+      //   changeOrigin: true,
+      //   secure: false,
+      //   ws: true
+      // }
     }
   },
 }
