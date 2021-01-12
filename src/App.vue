@@ -12,7 +12,7 @@
 
 <script>
 import themeConfig from '@/../themeConfig.js'
-
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -70,6 +70,16 @@ export default {
 
     window.addEventListener('resize', this.handleWindowResize)
     window.addEventListener('scroll', this.handleScroll)
+
+    axios.interceptors.response.use(undefined, function(err) {
+      // eslint-disable-next-line no-unused-vars
+      return new Promise(function(resolve, reject) {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+          this.$store.dispatch('auth/logout')
+        }
+        throw err
+      })
+    })
 
   },
   destroyed() {

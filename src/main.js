@@ -14,8 +14,8 @@ import 'vuesax/dist/vuesax.css'; // Vuesax
 Vue.use(Vuesax)
 
 // socket
-import VueSocketIO from 'vue-socket.io'
-import SocketIO from 'socket.io-client'
+// import VueSocketIO from 'vue-socket.io'
+// import SocketIO from 'socket.io-client'
 
 // axios
 import axios from "./axios.js"
@@ -72,18 +72,18 @@ Vue.use(require('vue-moment'));
 // Note: In latest version you have to add it separately
 // import 'vue-select/dist/vue-select.css';
 
-Vue.use(new VueSocketIO({
-  debug: true,
-  connection: SocketIO('http://localhost:4050', {
-    withCredentials: true,
+// Vue.use(new VueSocketIO({
+//   debug: true,
+//   connection: SocketIO('http://localhost:4050', {
+//     withCredentials: true,
     
-  }), 
-  vuex: {
-    store,
-    actionPrefix: 'SOCKET_',
-    mutationPrefix: 'SOCKET_'
-  },
-}))
+//   }), 
+//   vuex: {
+//     store,
+//     actionPrefix: 'SOCKET_',
+//     mutationPrefix: 'SOCKET_'
+//   },
+// }))
 
 
 Vue.config.productionTip = false
