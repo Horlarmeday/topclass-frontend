@@ -115,7 +115,7 @@ import VNavMenuGroup from './VerticalNavMenuGroup.vue'
 import VNavMenuItem from './VerticalNavMenuItem.vue'
 
 import Logo from "../Logo.vue"
-
+import { parseJwt } from '@/views/pages/app/utilities/helper'
 export default {
   name: 'v-nav-menu',
   components: {
@@ -143,6 +143,7 @@ export default {
       swipeEasing       : true
     },
     showShadowBottom    : false,
+    user: ''
   }),
   computed: {
     isGroupActive() {
@@ -185,6 +186,10 @@ export default {
     reduceButton: {
       get()    { return this.$store.state.reduceButton },
       set(val) { this.$store.commit('TOGGLE_REDUCE_BUTTON', val) }
+    },
+    canSee () {
+      this.$acl.check(this.user)
+      return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
     },
     isVerticalNavMenuReduced() { return Boolean(this.reduce && this.reduceButton) },
     verticalNavMenuItemsMin()  { return this.$store.state.verticalNavMenuItemsMin },
@@ -332,6 +337,12 @@ export default {
   mounted() {
     this.setVerticalNavMenuWidth()
   },
+  created() {
+    const token = parseJwt(localStorage.getItem('user-token'))
+    if (token) {
+      this.user = token.role
+    }
+  }
 }
 
 </script>

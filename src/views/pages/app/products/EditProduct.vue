@@ -20,6 +20,7 @@
                     <vs-input
                         v-validate="'required'"
                         data-vv-validate-on="blur"
+                        readonly
                         label="Name"
                         name="name"
                         v-model="name"
@@ -40,7 +41,7 @@
                     <span class="text-danger text-sm">{{errors.first('quantity')}}</span>
                 </div>
             </div>
-            <div class="vx-row mb-3">
+            <div class="vx-row mb-3" v-show="$acl.check('Accountant')">
             <div class="vx-col sm:w-1/2 w-full mb-2">
                 <vs-input
                     v-validate="'required'"
@@ -85,6 +86,7 @@
             <div class="vx-col sm:w-1/2 w-full mb-2">
               <small class="ml-2">Label</small>
               <v-select 
+                  readonly
                   v-validate="'required'"
                   data-vv-validate-on="blur"
                   name="label"

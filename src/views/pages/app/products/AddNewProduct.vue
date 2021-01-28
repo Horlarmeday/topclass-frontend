@@ -38,7 +38,7 @@
                     <span class="text-danger text-sm">{{errors.first('quantity')}}</span>
                 </div>
               </div>
-              <div class="vx-row mb-3">
+              <!-- <div class="vx-row mb-3">
                 <div class="vx-col sm:w-1/2 w-full mb-2">
                     <vs-input
                         label="Cost"
@@ -47,7 +47,6 @@
                         v-model="cost"
                         class="w-full"
                     />
-                    <!-- <span class="text-danger text-sm">{{errors.first('cost')}}</span> -->
                 </div>
                 <div class="vx-col sm:w-1/2 w-full mb-2">
                     <vs-input
@@ -57,9 +56,8 @@
                         type="number"
                         class="w-full"
                     />
-                    <!-- <span class="text-danger text-sm">{{errors.first('selling_price')}}</span> -->
                 </div>
-              </div>
+              </div> -->
               <div class="vx-row mb-3">
                 <div class="vx-col sm:w-1/2 w-full mb-2">
                     <small class="ml-2">Unit</small>
@@ -139,10 +137,10 @@ export default {
             name: '',
             unit: '',
             quantity: '',
-            cost: '',
+            // cost: '',
             label: '',
             desc: '',
-            selling_price: '',
+            // selling_price: '',
             comment: '',
         }
     },
@@ -198,10 +196,10 @@ export default {
         const obj = {
             name: this.name,
             unit: this.unit,
-            cost: this.cost,
+            // cost: this.cost,
             label: this.label,
             quantity: this.quantity,
-            selling_price: this.selling_price,
+            // selling_price: this.selling_price,
             desc: this.desc,
             comment: this.comment
         }
@@ -230,11 +228,11 @@ export default {
       initValues() {
         this.name = ''
         this.unit = ''
-        this.selling_price = ''
+        // this.selling_price = ''
         this.desc = ''
         this.comment = ''
         this.quantity = ''
-        this.cost = ''
+        // this.cost = ''
       }
     },
     

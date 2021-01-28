@@ -6,6 +6,7 @@
 
 <template>
   <div
+    v-if="canSee"
     class="vs-sidebar--item mb-4"
     :class="[
       {'vs-sidebar-item-active'            : activeLink},
@@ -33,8 +34,14 @@
 </template>
 
 <script>
+import { parseJwt } from '@/views/pages/app/utilities/helper'
 export default {
   name: 'v-nav-menu-item',
+  data() {
+    return {
+      user: ''
+    }
+  },
   props: {
     icon        : { type: String,                 default: ""               },
     iconSmall   : { type: Boolean,                default: false            },
@@ -48,8 +55,18 @@ export default {
     isDisabled  : { type: Boolean,                default: false            },
   },
   computed: {
+    canSee () {
+      this.$acl.check(this.user)
+      return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
+    },
     activeLink() {
       return ((this.to == this.$route.path) || (this.$route.meta.parent == this.slug) && this.to) ? true : false
+    }
+  },
+  created() {
+    const token = parseJwt(localStorage.getItem('user-token'))
+    if (token) {
+      this.user = token.role
     }
   }
 }

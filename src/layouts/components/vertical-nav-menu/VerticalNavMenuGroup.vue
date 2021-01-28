@@ -7,6 +7,7 @@
 
 <template>
   <div
+    v-if="canSee"
     class  = "vs-sidebar-group mb-4"
     :class = "[
       {'vs-sidebar-group-open'            : openItems        },
@@ -70,7 +71,6 @@
               <span class="truncate">{{ groupItem.name }}</span>
               <vs-chip class="ml-auto" :color="groupItem.tagColor" v-if="groupItem.tag">{{ groupItem.tag }}</vs-chip>
           </v-nav-menu-item>
-
         </li>
       </ul>
       <!-- /Group Items -->
@@ -80,7 +80,7 @@
 
 <script>
 import VNavMenuItem from './VerticalNavMenuItem.vue'
-
+import { parseJwt } from '@/views/pages/app/utilities/helper'
 export default {
   name  : 'v-nav-menu-group',
   props : {
@@ -94,7 +94,8 @@ export default {
   },
   data: () => ({
     maxHeight : '0px',
-    openItems : false
+    openItems : false,
+    user: ''
   }),
   computed: {
     verticalNavMenuItemsMin() { return this.$store.state.verticalNavMenuItemsMin },
@@ -124,6 +125,10 @@ export default {
         func(item)
         return open
       }
+    },
+    canSee () {
+      this.$acl.check(this.user)
+      return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
     },
   },
   watch: {
@@ -225,7 +230,17 @@ export default {
   mounted() {
     this.openItems = this.open
     if (this.open) { this.maxHeight = 'none' }
+    const token = parseJwt(localStorage.getItem('user-token'))
+    if (token) {
+      this.user = token.role
+    }
   },
+  // created() {
+  //   const token = parseJwt(localStorage.getItem('user-token'))
+  //   if (token) {
+  //     this.user = token.role
+  //   }
+  // }
 }
 
 </script>

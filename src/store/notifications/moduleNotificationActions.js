@@ -33,7 +33,7 @@ export default {
       axios.put(`/notifications/read-notification`, notificationId)
         .then((response) => {
           commit('UPDATE_NOTIFICATION', response.data.data)
-          commit('SET_NEW_TOTAL')
+          commit('SET_NEW_TOTAL', 1)
           resolve(response)
         })
         .catch((error) => { reject(error) })

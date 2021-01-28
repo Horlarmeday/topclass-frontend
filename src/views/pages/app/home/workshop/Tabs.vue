@@ -5,7 +5,7 @@
             <tab-sales></tab-sales>
         </div>
     </vs-tab>
-    <vs-tab label="Creditors">
+    <vs-tab label="Debtors">
         <div class="mt-6">
             <tab-creditors></tab-creditors>
         </div>

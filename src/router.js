@@ -45,7 +45,7 @@ const router = new Router({
                 name: 'customers',
                 component: () => import('./views/pages/app/customers/CustomersList.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Secretary',
                   requiresAuth: true,
                   pageTitle: 'Customers',
                 }
@@ -55,7 +55,7 @@ const router = new Router({
                 name: 'customerparam',
                 component: () => import('./views/pages/app/customers/ViewCustomer.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Secretary',
                   requiresAuth: true,
                   pageTitle: 'Customer',
                 }
@@ -65,7 +65,7 @@ const router = new Router({
                 name: 'employees',
                 component: () => import('./views/pages/app/employees/EmployeeList.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'SuperAdmin',
                   requiresAuth: true,
                   pageTitle: 'Employees',
                 }
@@ -75,7 +75,7 @@ const router = new Router({
                 name: 'employeeparam',
                 component: () => import('./views/pages/app/employees/ViewEmployee.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'SuperAdmin',
                   requiresAuth: true,
                   pageTitle: 'Employee',
                 }
@@ -85,7 +85,7 @@ const router = new Router({
                 name: 'units',
                 component: () => import('./views/pages/app/utilities/UnitList.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Store',
                   requiresAuth: true,
                   pageTitle: 'Units',
                 }
@@ -95,7 +95,7 @@ const router = new Router({
                 name: 'labels',
                 component: () => import('./views/pages/app/utilities/LabelList.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Store',
                   requiresAuth: true,
                   pageTitle: 'Labels',
                 }
@@ -105,7 +105,17 @@ const router = new Router({
                 name: 'products',
                 component: () => import('./views/pages/app/products/ProductsList.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Store',
+                  requiresAuth: true,
+                  pageTitle: 'Products',
+                }
+              },
+              {
+                path: '/app/products/:productId',
+                name: 'oneproduct',
+                component: () => import('./views/pages/app/products/ViewProduct.vue'),
+                meta: {
+                  rule: 'Store',
                   requiresAuth: true,
                   pageTitle: 'Products',
                 }
@@ -115,7 +125,7 @@ const router = new Router({
                 name: 'services',
                 component: () => import('./views/pages/app/services/ServicesList.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Store',
                   requiresAuth: true,
                   pageTitle: 'Services',
                 }
@@ -125,7 +135,7 @@ const router = new Router({
                 name: 'invoices',
                 component: () => import('./views/pages/app/invoices/InvoiceList.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Secretary',
                   requiresAuth: true,
                   pageTitle: 'Invoices',
                 }
@@ -144,7 +154,7 @@ const router = new Router({
                 name: 'defaults',
                 component: () => import('./views/pages/app/utilities/DefaultList.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Workshop',
                   requiresAuth: true,
                   pageTitle: 'Default Items',
                 }
@@ -154,7 +164,7 @@ const router = new Router({
                 name: 'sales',
                 component: () => import('./views/pages/app/sales/SalesList.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Accountant',
                   requiresAuth: true,
                   pageTitle: 'Sales',
                 }
@@ -164,7 +174,7 @@ const router = new Router({
                 name: 'salesparam',
                 component: () => import('./views/pages/app/sales/ViewSale.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Accountant',
                   requiresAuth: true,
                   pageTitle: 'Sale View',
                 }
@@ -174,7 +184,7 @@ const router = new Router({
                 name: 'salesparamreceipt',
                 component: () => import('./views/pages/app/sales/ViewReceipt.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Accountant',
                   requiresAuth: true,
                 }
               },
@@ -207,7 +217,7 @@ const router = new Router({
                 name: 'waybills',
                 component: () => import('./views/pages/app/waybills/WaybillList.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Workshop',
                   requiresAuth: true,
                   pageTitle: 'Waybills',
                 }
@@ -217,7 +227,7 @@ const router = new Router({
                 name: 'waybillparam',
                 component: () => import('./views/pages/app/waybills/ViewWaybill.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Workshop',
                   requiresAuth: true,
                 }
               },
@@ -226,7 +236,7 @@ const router = new Router({
                 name: 'assets',
                 component: () => import('./views/pages/app/assets/AssetList.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Accountant',
                   requiresAuth: true,
                   pageTitle: 'Assets',
                 }
@@ -236,7 +246,7 @@ const router = new Router({
                 name: 'expenses',
                 component: () => import('./views/pages/app/expenses/ExpensesList.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Accountant',
                   requiresAuth: true,
                   pageTitle: 'Expenses',
                 }
@@ -246,7 +256,7 @@ const router = new Router({
                 name: 'payments',
                 component: () => import('./views/pages/app/payments/PaymentList.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Accountant',
                   requiresAuth: true,
                   pageTitle: 'Payments',
                 }
@@ -256,7 +266,7 @@ const router = new Router({
                 name: 'revenuereport',
                 component: () => import('./views/pages/app/reports/RevenueReport.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Accountant',
                   requiresAuth: true,
                   pageTitle: 'Revenue Report',
                 }
@@ -266,7 +276,7 @@ const router = new Router({
                 name: 'expensesreport',
                 component: () => import('./views/pages/app/reports/ExpensesReport.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Accountant',
                   requiresAuth: true,
                   pageTitle: 'Expenses Report',
                 }
@@ -276,7 +286,7 @@ const router = new Router({
                 name: 'inventoryreport',
                 component: () => import('./views/pages/app/reports/InventoryReport.vue'),
                 meta: {
-                  rule: 'Public',
+                  rule: 'Store',
                   requiresAuth: true,
                   pageTitle: 'Inventory Report',
                 }

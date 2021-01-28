@@ -13,8 +13,8 @@ export default {
       state.total = total
     },
 
-    SET_NEW_TOTAL (state) {
-      state.total -= 1
+    SET_NEW_TOTAL (state, total) {
+      state.total -= total
     },
 
     SET_NUMB_PAGES (state, pages) {

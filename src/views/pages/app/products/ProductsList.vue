@@ -82,7 +82,7 @@
         <vs-th sort-key="s/n">S/N</vs-th>
         <vs-th sort-key="name">Name</vs-th>
         <vs-th sort-key="quantity">Quantity</vs-th>
-        <vs-th sort-key="price">Price (₦)</vs-th>
+        <vs-th sort-key="price" v-show="$acl.check('Accountant')">Price (₦)</vs-th>
         <vs-th sort-key="label">Label</vs-th>
         <vs-th sort-key="createdAt">Date Created</vs-th>
         <vs-th>Action</vs-th>
@@ -104,7 +104,7 @@
                 <p class="product-name font-medium truncate">{{ tr.quantity }} {{ tr.unit }}</p>
               </vs-td>
 
-              <vs-td>
+              <vs-td v-show="$acl.check('Accountant')">
                 <p class="product-category">{{ Number(tr.selling_price).toLocaleString() }}</p>
               </vs-td>
 
@@ -118,6 +118,7 @@
               <vs-td class="whitespace-no-wrap">
                   <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" />
                   <feather-icon icon="EyeIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="viewData(tr.pid)" />
+                  <feather-icon icon="CornerUpLeftIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" class="ml-2" @click.stop="returnProduct(tr)" />
               </vs-td>
             </vs-tr>
           </tbody>
@@ -128,6 +129,7 @@
           <vs-pagination class="float-right" :total="pages" v-model="currentPage" :max="6"></vs-pagination>
         </div>
       <add-new-product :displayPrompt="displayPrompt" :data="productToEdit" @hideDisplayPrompt="hidePrompt"></add-new-product>
+      <return-product :isPromptActive="isPromptActive" :data="productToReturn" @hidePromptActive="hidePromptActive" />
   </div>
 </template>
 
@@ -135,12 +137,13 @@
 import AddNewProduct from './AddNewProduct.vue'
 import EditProduct from './EditProduct.vue'
 import ExportProducts from './ExportProducts'
-
+import ReturnProduct from './ReturnProduct'
 export default {
   components: {
     EditProduct,
     AddNewProduct,
-    ExportProducts
+    ExportProducts,
+    ReturnProduct
   },
   data () {
     return {
@@ -155,7 +158,9 @@ export default {
       currentPage: 1,
       displayPrompt: false,
       productToEdit: {},
-      displayExport: false
+      productToReturn: {},
+      displayExport: false,
+      isPromptActive: false
     }
   },
   computed: {
@@ -205,8 +210,18 @@ export default {
       this.sidebarData = data
       this.toggleDataSidebar(true)
     },
+
+    returnProduct (product) {
+      this.productToReturn = product
+      this.isPromptActive = true
+    },
+
+    hidePromptActive () {
+      this.isPromptActive = false
+    },
+
     viewData(id) {
-      this.$router.push(`/app/product/${id}`)
+      this.$router.push(`/app/products/${id}`)
     },
 
     showDisplayPrompt (product) {

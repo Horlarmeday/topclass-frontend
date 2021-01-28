@@ -48,5 +48,16 @@ export default {
         })
         .catch((error) => { reject(error) })
     })
+  },
+
+  returnProduct ({ commit }, product) {
+    return new Promise((resolve, reject) => {
+      axios.put(`/products/return`, product)
+        .then((response) => {
+          commit('UPDATE_PRODUCT', response.data.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
   }
 }
