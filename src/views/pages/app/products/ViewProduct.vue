@@ -28,7 +28,7 @@
               </tr>
               <tr>
                 <td class="font-semibold">Description</td>
-                <td>{{ product.description }}</td>
+                <td>{{ product.desc }}</td>
               </tr>
             </table>
           </div>
@@ -44,6 +44,10 @@
               <tr v-show="$acl.check(Accountant)">
                 <td class="font-semibold">Selling Price</td>
                 <td>₦{{ product.selling_price }}</td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Comment</td>
+                <td>{{ product.comment }}</td>
               </tr>
               <tr>
                 <td class="font-semibold">Created By</td>

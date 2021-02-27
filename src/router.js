@@ -291,6 +291,16 @@ const router = new Router({
                   pageTitle: 'Inventory Report',
                 }
               },
+              {
+                path: '/app/banks',
+                name: 'banks',
+                component: () => import('./views/pages/app/utilities/BankList.vue'),
+                meta: {
+                  rule: 'Accountant',
+                  requiresAuth: true,
+                  pageTitle: 'Banks',
+                }
+              },
             ],
         },
     // =============================================================================

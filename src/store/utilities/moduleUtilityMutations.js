@@ -64,8 +64,24 @@ export default {
     },
 
     REMOVE_DEFAULT (state, defaultId) {
-        const ItemIndex = state.defaults.findIndex((d) => d.did === defaultId)
-        state.defaults.splice(ItemIndex, 1)
-    }
+      const ItemIndex = state.defaults.findIndex((d) => d.did === defaultId)
+      state.defaults.splice(ItemIndex, 1)
+    },
+
+    ADD_BANK (state, bank) {
+      state.banks.unshift(bank)
+    },
+
+    SET_BANKS (state, banks) {
+        state.banks = banks
+    },
+
+    SET_BANKS_TOTAL (state, total) {
+        state.bankTotal = total
+    },
+
+    SET_BANK_NUMB_PAGES (state, pages) {
+        state.bankPages = pages
+    },
 }
   

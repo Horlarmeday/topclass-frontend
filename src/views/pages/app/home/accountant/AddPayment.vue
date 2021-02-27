@@ -28,9 +28,11 @@
                         v-validate="'required'"
                         data-vv-validate-on="blur"
                         name="bank"
+                        label="bank_name"
                         v-model="bank"
                         :closeOnSelect="true" 
                         :options="banks" 
+                        :reduce="banks => banks.bank_id"
                         :dir="$vs.rtl ? 'rtl' : 'ltr'" 
                     />
                     <span class="text-danger text-sm">{{errors.first('bank')}}</span>
@@ -85,14 +87,10 @@ export default {
         payment_method: '',
         bank: '',
         should_generate: false,
-        banks: [
-          'Access Bank PLC',
-          'Fidelity Bank PLC',
-          'Guaranty Trust Bank Plc',
-          'Zenith Bank PLC',
-          'Stanbic IBTC Bank PLC'
-        ]
       }
+    },
+    created() {
+      this.$store.dispatch('utilities/fetchBanks', { currentPage: 1, itemsPerPage: 20 })
     },
     // watch: {
     //     displayPrompt() {
@@ -103,17 +101,22 @@ export default {
     //     }
     // },
     computed: {
-        validateForm () {
-            return !this.errors.any() && this.amount !== '' && this.payment_method !== '' && this.bank !== ''
-        },
-        activePrompt:{
-            get () {
-                return this.paymentPrompt
-            },
-            set (value) {
-                this.$emit('hidePaymentPrompt', value)
-            }
-        },
+      validateForm () {
+        return !this.errors.any() && this.amount !== '' && this.payment_method !== '' && this.bank !== ''
+      },
+
+      activePrompt:{
+          get () {
+              return this.paymentPrompt
+          },
+          set (value) {
+              this.$emit('hidePaymentPrompt', value)
+          }
+      },
+      
+      banks () {
+        return this.$store.state.utilities.banks
+      },
     },
     methods: {
       handleError(error) {

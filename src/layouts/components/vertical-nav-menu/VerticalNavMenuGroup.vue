@@ -95,7 +95,7 @@ export default {
   data: () => ({
     maxHeight : '0px',
     openItems : false,
-    user: ''
+    user: '',
   }),
   computed: {
     verticalNavMenuItemsMin() { return this.$store.state.verticalNavMenuItemsMin },
@@ -126,10 +126,10 @@ export default {
         return open
       }
     },
-    canSee () {
-      this.$acl.check(this.user)
-      return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
-    },
+    // canSee () {
+    //   this.$acl.check(this.user)
+    //   return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
+    // },
   },
   watch: {
     // OPEN & CLOSES DROPDOWN ON ROUTE CHANGE
@@ -225,15 +225,21 @@ export default {
         let scrollHeight = 0
         this.maxHeight   = `${scrollHeight}px`
       }
-    }
+    },
+
+    canSee (user) {
+      this.$acl.check(user)
+      return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
+    },
   },
-  mounted() {
+  created() {
     this.openItems = this.open
     if (this.open) { this.maxHeight = 'none' }
+
     const token = parseJwt(localStorage.getItem('user-token'))
-    if (token) {
-      this.user = token.role
-    }
+    if (token) this.user = token.role
+
+    this.canSee(this.user)
   },
   // created() {
   //   const token = parseJwt(localStorage.getItem('user-token'))

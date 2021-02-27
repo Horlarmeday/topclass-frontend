@@ -20,7 +20,6 @@
                     <vs-input
                         v-validate="'required'"
                         data-vv-validate-on="blur"
-                        readonly
                         label="Name"
                         name="name"
                         v-model="name"

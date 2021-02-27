@@ -1,21 +1,18 @@
 <!-- =========================================================================================
-  File Name: PaymentList.vue
-  Description: Payment List - List View
+  File Name: BankList.vue
+  Description: Bank List - List View
 ========================================================================================== -->
 
 <template>
   <div id="data-list-list-view" class="data-list-container">
-
-    <export-payments :displayExport="displayExport" @hideDisplay="hideDisplayExport" v-if="displayExport"/>
-
-    <vs-table :sst="true" @search="handleSearch" ref="table" :max-items="itemsPerPage" search :data="payments" :total="queriedItems">
+    <vs-table :sst="true" ref="table" v-model="selected" :max-items="itemsPerPage" search :data="banks" :total="queriedItems">
       
       <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
 
         <div class="flex flex-wrap-reverse items-center data-list-btn-container">
 
           <!-- ACTION - DROPDOWN -->
-          <!-- <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
+          <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
 
             <div class="p-4 shadow-drop rounded-lg d-theme-dark-bg cursor-pointer flex items-center justify-center text-lg font-medium w-32 w-full">
               <span class="mr-2">Actions</span>
@@ -24,36 +21,29 @@
 
             <vs-dropdown-menu>
 
-              <vs-dropdown-item @click="showDisplayExport">
+              <vs-dropdown-item>
                 <span class="flex items-center">
-                  <feather-icon icon="SaveIcon" svgClasses="h-4 w-4" class="mr-2" />
-                  <span>Export</span>
+                  <feather-icon icon="TrashIcon" svgClasses="h-4 w-4" class="mr-2" />
+                  <span>Delete</span>
                 </span>
               </vs-dropdown-item>
 
             </vs-dropdown-menu>
-          </vs-dropdown> -->
+          </vs-dropdown>
+
+          <!-- ADD NEW -->
+          <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="showDisplayPrompt">
+              <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+              <span class="ml-2 text-base text-primary">Add Bank</span>
+          </div>
 
           <p class="mb-2">Total: <span class="total">{{ queriedItems ? queriedItems : 0 }}</span></p>
-
-          <vx-input-group class="ml-2" appendClasses="border border-solid border-grey border-r-0">
-            <datepicker placeholder="from" v-model="start"></datepicker>
-
-              <template slot="append">
-                <div class="append-text btn-addon">
-                  <vs-button type="border" class="whitespace-no-wrap" style="border: 0">...</vs-button>
-                  <!-- <span type="border" class="whitespace-no-wrap">..</span> -->
-                </div>
-              </template>
-          </vx-input-group>
-          <datepicker input-class="" placeholder="to" v-model="end"></datepicker>
-          <vs-button class="ml-6" @click="getPayments">Apply Filter</vs-button>
         </div>
 
         <!-- ITEMS PER PAGE -->
         <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
           <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
-            <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ payments.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : payments.length }} of {{ queriedItems }}</span>
+            <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ banks.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : banks.length }} of {{ queriedItems }}</span>
             <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
           </div>
           <!-- <vs-button class="btn-drop" type="line" color="primary" icon-pack="feather" icon="icon-chevron-down"></vs-button> -->
@@ -78,14 +68,13 @@
 
       <template slot="thead">
         <vs-th sort-key="s/n">S/N</vs-th>
-        <vs-th sort-key="customer">Customer</vs-th>
-        <vs-th sort-key="invoice">Invoice</vs-th>
-        <vs-th sort-key="invoice_numb">Invoice No</vs-th>
-        <vs-th sort-key="amount">Amount (₦)</vs-th>
-        <vs-th sort-key="method">Payment Method </vs-th>
-        <vs-th sort-key="bank">Bank</vs-th>
-        <vs-th sort-key="createdAt">Date Added</vs-th>
-        <vs-th>Action</vs-th>
+        <vs-th sort-key="name">Account Name</vs-th>
+        <vs-th sort-key="number">Account Number</vs-th>
+        <vs-th sort-key="bank_name">Bank Name</vs-th>
+        <vs-th sort-key="sort_code">Sort Code</vs-th>
+        <vs-th sort-key="tin_number">Tin Number</vs-th>
+        <vs-th sort-key="createdAt">Date Created</vs-th>
+        <!-- <vs-th>Action</vs-th> -->
       </template>
 
         <template slot-scope="{data}">
@@ -97,36 +86,27 @@
               </vs-td>
 
               <vs-td>
-                <p class="product-name font-medium truncate">{{ tr.Invoice.Customer.name.toUpperCase() }}</p>
+                <p class="product-name font-medium truncate">{{ tr.account_name }}</p>
               </vs-td>
-
               <vs-td>
-                <p class="product-name font-medium">{{ tr.Invoice.name }}</p>
+                <p class="product-name font-medium">{{ tr.account_number }}</p>
               </vs-td>
-
               <vs-td>
-                <p class="product-name">{{ tr.Invoice.invoice_numb }}</p>
+                <p class="product-name">{{ tr.bank_name }}</p>
               </vs-td>
-
               <vs-td>
-                <p class="product-category">{{ Number(tr.amount).toLocaleString() }}</p>
+                <p class="product-name">{{ tr.sort_code }}</p>
               </vs-td>
-
               <vs-td>
-                <p class="product-category">{{ tr.payment_method }}</p>
-              </vs-td>
-
-              <vs-td>
-                <p class="product-category">{{ tr.Bank.bank_name }}</p>
+                <p class="product-name">{{ tr.tin_number }}</p>
               </vs-td>
 
               <vs-td>
                 <p class="product-price">{{ tr.createdAt | moment('ddd, MMMM Do YYYY') }}</p>
               </vs-td>
-
-              <vs-td class="whitespace-no-wrap">
-                  <feather-icon icon="EyeIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="viewData(tr.ptid)" />
-              </vs-td>
+              <!-- <vs-td class="whitespace-no-wrap">
+                  <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="deleteData(tr.lid)" />
+              </vs-td> -->
             </vs-tr>
           </tbody>
         </template>
@@ -135,16 +115,16 @@
         <div>
           <vs-pagination class="float-right" :total="pages" v-model="currentPage" :max="6"></vs-pagination>
         </div>
+      <add-new-bank :displayPrompt="displayPrompt" @hideDisplayPrompt="hidePrompt"></add-new-bank>
   </div>
 </template>
 
 <script>
-import ExportPayments from './ExportPayments'
-import Datepicker from 'vuejs-datepicker';
+import AddNewBank from './AddNewBank.vue'
+
 export default {
   components: {
-    ExportPayments,
-    Datepicker
+    AddNewBank,
   },
   data () {
     return {
@@ -156,21 +136,24 @@ export default {
       // Data Sidebar
       currentPage: 1,
       displayPrompt: false,
-      productToEdit: {},
-      displayExport: false,
-      start: null,
-      end: null
+      displayExport: false
     }
   },
   computed: {
-    payments () {
-      return this.$store.state.payment.payments
+    // currentPage () {
+    //   if (this.isMounted) {
+    //     return this.$refs.table.currentx
+    //   }
+    //   return 0
+    // },
+    banks () {
+      return this.$store.state.utilities.banks
     },
     queriedItems () {
-      return this.$store.state.payment.total
+      return this.$store.state.utilities.bankTotal
     },
     pages() {
-      return this.$store.state.payment.pages
+      return this.$store.state.utilities.bankPages
     }
   },
   methods: {
@@ -189,49 +172,36 @@ export default {
     handleSuccess(response) {
       this.$vs.loading.close()
       this.$vs.notify({
-        title:'Success',
-        text: response.data.message,
-        color:'success',
-        position:'top-center',
-        iconPack: 'feather',
-        icon:'icon-alert-circle'
+          title:'Success',
+          text: response.data.message,
+          color:'success',
+          position:'top-center',
+          iconPack: 'feather',
+          icon:'icon-alert-circle'
       });
     },
-    addNewData () {
-      this.sidebarData = {}
-      this.toggleDataSidebar(true)
-    },
-    viewData(id) {
-      this.$router.push(`/app/payment/${id}`)
+    deleteData (lid) {
+      this.$store.dispatch('utilities/deleteLabel', lid).then(response => this.handleSuccess(response)).catch(err => { this.handleError(err) })
     },
 
-    showDisplayExport () {
-      this.displayExport = true
+    showDisplayPrompt () {
+      this.displayPrompt = true
     },
 
-    hideDisplayExport () {
-      this.displayExport = false
+    hidePrompt () {
+      this.displayPrompt = false
     },
 
     getOverallIndex(index) {
       return this.currentPage * this.itemsPerPage - this.itemsPerPage + index + 1
     },
 
-    handleSearch(search) {
-      this.currentPage = 1
-      this.$store.dispatch('payment/fetchPayments', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, search })
-    },
-
     handlePageChange() {
-      this.$store.dispatch('payment/fetchPayments', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, start: this.start, end: this.end })
+      this.$store.dispatch('utilities/fetchBanks', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
     },
-
-    getPayments() {
-        this.$store.dispatch('payment/fetchPayments', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, start: this.start, end: this.end })
-    }
   },
   created () {
-    this.$store.dispatch('payment/fetchPayments', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
+    this.$store.dispatch('utilities/fetchBanks', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
   },
   mounted () {
     this.isMounted = true
@@ -282,14 +252,14 @@ export default {
       }
     }
 
+    .product-name {
+      max-width: 23rem;
+    }
+
     .total {
       background: #b22334d9;
       padding: 4px;
       color: #fff
-    }
-
-    .product-name {
-      max-width: 23rem;
     }
 
     .vs-table--header {

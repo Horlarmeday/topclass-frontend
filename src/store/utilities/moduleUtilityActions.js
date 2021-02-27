@@ -106,4 +106,29 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
+
+  addBank({ commit }, bank) {
+    return new Promise((resolve, reject) => {
+      axios.post('/utilities/bank/create', bank)
+        .then((response) => {
+          commit('ADD_BANK',  response.data.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+
+  fetchBanks ({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      axios.get('/utilities/bank', { params: { currentPage: payload.currentPage, pageLimit: payload.itemsPerPage } })
+        .then((response) => {
+          commit('SET_BANKS', response.data.data.docs)
+          commit('SET_BANKS_TOTAL', response.data.data.total)
+          commit('SET_BANK_NUMB_PAGES', response.data.data.pages)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+
 }

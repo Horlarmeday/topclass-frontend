@@ -7,10 +7,15 @@ export default {
     units: [],
     labels: [],
     defaults: [],
+    banks: [],
+
     unitTotal: null,
     defaultTotal: null,
+    labelTotal: null,
+    bankTotal: null,
+
     unitPages: 0,
     defaultPages: 0,
-    labelTotal: null,
-    labelPages: 0
+    labelPages: 0,
+    bankPages: 0
 }

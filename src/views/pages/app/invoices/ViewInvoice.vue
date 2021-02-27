@@ -83,6 +83,7 @@
             <tr>
               <th>S/N</th> 
               <th>ITEM</th>
+              <th>DESC.</th>
               <th>QUANTITY</th>
               <th>UNIT COST(₦)</th>
               <th>TOTAL(₦)</th>
@@ -91,6 +92,7 @@
             <tr data-iterate="item" v-for="(prd, index) in invoice.invoice.InvoiceItems" :key="index">
               <td>{{ index + 1 }}</td> <!-- Don't remove this column as it's needed for the row commands -->
               <td>{{ prd.item }}</td>
+              <td>{{ prd.Product.desc }}</td>
               <td>{{ prd.quantity }}</td>
               <td>{{ Number(Number(prd.price) / prd.quantity).toLocaleString() }}</td>
               <td>{{ Number(prd.price).toLocaleString() }}</td>

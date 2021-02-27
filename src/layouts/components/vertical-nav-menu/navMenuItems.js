@@ -143,6 +143,12 @@ export default [
         slug: 'waybill',
         i18n: 'Waybill'
       },
+      {
+        url: '/app/banks',
+        name: 'Bank',
+        slug: 'bank',
+        i18n: 'Bank'
+      },
     ]
   },
 ]
