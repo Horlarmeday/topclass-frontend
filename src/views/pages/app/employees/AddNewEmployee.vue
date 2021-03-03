@@ -39,7 +39,7 @@
                 </div>
                 <div class="vx-row mb-2">
                     <div class="vx-col w-full">
-                        <vs-input class="w-full" type="text" label="Password" v-model="password" name="password" />
+                        <vs-input class="w-full" type="password" label="Password" v-model="password" name="password" />
                         <span class="text-danger text-sm">{{errors.first('password')}}</span>
                     </div>
                 </div>
@@ -208,6 +208,8 @@ export default {
         this.username = ''
         this.password = ''
         this.role = ''
+        this.guarantor_name = ''
+        this.guarantor_phone = ''
       }
     },
     

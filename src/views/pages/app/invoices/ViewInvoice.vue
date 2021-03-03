@@ -123,7 +123,6 @@
         </section>
         
         <section id="sums">
-        
           <table cellpadding="0" cellspacing="0">
             <tr>
               <th>Subtotal</th>
@@ -163,8 +162,111 @@
           <div class="clearfix"></div>
           
         </section>
+
+        <div class="clearfix"></div>
+
+        <section id="information" v-if="invoice.invoice.invoice_type === 'proforma invoice'">
+          <p class="bold mb-2">{{ information }}</p>
+          <table cellpadding="0" cellspacing="0">
+            <tr>
+              <th>Country of Origin</th>
+              <td class="bold">{{ invoice.invoice.country_of_origin }}</td>
+            </tr>
+            
+            <tr data-iterate="tax">
+              <th>Condition of Sale:</th>
+              <td class="bold">{{ invoice.invoice.condition_of_sale }}</td>
+            </tr>
+            
+            <tr>
+              <th>Terms of Payment:</th>
+              <td class="bold">{{ invoice.invoice.terms_of_payment }}</td>
+            </tr>
+
+            <tr class="amount-total">
+              <th>Delivery</th>
+              <td class="bold">{{ invoice.invoice.delivery }}</td>
+            </tr>
+            
+            <tr data-hide-on-quote="true">
+              <th>Warranty:</th>
+              <td class="bold">{{ warranty }}</td>
+            </tr>
+
+            <tr data-hide-on-quote="true">
+              <th>Validity:</th>
+              <td class="bold">{{ invoice.invoice.validity }}</td>
+            </tr>
+
+            <tr data-hide-on-quote="true">
+              <th>Installation:</th>
+              <td class="bold">{{ invoice.invoice.installation }}</td>
+            </tr>
+            <tr data-hide-on-quote="true">
+              <th>Place of Delivery:</th>
+              <td class="bold">{{ invoice.invoice.place_of_delivery }}</td>
+            </tr>
+            <tr>
+              <th>Note:</th>
+              <td class="bold">{{ note }}</td>
+            </tr>
+          </table>
+        </section>
+
+        <div class="clearfix"></div>
+
+        <section id="bank" v-if="invoice.invoice.invoice_type === 'proforma invoice'">
+          <p class="to-upper-case text-underline mb-2 bold">Account Details</p>
+          <table cellpadding="0" cellspacing="0">
+            <tr>
+              <th>Account Name</th>
+              <td class="bold">{{ invoice.invoice.Bank.account_name }}</td>
+            </tr>
+
+            
+            <tr data-iterate="tax">
+              <th>Bank Name</th>
+              <td class="bold">{{ invoice.invoice.Bank.bank_name }}</td>
+            </tr>
+            
+            <tr>
+              <th>Account Number</th>
+              <td class="bold">{{ invoice.invoice.Bank.account_number }}</td>
+            </tr>
+
+            <tr class="amount-total">
+              <th>Sort Code</th>
+              <td class="bold">{{ invoice.invoice.Bank.sort_code }}</td>
+            </tr>
+            
+            <tr data-hide-on-quote="true">
+              <th>Tin Number</th>
+              <td class="bold">{{ invoice.invoice.Bank.tin_number }}</td>
+            </tr>
+          </table>
+        </section>
         
         <div class="clearfix"></div>
+
+        <section id="signature">
+          <div class="mb-4">
+            <span>Yours Faithfully</span>
+            <span class="space-right bold">Accepted By</span>
+            <p></p>
+          </div>
+          <div style="margin-bottom: 45px">
+            <span class="bold">For: TOPCLASS POWER LTD</span>
+            <span class="space-right"></span>
+            <p></p>
+          </div>
+          <div class="mb-2">
+            <small>{{invoice.invoice.Staff.fullname}}</small>
+            <span class="space-right">Date</span>
+          </div>
+          <div>
+            <small>{{invoice.invoice.Staff.role}}</small>
+          </div>
+        </section>
 
         <!-- <section id="invoice-info">
           <div>
@@ -196,6 +298,14 @@
 export default {
     created() {
         this.$store.dispatch('invoice/fetchParamInvoice', this.$route.params.invoiceId).catch(err => { this.handleError(err) })
+    },
+
+    data() {
+      return {
+        information: 'For more Information, please view the attached brochures for Genset/Sound Attenuated Enclosures',
+        warranty: '24 months/2000hrs (whichever occurs first) from the date of commissioning, but on the condition that no third party carries out any Mechanical/Electrical repairs on the Gen set during this period otherwise the warranty is terminated.',
+        note: 'Delivery will be done by Topclass Power Ltd. Manual Pushing/Positioning/Area boys will be done by client or as mutually agreed.'
+      }
     },
 
     computed: {

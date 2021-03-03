@@ -1,13 +1,7 @@
 <template>
   <div>
-        <vs-prompt
+        <vs-popup
             title="Create Customer"
-            accept-text= "Submit"
-            button-cancel = "border"
-            @cancel="initValues"
-            @accept="createCustomer"
-            @close="activePrompt = false"
-            :is-valid="validateForm"
             :active.sync="activePrompt">
         <div>
           
@@ -90,10 +84,14 @@
                           <span class="text-danger text-sm">{{errors.first('customer_type')}}</span>
                         </div>
                       </div>
+                      <div slot="footer" class="pt-8">
+                    <vs-button class="mr-6" @click="createCustomer" :disabled="!validateForm">Submit</vs-button>
+                    <vs-button type="border" color="danger" @click="activePrompt = false">Cancel</vs-button>
+                </div>
                   </div>
             
         </div>
-    </vs-prompt>
+        </vs-popup>
   </div>
 </template>
 
@@ -204,6 +202,7 @@ export default {
                 .then(response => {
                     this.handleSuccess(response)
                     this.initValues()
+                    this.$emit('hideDisplayPrompt')
                 })
                 .catch(err => { this.handleError(err) })
             }

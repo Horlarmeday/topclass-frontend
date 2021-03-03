@@ -10,6 +10,8 @@ import SecretaryDashboard from './secretary/Dashboard'
 import WorkshopDashboard from './workshop/Dashboard'
 import StoreDashboard from './store/Dashboard'
 import AdminDashboard from './admin/Dashboard'
+import SalesDashboard from './sales/Dashboard'
+import CreditControlDashboard from './credit-control/Dashboard'
 
 const RoleDashboardMapping = {
   'SuperAdmin': SuperAdminDashboard,
@@ -17,7 +19,9 @@ const RoleDashboardMapping = {
   'Secretary': SecretaryDashboard,
   'Workshop': WorkshopDashboard,
   'Store': StoreDashboard,
-  'Admin': AdminDashboard
+  'Admin': AdminDashboard,
+  'Sales': SalesDashboard,
+  'Credit-Control': CreditControlDashboard
 }
 export default {
   data(){

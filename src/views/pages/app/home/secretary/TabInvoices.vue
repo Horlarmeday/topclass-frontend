@@ -7,7 +7,7 @@
 
     <edit-invoice :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" />
 
-    <vs-table :sst="true" @search="handleSearch" ref="table" :max-items="itemsPerPage" search :data="invoices" :total="queriedItems">
+    <vs-table :sst="true" ref="table" :max-items="itemsPerPage" :data="invoices" :total="queriedItems">
       
       <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
 
@@ -35,6 +35,7 @@
         <vs-th sort-key="s/n">S/N</vs-th>
         <vs-th sort-key="name">Name</vs-th>
         <vs-th sort-key="invoice_type">Invoice Type</vs-th>
+        <vs-th sort-key="customer">Customer</vs-th>
         <vs-th sort-key="status">Status</vs-th>
         <vs-th sort-key="createdAt">Date Created</vs-th>
         <vs-th>Action</vs-th>
@@ -54,6 +55,10 @@
 
               <vs-td>
                 <p class="product-category">{{ tr.invoice_type }}</p>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-category">{{ tr.Customer.name }}</p>
               </vs-td>
 
                <vs-td>
@@ -174,13 +179,8 @@ export default {
       return this.currentPage * this.itemsPerPage - this.itemsPerPage + index + 1
     },
 
-    handleSearch(search) {
-      this.currentPage = 1
-      this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, search })
-    },
-
     handlePageChange() {
-      this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
+      this.$store.dispatch('invoice/fetchStaffInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
     },
     getOrderStatusColor (type) {
       if (type === 1) return 'success'
@@ -192,7 +192,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
+    this.$store.dispatch('invoice/fetchStaffInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
   },
   mounted () {
     this.isMounted = true

@@ -38,6 +38,22 @@ export default {
     })
   },
 
+  fetchStaffInvoices ({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      axios.get('/invoices/staff-invoices', { params: { 
+        currentPage: payload.currentPage, 
+        pageLimit: payload.itemsPerPage,
+      }})
+        .then((response) => {
+          commit('SET_INVOICES', response.data.data.docs)
+          commit('SET_INVOICES_TOTAL', response.data.data.total)
+          commit('SET_NUMB_PAGES', response.data.data.pages)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+
   // SOCKET_send({commit}, payload) {
   //   this.$socket.emit('new_invoice', payload)
   // },
