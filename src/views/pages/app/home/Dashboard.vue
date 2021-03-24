@@ -12,6 +12,7 @@ import StoreDashboard from './store/Dashboard'
 import AdminDashboard from './admin/Dashboard'
 import SalesDashboard from './sales/Dashboard'
 import CreditControlDashboard from './credit-control/Dashboard'
+import CFODashboard from './cfo/Dashboard'
 
 const RoleDashboardMapping = {
   'SuperAdmin': SuperAdminDashboard,
@@ -21,7 +22,8 @@ const RoleDashboardMapping = {
   'Store': StoreDashboard,
   'Admin': AdminDashboard,
   'Sales': SalesDashboard,
-  'Credit-Control': CreditControlDashboard
+  'Credit-Control': CreditControlDashboard,
+  'CFO': CFODashboard
 }
 export default {
   data(){
