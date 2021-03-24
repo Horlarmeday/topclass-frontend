@@ -208,9 +208,13 @@
                                    />
                                 </div>
                             </div>
-                            
                         </div>
-
+                        <div class="vx-row mb-2">
+                            <div class="vx-col w-full">
+                                <small class="ml-2">Date of Transaction</small>
+                                <datepicker input-class="mb-3" placeholder="Date" v-model="date_of_transaction" />
+                            </div>
+                        </div>
                           <ul class="centerx mt-4">
                             <li>
                                 <vs-checkbox v-model="should_include_vat">Include VAT</vs-checkbox>
@@ -232,6 +236,7 @@
 <script>
 import vSelect from 'vue-select'
 import axios from '../../../../axios'
+import Datepicker from 'vuejs-datepicker';
 export default {
     props: {
         displayPrompt: {
@@ -240,7 +245,8 @@ export default {
         }
     },
     components: {
-        vSelect
+        vSelect,
+        Datepicker
     },
     data() {
         return {
@@ -254,6 +260,7 @@ export default {
             validity: '',
             installation: '',
             place_of_delivery: '',
+            date_of_transaction: '',
             bank_id: '',
             cid: '',
             quotation: '',
@@ -414,6 +421,7 @@ export default {
                 installation: this.installation,
                 place_of_delivery: this.place_of_delivery,
                 bank_id: this.bank_id,
+                date_of_transaction: this.date_of_transaction,
             }
         } else if(this.serviceItems[0].service) {
             this.items = [...this.defaults, ...this.serviceItems]
@@ -431,6 +439,7 @@ export default {
                 installation: this.installation,
                 place_of_delivery: this.place_of_delivery,
                 bank_id: this.bank_id,
+                date_of_transaction: this.date_of_transaction,
             }
         } else {
             obj = {
@@ -447,6 +456,7 @@ export default {
                 installation: this.installation,
                 place_of_delivery: this.place_of_delivery,
                 bank_id: this.bank_id,
+                date_of_transaction: this.date_of_transaction,
             }
         }
         this.$vs.loading()
@@ -481,6 +491,7 @@ export default {
         this.service = []
         this.defaults = []
         this.items = []
+        this.date_of_transaction = '',
         this.serviceItems = [{
             quantity: '',
             item: '',
