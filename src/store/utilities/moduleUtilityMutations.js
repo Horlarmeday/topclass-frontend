@@ -83,5 +83,10 @@ export default {
     SET_BANK_NUMB_PAGES (state, pages) {
         state.bankPages = pages
     },
+
+    UPDATE_BANK (state, bank) {
+      const bankIndex = state.banks.findIndex((p) => p.bank_id === bank.bank_id)
+      Object.assign(state.banks[bankIndex], bank)
+    }
 }
   

@@ -5,6 +5,9 @@
 
 <template>
   <div id="data-list-list-view" class="data-list-container">
+    
+    <edit-bank :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" />
+
     <vs-table :sst="true" ref="table" v-model="selected" :max-items="itemsPerPage" search :data="banks" :total="queriedItems">
       
       <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
@@ -104,9 +107,9 @@
               <vs-td>
                 <p class="product-price">{{ tr.createdAt | moment('ddd, MMMM Do YYYY') }}</p>
               </vs-td>
-              <!-- <vs-td class="whitespace-no-wrap">
-                  <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="deleteData(tr.lid)" />
-              </vs-td> -->
+              <vs-td class="whitespace-no-wrap">
+                  <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="editData(tr)" />
+              </vs-td>
             </vs-tr>
           </tbody>
         </template>
@@ -121,10 +124,12 @@
 
 <script>
 import AddNewBank from './AddNewBank.vue'
+import EditBank from './EditBank.vue'
 
 export default {
   components: {
     AddNewBank,
+    EditBank
   },
   data () {
     return {
@@ -136,7 +141,9 @@ export default {
       // Data Sidebar
       currentPage: 1,
       displayPrompt: false,
-      displayExport: false
+      displayExport: false,
+      addNewDataSidebar: false,
+      sidebarData: {},
     }
   },
   computed: {
@@ -188,6 +195,11 @@ export default {
       this.displayPrompt = true
     },
 
+    editData(data) {
+      this.sidebarData = data
+      this.toggleDataSidebar(true)
+    },
+
     hidePrompt () {
       this.displayPrompt = false
     },
@@ -199,6 +211,9 @@ export default {
     handlePageChange() {
       this.$store.dispatch('utilities/fetchBanks', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })
     },
+    toggleDataSidebar (val = false) {
+      this.addNewDataSidebar = val
+    }
   },
   created () {
     this.$store.dispatch('utilities/fetchBanks', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage })

@@ -131,4 +131,15 @@ export default {
     })
   },
 
+  updateBank ({ commit }, bank) {
+    return new Promise((resolve, reject) => {
+      axios.put(`/utilities/bank`, bank)
+        .then((response) => {
+          commit('UPDATE_BANK', response.data.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+
 }
