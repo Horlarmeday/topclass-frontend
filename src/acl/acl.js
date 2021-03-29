@@ -21,10 +21,10 @@ export default new AclCreate({
   acceptLocalRules : true,
   globalRules: {
     SuperAdmin  : new AclRule('SuperAdmin').generate(),
-    Public  : new AclRule('Public').or('Accountant').or('Secretary').or('Store').or('Workshop').or('Admin').or('SuperAdmin').or('Sales').or('Credit-Control').generate(),
+    Public  : new AclRule('Public').or('Accountant').or('Secretary').or('Store').or('Workshop').or('Admin').or('SuperAdmin').or('Sales').or('Credit-Control').or('CFO').generate(),
     Accountant : new AclRule('Accountant').or('SuperAdmin').or('Admin').or('Credit-Control').or('CFO').generate(),
     Secretary : new AclRule('Secretary').or('SuperAdmin').or('Admin').or('Workshop').or('Credit-Control').or('Sales').generate(),
     Store : new AclRule('Store').or('SuperAdmin').or('Accountant').generate(),
-    Workshop : new AclRule('Workshop').or('SuperAdmin').generate(),
+    Workshop : new AclRule('Workshop').or('SuperAdmin').or('CFO').or('Accountant').generate(),
   }
 })
