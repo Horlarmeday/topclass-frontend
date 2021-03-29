@@ -82,6 +82,13 @@
                         <span class="text-danger text-sm">{{errors.first('driver_phone')}}</span>
                     </div>
                 </div>
+                <div class="vx-row mb-2">
+                    <div class="vx-col w-full">
+                        <small class="ml-2">Date of Transaction</small>
+                        <datepicker input-class="mb-3" placeholder="Date" v-model="date_of_transaction" name="date_of_transaction"/>                        
+                        <span class="text-danger text-sm">{{errors.first('date_of_transaction')}}</span>
+                    </div>
+                </div>
                 <div slot="footer" class="pt-8">
                     <vs-button class="mr-6" @click="createWaybill" :disabled="!isFormValid">Submit</vs-button>
                     <vs-button type="border" color="danger" @click="activePrompt = false">Cancel</vs-button>
@@ -94,6 +101,7 @@
 
 <script>
 import vSelect from 'vue-select'
+import Datepicker from 'vuejs-datepicker';
 export default {
     props: {
         displayPrompt: {
@@ -102,7 +110,8 @@ export default {
         }
     },
     components: {
-        vSelect
+        vSelect,
+        Datepicker
     },
     data() {
         return {
@@ -112,6 +121,7 @@ export default {
             cid: '',
             sid: '',
             vehicle_numb: '',
+            date_of_transaction: '',
             is_outsourced: false
         }
     },
@@ -134,6 +144,7 @@ export default {
              this.driver_name !== '' &&
              this.ivid !== '' &&
              this.vehicle_numb !== '' &&
+             this.date_of_transaction !== '' &&
              this.cid !== ''
         },
 
@@ -185,6 +196,7 @@ export default {
             name: `${this.cid.name} Waybill`,
             driver_phone: this.driver_phone,
             vehicle_numb: this.vehicle_numb,
+            date_of_transaction: this.date_of_transaction,
             ivid: this.ivid
         }
         this.$vs.loading()
@@ -206,6 +218,7 @@ export default {
         this.cid = '',
         this.driver_phone = '',
         this.vehicle_numb = '',
+        this.date_of_transaction = '',
         this.ivid = ''
       },
 

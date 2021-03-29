@@ -29,6 +29,13 @@
                         <span class="text-danger text-sm">{{errors.first('description')}}</span>
                     </div>
                 </div>
+                <div class="vx-row mb-2">
+                    <div class="vx-col w-full">
+                        <small class="ml-2">Date of Expense</small>
+                         <datepicker input-class="mb-3" placeholder="Date" v-model="date_of_expense" name="date_of_expense"/>
+                        <span class="text-danger text-sm">{{errors.first('date_of_expense')}}</span>
+                    </div>
+                </div>
                 <div slot="footer" class="pt-8">
                     <vs-button class="mr-6" @click="createExpense" :disabled="!isFormValid">Submit</vs-button>
                     <vs-button type="border" color="danger" @click="activePrompt = false">Cancel</vs-button>
@@ -40,7 +47,7 @@
 </template>
 
 <script>
-
+import Datepicker from 'vuejs-datepicker';
 export default {
     props: {
         displayPrompt: {
@@ -48,21 +55,25 @@ export default {
             required: true
         }
     },
+    components: {
+        Datepicker
+    },
     data() {
         return {
             name: '',
             unit: '',
             cost: '',
-            description: ''
+            description: '',
+            date_of_expense: ''
         }
     },
     computed: {
-
         isFormValid () {
             return !this.errors.any() &&
              this.name !== '' &&
              this.unit !== '' &&
              this.cost !== '' &&
+             this.date_of_expense !== '' &&
              this.description !== ''
         },
 
@@ -107,7 +118,8 @@ export default {
             name: this.name,
             cost: this.cost,
             description: this.description,
-            unit: this.unit
+            unit: this.unit,
+            date_of_expense: this.date_of_expense
         }
         this.$vs.loading()
         this.$validator.validateAll().then(result => {
@@ -128,6 +140,7 @@ export default {
         this.cost = '',
         this.name = ''
         this.description = ''
+        this.date_of_expense = ''
       },
     
     }

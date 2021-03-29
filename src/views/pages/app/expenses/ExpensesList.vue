@@ -82,6 +82,7 @@
         <vs-th sort-key="description">Description</vs-th>
         <vs-th sort-key="cost">Cost</vs-th>
         <vs-th sort-key="unit">Unit</vs-th>
+        <vs-th sort-key="date_of_expense">Date of Transaction</vs-th>
         <vs-th sort-key="createdAt">Date Created</vs-th>
         <vs-th>Action</vs-th>
       </template>
@@ -110,6 +111,10 @@
                 <p class="product-category">{{ tr.unit }}</p>
               </vs-td>
 
+              <vs-td>
+                <p class="product-price">{{ tr.date_of_expense | moment('ddd, MMMM Do YYYY') }}</p>
+              </vs-td>
+              
               <vs-td>
                 <p class="product-price">{{ tr.createdAt | moment('ddd, MMMM Do YYYY') }}</p>
               </vs-td>

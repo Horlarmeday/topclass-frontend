@@ -25,6 +25,9 @@
 
         <vs-input label="Description" v-model="description" class="mt-5 w-full" readonly/>
 
+        <small class="ml-2">Date of Expense</small>
+        <datepicker input-class="mt-5 w-full" placeholder="Date" v-model="date_of_expense" readonly/>
+
         <p class="mt-4">CREATED BY: <span class="ml-3">{{ staff }}</span></p>
 
       </div>
@@ -39,6 +42,7 @@
 
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
+import Datepicker from 'vuejs-datepicker';
 export default {
   props: {
     isSidebarActive: {
@@ -52,6 +56,7 @@ export default {
   },
   components: {
     VuePerfectScrollbar,
+    Datepicker
   },
   data () {
     return {
@@ -59,6 +64,7 @@ export default {
       unit: null,
       cost: null,
       description: null,
+      date_of_expense: null,
       staff: null,
       settings: { // perfectscrollbar settings
         maxScrollbarLength: 60,
@@ -73,11 +79,12 @@ export default {
         this.initValues()
         this.$validator.reset()
       } else {
-        const { cost, unit, name, description, Staff } = JSON.parse(JSON.stringify(this.data))
+        const { cost, unit, name, description, Staff, date_of_expense } = JSON.parse(JSON.stringify(this.data))
         this.cost = cost
         this.name = name
         this.unit = unit
         this.description = description
+        this.date_of_expense = date_of_expense
         this.staff = Staff.fullname
         this.initValues()
       }
@@ -105,6 +112,7 @@ export default {
       this.unit = null
       this.cost = null
       this.description = null
+      this.date_of_expense = null
       this.staff = null
     },
   }

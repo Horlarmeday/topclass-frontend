@@ -59,6 +59,10 @@
         <vs-input label="Driver Phone" v-model="driver_phone" class="mt-5 w-full" name="driver_phone" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('driver_phone')">{{ errors.first('driver_phone') }}</span>
 
+        <small class="ml-2">Date of Transaction</small>
+        <datepicker input-class="mb-3" placeholder="Date" v-model="date_of_transaction" name="date_of_transaction"/> 
+        <span class="text-danger text-sm" v-show="errors.has('driver_phone')">{{ errors.first('driver_phone') }}</span>
+
       </div>
     </component>
 
@@ -72,6 +76,7 @@
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import vSelect from 'vue-select'
+import Datepicker from 'vuejs-datepicker';
 export default {
   props: {
     isSidebarActive: {
@@ -85,12 +90,14 @@ export default {
   },
   components: {
     VuePerfectScrollbar,
-    vSelect
+    vSelect,
+    Datepicker
   },
   data () {
     return {
       driver_name: '',
       driver_phone: '',
+      date_of_transaction: '',
       ivid: '',
       cid: '',
       wyid: '',
@@ -108,13 +115,14 @@ export default {
         this.initValues()
         this.$validator.reset()
       } else {
-        const { wyid, driver_phone, driver_name, vehicle_numb, ivid, cid } = JSON.parse(JSON.stringify(this.data))
+        const { wyid, driver_phone, driver_name, vehicle_numb, ivid, cid, date_of_transaction } = JSON.parse(JSON.stringify(this.data))
         this.wyid = wyid
         this.driver_phone = driver_phone
         this.driver_name = driver_name
         this.vehicle_numb = vehicle_numb
         this.ivid = ivid
         this.cid = cid
+        this.date_of_transaction = date_of_transaction
         this.initValues()
       }
     }
@@ -159,6 +167,7 @@ export default {
       this.vehicle_numb = null
       this.cid = null
       this.ivid = null
+      this.date_of_transaction = null
     },
     handleError(error) {
         this.$vs.loading.close()
@@ -192,7 +201,8 @@ export default {
             driver_phone: this.driver_phone,
             vehicle_numb: this.vehicle_numb,
             cid: this.cid,
-            ivid: this.ivid
+            ivid: this.ivid,
+            date_of_transaction: this.date_of_transaction
           }
           if (this.wyid !== null && this.wyid >= 0)
             this.$store.dispatch('waybill/updateWaybill', obj)

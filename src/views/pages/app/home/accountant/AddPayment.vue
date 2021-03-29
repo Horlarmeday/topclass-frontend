@@ -50,6 +50,11 @@
                     />
                     <span class="text-danger text-sm">{{errors.first('payment_method')}}</span>
                   </div>
+                  <div class="vx-col w-full mb-4">
+                    <small class="ml-2">Date of Payment</small>
+                    <datepicker input-class="mb-3" placeholder="Date" v-model="date_of_payment" name="date_of_payment"/>
+                    <span class="text-danger text-sm">{{errors.first('date_of_payment')}}</span>
+                  </div>
                   <div class="mb-2">
                         <small class="ml-4">Tick if you want to generate receipt</small>
                         <ul class="demo-alignment ml-4">
@@ -67,6 +72,7 @@
 
 <script>
 import vSelect from 'vue-select'
+import Datepicker from 'vuejs-datepicker';
 export default {
     props: {
       paymentPrompt: {
@@ -79,7 +85,8 @@ export default {
       }
     },
     components: {
-        vSelect
+        vSelect,
+        Datepicker
     },
     data() {
       return {
@@ -87,6 +94,7 @@ export default {
         payment_method: '',
         bank: '',
         should_generate: false,
+        date_of_payment: '',
       }
     },
     created() {
@@ -102,7 +110,7 @@ export default {
     // },
     computed: {
       validateForm () {
-        return !this.errors.any() && this.amount !== '' && this.payment_method !== '' && this.bank !== ''
+        return !this.errors.any() && this.amount !== '' && this.payment_method !== '' && this.bank !== '' && this.date_of_payment !== ''
       },
 
       activePrompt:{
@@ -148,6 +156,7 @@ export default {
           amount: this.amount,
           payment_method: this.payment_method,
           bank: this.bank,
+          date_of_payment: this.date_of_payment,
           should_generate: this.should_generate
         }
         this.$vs.loading()
@@ -169,6 +178,7 @@ export default {
         this.amount = ''
         this.payment_method = '',
         this.bank = '',
+        this.date_of_payment = '',
         this.should_generate = false
       }
     }

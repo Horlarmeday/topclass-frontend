@@ -54,6 +54,7 @@
         <vs-th sort-key="name">Name</vs-th>
         <vs-th sort-key="waybill_numb">Waybill Code</vs-th>
         <vs-th sort-key="vehicle_numb">Vehicle Number</vs-th>
+        <vs-th sort-key="date_of_transaction">Date of Transaction</vs-th>
         <vs-th sort-key="createdAt">Date Created</vs-th>
         <vs-th>Action</vs-th>
       </template>
@@ -78,6 +79,10 @@
                 <p class="product-category">{{ tr.vehicle_numb }}</p>
               </vs-td>
 
+              <vs-td>
+                <p class="product-price">{{ tr.date_of_transaction | moment('ddd, MMMM Do YYYY') }}</p>
+              </vs-td>
+              
               <vs-td>
                 <p class="product-price">{{ tr.createdAt | moment('ddd, MMMM Do YYYY') }}</p>
               </vs-td>
