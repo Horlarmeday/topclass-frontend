@@ -29,8 +29,9 @@ export default {
     },
 
     UPDATE_INVOICE (state, invoice) {
-      const invoiceIndex = state.invoices.findIndex((i) => i.ivid === invoice.ivid)
-      Object.assign(state.invoices[invoiceIndex], invoice)
+      console.log(invoice)
+      // const invoiceIndex = state.invoices.findIndex((i) => i.ivid === invoice.ivid)
+      // Object.assign(state.invoices[invoiceIndex], invoice)
     },
 
     DISPENSE_ITEM (state, item) {

@@ -276,7 +276,8 @@ export default {
                 item_id: '',
                 price: '',
                 service: '',
-                label: ''
+                label: '',
+                item_type: 'Service'
             }],
             productItems: [{
                 quantity: '',
@@ -284,7 +285,8 @@ export default {
                 item_id: '',
                 price: '',
                 product: '',
-                label: ''
+                label: '',
+                item_type: 'Product'
             }],
 
             showModal: true
@@ -406,7 +408,7 @@ export default {
       createInvoice () {
         let obj
         if(this.productItems[0].product) {
-            this.items = [...this.defaults, ...this.productItems]
+            this.items = [...this.defaults, ...this.productItems, ...this.serviceItems]
             obj = {
                 name: this.name,
                 cid: this.cid,
@@ -424,7 +426,7 @@ export default {
                 date_of_transaction: this.date_of_transaction,
             }
         } else if(this.serviceItems[0].service) {
-            this.items = [...this.defaults, ...this.serviceItems]
+            this.items = [...this.defaults, ...this.serviceItems, ...this.productItems]
             obj = {
                 name: this.name,
                 cid: this.cid,

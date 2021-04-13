@@ -150,6 +150,15 @@ const router = new Router({
                 }
               },
               {
+                path: '/app/invoice/edit/:id',
+                name: 'invoiceedit',
+                component: () => import('./views/pages/app/invoices/EditInvoice.vue'),
+                meta: {
+                  rule: 'Public',
+                  requiresAuth: true,
+                }
+              },
+              {
                 path: '/app/defaults',
                 name: 'defaults',
                 component: () => import('./views/pages/app/utilities/DefaultList.vue'),

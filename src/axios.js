@@ -19,9 +19,9 @@ axios.interceptors.response.use(
       let res = error.response;
       if (error.response && error.response.data) {
         if (res.status == 401) store.dispatch("auth/logout");
-        return Promise.reject(error.response.data);
+        return Promise.reject(error);
       }
-      return Promise.reject(error.message);
+      return Promise.reject(error);
     }
   );
 

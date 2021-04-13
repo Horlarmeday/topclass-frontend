@@ -153,7 +153,7 @@
                 <p class="product-price">{{ tr.createdAt | moment('ddd, MMMM Do YYYY') }}</p>
               </vs-td>
               <vs-td class="whitespace-no-wrap">
-                  <!-- <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" /> -->
+                  <feather-icon v-if="tr.is_approved !== 1" icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click="editData(tr.ivid)" />
                   <feather-icon icon="EyeIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="viewData(tr.ivid)" />
                   <!-- <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click="deleteData(tr.ivid)" /> -->
               </vs-td>
@@ -246,10 +246,8 @@ export default {
     deleteData (ivid) {
       this.$store.dispatch('invoice/removeInvoice', ivid).then(response => this.handleSuccess(response)).catch(err => { this.handleError(err) })
     },
-    editData (data) {
-      // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
-      this.sidebarData = data
-      this.toggleDataSidebar(true)
+    editData (id) {
+      this.$router.push(`/app/invoice/edit/${id}`)
     },
 
     viewData(id) {

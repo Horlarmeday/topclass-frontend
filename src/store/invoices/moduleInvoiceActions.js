@@ -88,11 +88,22 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
-  updateInvoice ({ commit }, invoice) {
+  updateInvoice ({ commit }, payload) {
     return new Promise((resolve, reject) => {
-      axios.put(`/invoices`, invoice)
+      axios.put(`/invoices/${payload.id}`, payload.invoice)
         .then((response) => {
           commit('UPDATE_INVOICE', response.data.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+
+  deleteInvoiceItem ({ commit }, invoiceId) {
+    return new Promise((resolve, reject) => {
+      axios.delete(`/invoices`, { data: { inv_id: invoiceId }})
+        .then((response) => {
+          commit('DELETE_INVOICE', response.data.data.inv_id)
           resolve(response)
         })
         .catch((error) => { reject(error) })
