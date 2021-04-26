@@ -75,7 +75,7 @@
                                     <vs-input type="number" class="w-full" v-model="prod.quantity" readonly/>
                                 </div>
                                 <div class="w-1/4">
-                                    <vs-input class="w-full" style="background: #fcfcfc" v-model="prod.price" readonly />
+                                    <vs-input class="w-full" style="background: #fcfcfc" v-model="prod.price" />
                                 </div>
                                 <feather-icon icon="TrashIcon" class="ml-3" svgClasses="w-5 h-5 hover:text-danger text-danger stroke-current" @click="clearDefault(index)" />
                             </div>
@@ -123,7 +123,7 @@
                                         <vs-input type="number" class="w-full" placeholder="Enter Quantity" v-model="prod.quantity" @keyup="calculateTotalPrice(index)"/>
                                     </div>
                                     <div class="w-1/4">
-                                        <vs-input placeholder="Total Price" class="w-full" style="background: #f1f1f1" v-model="prod.price" readonly />
+                                        <vs-input placeholder="Total Price" class="w-full" style="background: #f1f1f1" v-model="prod.price" />
                                     </div>
                                     <feather-icon icon="TrashIcon" class="ml-3" svgClasses="w-5 h-5 hover:text-danger text-danger stroke-current" @click="clearProduct(index)" />
                             </div>
@@ -151,7 +151,7 @@
                                         <vs-input type="number" class="w-full" placeholder="Enter Quantity" v-model="serv.quantity" @keyup="calculateServiceTotalPrice(index)"/>
                                 </div>
                                 <div class="w-1/4">
-                                    <vs-input placeholder="Total Price" class="w-full" style="background: #f1f1f1" v-model="serv.price" readonly />
+                                    <vs-input placeholder="Total Price" class="w-full" style="background: #f1f1f1" v-model="serv.price" />
                                 </div>
                                 <feather-icon icon="TrashIcon" class="ml-3" svgClasses="w-5 h-5 hover:text-danger text-danger stroke-current" @click="clearService(index)" />
 
