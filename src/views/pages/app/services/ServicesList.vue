@@ -82,7 +82,7 @@
         <vs-th sort-key="s/n">S/N</vs-th>
         <vs-th sort-key="name">Name</vs-th>
         <vs-th sort-key="quantity">Quantity</vs-th>
-        <vs-th sort-key="price" v-show="$acl.check('Accountant')">Price (₦)</vs-th>
+        <vs-th sort-key="price">Price (₦)</vs-th>
         <vs-th sort-key="createdAt">Date Created</vs-th>
         <vs-th>Action</vs-th>
       </template>
@@ -103,7 +103,7 @@
                 <p class="product-name font-medium truncate">{{ tr.quantity }} {{ tr.unit }}</p>
               </vs-td>
 
-              <vs-td v-show="$acl.check('Accountant')">
+              <vs-td>
                 <p class="product-category">{{ tr.selling_price.toLocaleString() }}</p>
               </vs-td>
 

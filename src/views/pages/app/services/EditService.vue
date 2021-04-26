@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="vx-row mb-3">
-            <div class="vx-col sm:w-1/2 w-full mb-2" v-show="$acl.check('Accountant')">
+            <div class="vx-col sm:w-1/2 w-full mb-2">
                 <vs-input
                     v-validate="'required'"
                     data-vv-validate-on="blur"
