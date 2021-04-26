@@ -37,11 +37,11 @@
           <!-- Information - Col 2 -->
           <div class="vx-col flex-1" id="account-info-col-2">
             <table>
-              <tr v-show="$acl.check(Accountant)">
+              <tr>
                 <td class="font-semibold">Cost</td>
                 <td>₦{{ product.cost }}</td>
               </tr>
-              <tr v-show="$acl.check(Accountant)">
+              <tr>
                 <td class="font-semibold">Selling Price</td>
                 <td>₦{{ product.selling_price }}</td>
               </tr>

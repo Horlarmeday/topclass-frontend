@@ -40,31 +40,31 @@
                     <span class="text-danger text-sm">{{errors.first('quantity')}}</span>
                 </div>
             </div>
-            <div class="vx-row mb-3" v-show="$acl.check('Accountant')">
-            <div class="vx-col sm:w-1/2 w-full mb-2">
-                <vs-input
-                    v-validate="'required'"
-                    data-vv-validate-on="blur"
-                    label="Cost"
-                    name="cost"
-                    type="number"
-                    v-model="cost"
-                    class="w-full"
-                />
-                <span class="text-danger text-sm">{{errors.first('cost')}}</span>
-            </div>
-            <div class="vx-col sm:w-1/2 w-full mb-2">
-                <vs-input
-                    v-validate="'required'"
-                    data-vv-validate-on="blur"
-                    label="Selling Price"
-                    name="selling_price"
-                    v-model="selling_price"
-                    type="number"
-                    class="w-full"
-                />
-                <span class="text-danger text-sm">{{errors.first('selling_price')}}</span>
-            </div>
+            <div class="vx-row mb-3">
+              <div class="vx-col sm:w-1/2 w-full mb-2">
+                  <vs-input
+                      v-validate="'required'"
+                      data-vv-validate-on="blur"
+                      label="Cost"
+                      name="cost"
+                      type="number"
+                      v-model="cost"
+                      class="w-full"
+                  />
+                  <span class="text-danger text-sm">{{errors.first('cost')}}</span>
+              </div>
+              <div class="vx-col sm:w-1/2 w-full mb-2">
+                  <vs-input
+                      v-validate="'required'"
+                      data-vv-validate-on="blur"
+                      label="Selling Price"
+                      name="selling_price"
+                      v-model="selling_price"
+                      type="number"
+                      class="w-full"
+                  />
+                  <span class="text-danger text-sm">{{errors.first('selling_price')}}</span>
+              </div>
             </div>
             <div class="vx-row mb-3">
             <div class="vx-col sm:w-1/2 w-full mb-2">
