@@ -136,7 +136,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios.put(`/invoices/approve`, invoice)
         .then((response) => {
-          commit('UPDATE_INVOICE', response.data.data)
+          commit('APPROVE_INVOICE', response.data.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })

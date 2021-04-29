@@ -34,6 +34,11 @@ export default {
       // Object.assign(state.invoices[invoiceIndex], invoice)
     },
 
+    APPROVE_INVOICE (state, invoice) {
+      const invoiceIndex = state.invoices.findIndex((i) => i.ivid === invoice.ivid)
+      Object.assign(state.invoices[invoiceIndex], invoice)
+    },
+
     DISPENSE_ITEM (state, item) {
       const itemIndex = state.items.findIndex((i) => i.inv_id === item.inv_id)
       Object.assign(state.items[itemIndex], item)
