@@ -100,28 +100,28 @@
             </div>
             </div>
             <div class="vx-row mb-3">
-            <div class="vx-col sm:w-1/2 w-full mb-2">
-                <small class="ml-2">Description</small>
-                <vs-textarea
-                    v-validate="'required'"
-                    data-vv-validate-on="blur"
-                    name="desc"
-                    v-model="desc"
-                    class="w-full"
-                />
-                <span class="text-danger text-sm">{{errors.first('desc')}}</span>
-            </div>
-            <div class="vx-col sm:w-1/2 w-full mb-2">
-                <small class="ml-2">Comment</small>
-                <vs-textarea
-                    v-validate="'required'"
-                    data-vv-validate-on="blur"
-                    name="comment"
-                    v-model="comment"
-                    class="w-full"
-                />
-                <span class="text-danger text-sm">{{errors.first('comment')}}</span>
-            </div>
+              <div class="vx-col w-full mb-2">
+                  <small class="ml-2">Description</small>
+                  <vs-textarea
+                      v-validate="'required'"
+                      data-vv-validate-on="blur"
+                      name="desc"
+                      v-model="desc"
+                      class="w-full"
+                  />
+                  <span class="text-danger text-sm">{{errors.first('desc')}}</span>
+              </div>
+              <div class="vx-col w-full mb-2">
+                  <small class="ml-2">Comment</small>
+                  <vs-textarea
+                      v-validate="'required'"
+                      data-vv-validate-on="blur"
+                      name="comment"
+                      v-model="comment"
+                      class="w-full"
+                  />
+                  <span class="text-danger text-sm">{{errors.first('comment')}}</span>
+              </div>
             </div>
       </div>
     </component>

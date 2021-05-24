@@ -17,7 +17,7 @@
             </template>
           </vx-input-group>
           <div class="flex items-center">
-            <vs-button class="mb-base mr-3" type="border" icon-pack="feather" icon="icon icon-download">Download</vs-button>
+            <!-- <vs-button class="mb-base mr-3" type="border" icon-pack="feather" icon="icon icon-download">Download</vs-button> -->
             <vs-button class="mb-base mr-3" icon-pack="feather" icon="icon icon-file" @click="printInvoice">Print</vs-button>
           </div>
         </div>
@@ -27,13 +27,11 @@
             <!-- INVOICE METADATA -->
             <div class="vx-row leading-loose p-base">
                 <div class="vx-col w-1/2">
-                    <img src="@/assets/images/pages/logo-bg.png" alt="topclass-logo">
+                    <img style="width: 200px" src="@/assets/images/pages/logo-bg.png" alt="topclass-logo">
                 </div>
                 <div class="vx-col w-1/2 text-right">
                     <h5>{{ companyDetails.name }}</h5>
                     <div class="invoice__company-info my-4">
-                        <p>{{ companyDetails.addressLine1 }}</p>
-                        <p>{{ companyDetails.addressLine2 }}</p>
                         <p class="flex items-center justify-end">
                             <feather-icon icon="MailIcon" svgClasses="h-4 w-4"></feather-icon>
                             <span class="ml-2">{{ companyDetails.mailId }}</span>
@@ -76,7 +74,7 @@
                 <vs-table hoverFlat :data="sale.Invoice.InvoiceItems">
                     <!-- HEADER -->
                     <template slot="thead">
-                        <vs-th class="pointer-events-none bg-topclass">ITEM DESCRIPTION</vs-th>
+                        <vs-th class="pointer-events-none bg-topclass">ITEM</vs-th>
                         <vs-th class="pointer-events-none bg-topclass">QUANTITY</vs-th>
                         <vs-th class="pointer-events-none bg-topclass">UNIT PRICE (₦)</vs-th>
                         <vs-th class="pointer-events-none bg-topclass">TOTAL (₦)</vs-th>
@@ -130,6 +128,23 @@
                     <!-- <span>IBAN: <span class="font-semibold"> G882-1111-2222-3333 </span></span> -->
                 </p>
             </div>
+            <footer>
+              <hr>
+              <p style="font-size: 10px" class="text-center pt-3 pb-3">
+                    <strong>HQ: </strong> 
+                        Plot C13 Enoch Jarumi Street, Aco Estate AMAC, off Shehu Musa Yaradua Express way, Sabon Lugbe. <br>
+                        +234 (0) 903 800 0026,
+                        +234 (0) 903 800 0027 <br>
+                     <strong> Sales: </strong> 
+                        297, Cadastral Zone A.O Opposite Grand Square, Behind Audit House, Central Area, Abuja FCT. <br>
+                        +234 (0) 807 088 8853
+                        +234 (0) 801 111 1060 <br>
+                    <strong> Distributor:</strong>
+                        Lagos - +234 (0) 817 516 1882, Portharcourt - +234 (0) 814 000 1020
+                    
+                </p>
+            </footer>
+            <div></div>
         </vx-card>
     </div>
 </template>
@@ -256,6 +271,19 @@ export default{
       left: 0;
       top: 0;
       box-shadow: none;
+    }
+
+    #invoice-container .p-base {
+      padding-bottom: 0;
+    }
+
+    // footer {
+    //   position: absolute;
+    //   bottom: 0;
+    // }
+
+    #invoice-container>div:last-child {
+        page-break-before: always
     }
   }
 }

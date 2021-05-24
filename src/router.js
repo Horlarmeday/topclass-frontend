@@ -140,15 +140,16 @@ const router = new Router({
                   pageTitle: 'Invoices',
                 }
               },
-              {
-                path: '/app/invoice/:invoiceId',
-                name: 'invoiceparam',
-                component: () => import('./views/pages/app/invoices/ViewInvoice.vue'),
-                meta: {
-                  rule: 'Public',
-                  requiresAuth: true,
-                }
-              },
+              // {
+              //   path: '/app/invoice/:invoiceId',
+              //   name: 'invoiceparam',
+              //   component: () => import('./views/pages/app/invoices/ViewInvoice.vue'),
+              //   meta: {
+              //     rule: 'Public',
+              //     requiresAuth: true,
+              //   }
+              // },
+              
               {
                 path: '/app/invoice/edit/:id',
                 name: 'invoiceedit',
@@ -336,6 +337,15 @@ const router = new Router({
                 component: () => import('@/views/pages/Error404.vue'),
                 meta: {
                   rule: 'Public',
+                }
+              },
+              {
+                path: '/app/invoice/:invoiceId',
+                name: 'invoiceparam',
+                component: () => import('./views/pages/app/invoices/NewInvoice.vue'),
+                meta: {
+                  rule: 'Public',
+                  requiresAuth: true,
                 }
               },
             ]
