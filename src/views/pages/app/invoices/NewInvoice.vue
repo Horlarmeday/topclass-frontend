@@ -23,7 +23,7 @@
                             TopClass Power Limited
                            
                         </h2>
-                        <div>455 Foggy Heights, AZ 85004, US</div>
+                        <div>Plot C13 Enoch Jarumi Street, Abj</div>
                         <div>0807 088 8853</div>
                         <div>info@topclassng.com</div>
                     </div>
