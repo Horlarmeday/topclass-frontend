@@ -29,7 +29,7 @@
                 <div class="vx-col w-1/2">
                     <img style="width: 200px" src="@/assets/images/pages/logo-bg.png" alt="topclass-logo">
                 </div>
-                <div class="vx-col w-1/2 text-right">
+                <!-- <div class="vx-col w-1/2 text-right">
                     <h5>{{ companyDetails.name }}</h5>
                     <div class="invoice__company-info my-4">
                         <p class="flex items-center justify-end">
@@ -41,7 +41,7 @@
                             <span class="ml-2">{{ companyDetails.mobile }}</span>
                         </p>
                     </div>
-                </div>
+                </div> -->
                 <vs-divider></vs-divider>
                 <div class="vx-col w-1/2 ">
                     <h5>TO:</h5>
@@ -97,10 +97,10 @@
                         <vs-th class="pointer-events-none">SUBTOTAL</vs-th>
                         <vs-td>₦{{ Number(subtotal).toLocaleString() }}</vs-td>
                     </vs-tr>
-                    <vs-tr v-if="sale.Invoice.vat">
+                    <!-- <vs-tr v-if="sale.Invoice.vat">
                         <vs-th class="pointer-events-none">VAT (7.5%)</vs-th>
                         <vs-td>₦{{ Number(sale.Invoice.vat).toLocaleString() }}</vs-td>
-                    </vs-tr>
+                    </vs-tr> -->
                     <vs-tr v-if="sale.discount">
                         <vs-th class="pointer-events-none">DISCOUNT ({{sale.discount}}%)</vs-th>
                         <vs-td>₦{{ discount.toLocaleString() }}</vs-td>
@@ -111,7 +111,7 @@
                     </vs-tr>
                     <vs-tr>
                         <vs-th class="pointer-events-none">AMOUNT PAID</vs-th>
-                        <vs-td>₦{{ Number(sale.amount_paid).toLocaleString() }}</vs-td>
+                        <vs-td>₦{{ Number(sale.amount_paid - sale.Invoice.vat).toLocaleString() }}</vs-td>
                     </vs-tr>
                     <vs-tr>
                         <vs-th class="pointer-events-none bg-topclass mb-2">BALANCE</vs-th>
@@ -135,10 +135,10 @@
                         Plot C13 Enoch Jarumi Street, Aco Estate AMAC, off Shehu Musa Yaradua Express way, Sabon Lugbe. <br>
                         +234 (0) 903 800 0026,
                         +234 (0) 903 800 0027 <br>
-                     <strong> Sales: </strong> 
+                     <!-- <strong> Sales: </strong> 
                         297, Cadastral Zone A.O Opposite Grand Square, Behind Audit House, Central Area, Abuja FCT. <br>
                         +234 (0) 807 088 8853
-                        +234 (0) 801 111 1060 <br>
+                        +234 (0) 801 111 1060 <br> -->
                     <strong> Distributor:</strong>
                         Lagos - +234 (0) 817 516 1882, Portharcourt - +234 (0) 814 000 1020
                     
@@ -210,7 +210,7 @@ export default{
     },
 
     total() {
-      return this.subtotal + this.sale.Invoice.vat - this.discount
+      return this.subtotal - this.discount
     }
     
   },

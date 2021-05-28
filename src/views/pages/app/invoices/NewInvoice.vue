@@ -14,10 +14,10 @@
                 <div class="row">
                     <div class="col">
                         <a target="_blank" href="#">
-                            <img style="width: 250px" src="@/assets/images/pages/logo-bg.png" data-holder-rendered="true" />
+                            <img style="width: 300px" src="@/assets/images/pages/logo-bg.png" data-holder-rendered="true" />
                         </a>
                     </div>
-                    <div class="col company-details">
+                    <!-- <div class="col company-details">
                         <h2 class="name">
                             
                             TopClass Power Limited
@@ -26,7 +26,7 @@
                         <div>Plot C13 Enoch Jarumi Street, Abj</div>
                         <div>0807 088 8853</div>
                         <div>info@topclassng.com</div>
-                    </div>
+                    </div> -->
                 </div>
             </header>
             <main>
@@ -38,7 +38,7 @@
                         <div class="email">{{ invoice.invoice.Customer.email }}</div>
                     </div>
                     <div class="col invoice-details">
-                        <h1 class="invoice-id">{{ invoice.invoice.invoice_type }}</h1>
+                        <h1 class="invoice-id" style="text-transform: capitalize">{{ invoice.invoice.invoice_type }}</h1>
                         <div class="date"><strong>{{ invoice.invoice.invoice_numb }}</strong></div>
                     </div>
                 </div>
@@ -149,17 +149,25 @@
                     While assuring you of our best services, we are always available for any clarification you may require from us,
                     and look forward to your valued order soon.
                 </h5>
-                <div style="display: inline-block">
-                    <h5>Yours Faithfully,</h5>
-                    <h6 style="margin-bottom: 40px">For: TOPCLASS POWER LTD</h6>
+                <div class="flex-container mt">
+                    <div class="">
+                        <h5>Yours Faithfully,</h5>
+                        <h5 style="margin-bottom: 40px">For: TOPCLASS POWER LTD</h5>
 
-                    <h6>{{invoice.invoice.Staff.fullname}}</h6>
-                    <h6>{{invoice.invoice.Staff.role}}</h6>
-                </div>
-                <div class="float-right">
-                    <h6>Accepted By:</h6>
-                    <h6 style="margin-bottom: 40px">Name: </h6>
-                    <h6>Date: {{ invoice.invoice.updatedAt | moment('DD/MM/YYYY') }}</h6>
+                        <h5>{{invoice.invoice.Staff.fullname}}</h5>
+                        <small>({{invoice.invoice.Staff.role}} - TopClass Power Ltd)</small>
+                    </div>
+                    <div class="">
+                        <h5 class="underline">Accepted By:</h5>
+                        <h5 class="underline" style="margin-bottom: 40px">Name: </h5>
+                        <h5 class="underline">Date: {{ invoice.invoice.updatedAt | moment('DD/MM/YYYY') }}</h5>
+                    </div>
+                    <div class="">
+                        <h5 class="underline">Approved By:</h5>
+                        <h5>Name: Bishnu Saha</h5>
+                        <small>(CEO - TopClass Power Ltd)</small> <br>
+                        <img src="@/assets/images/sign.png" alt="signature" style="width: 250px">
+                    </div>
                 </div>
             </main>
             <footer>
@@ -169,10 +177,10 @@
                         Plot C13 Enoch Jarumi Street, Aco Estate AMAC, off Shehu Musa Yaradua Express way, Sabon Lugbe. <br>
                         +234 (0) 903 800 0026,
                         +234 (0) 903 800 0027 <br>
-                     <strong> Sales: </strong> 
+                     <!-- <strong> Sales: </strong> 
                         297, Cadastral Zone A.O Opposite Grand Square, Behind Audit House, Central Area, Abuja FCT. <br>
                         +234 (0) 807 088 8853
-                        +234 (0) 801 111 1060 <br>
+                        +234 (0) 801 111 1060 <br> -->
                     <strong> Distributor:</strong>
                         Lagos - +234 (0) 817 516 1882, Portharcourt - +234 (0) 814 000 1020
                     

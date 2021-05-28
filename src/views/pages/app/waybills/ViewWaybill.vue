@@ -17,7 +17,7 @@
             </template>
           </vx-input-group> -->
           <div class="flex items-center">
-            <vs-button class="mb-base mr-3" type="border" icon-pack="feather" icon="icon icon-download">Download</vs-button>
+            <!-- <vs-button class="mb-base mr-3" type="border" icon-pack="feather" icon="icon icon-download">Download</vs-button> -->
             <vs-button class="mb-base mr-3" icon-pack="feather" icon="icon icon-file" @click="printInvoice">Print</vs-button>
           </div>
         </div>
@@ -29,7 +29,7 @@
                 <div class="vx-col w-1/2">
                     <img src="@/assets/images/pages/logo-bg.png" alt="topclass-logo">
                 </div>
-                <div class="vx-col w-1/2 text-right">
+                <!-- <div class="vx-col w-1/2 text-right">
                     <h5>{{ companyDetails.name }}</h5>
                     <div class="invoice__company-info my-4">
                         <p>{{ companyDetails.addressLine1 }}</p>
@@ -43,7 +43,7 @@
                             <span class="ml-2">{{ companyDetails.mobile }}</span>
                         </p>
                     </div>
-                </div>
+                </div> -->
                 <vs-divider></vs-divider>
                 <div class="vx-col w-1/2 ">
                     <h5>TO:</h5>
@@ -108,6 +108,10 @@
                         <vs-th class="pointer-events-none">VEHICLE NUMBER</vs-th>
                         <vs-td>{{ waybill.vehicle_numb }}</vs-td>
                     </vs-tr>
+                    <vs-tr>
+                        <vs-th class="pointer-events-none">SIGNATURE</vs-th>
+                        <vs-td></vs-td>
+                    </vs-tr>
                     <!-- <vs-tr>
                         <vs-th class="pointer-events-none bg-topclass mb-2">TOTAL</vs-th>
                         <vs-td class="bg-topclass font-semibold">₦{{ sale.amount_due }}</vs-td>
@@ -136,8 +140,25 @@
 
             <!-- INVOICE FOOTER -->
             <div class="invoice__footer p-base">
-                <p class="mb-4"> <span class="mr-2">RECEIVED BY:</span> <span class="font-semibold mr-2"> </span> .</p>
+                <p class="mb-4"> <span class="mr-2">RECEIVED IN GOOD CONDITION BY:</span> <span class="font-semibold mr-2"> </span> .</p>
             </div>
+            <footer>
+              <hr>
+              <p style="font-size: 10px" class="text-center pt-3 pb-3">
+                    <strong>HQ: </strong> 
+                        Plot C13 Enoch Jarumi Street, Aco Estate AMAC, off Shehu Musa Yaradua Express way, Sabon Lugbe. <br>
+                        +234 (0) 903 800 0026,
+                        +234 (0) 903 800 0027 <br>
+                     <!-- <strong> Sales: </strong> 
+                        297, Cadastral Zone A.O Opposite Grand Square, Behind Audit House, Central Area, Abuja FCT. <br>
+                        +234 (0) 807 088 8853
+                        +234 (0) 801 111 1060 <br> -->
+                    <strong> Distributor:</strong>
+                        Lagos - +234 (0) 817 516 1882, Portharcourt - +234 (0) 814 000 1020
+                    
+                </p>
+            </footer>
+            <div></div>
         </vx-card>
     </div>
 </template>
