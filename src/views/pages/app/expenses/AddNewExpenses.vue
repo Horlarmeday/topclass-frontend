@@ -23,6 +23,22 @@
                         <span class="text-danger text-sm">{{errors.first('cost')}}</span>
                     </div>
                 </div>
+                 <div class="vx-row mb-2">
+                    <small class="ml-4 mt-2">Type</small>
+                    <div class="vx-col w-full">
+                        <v-select 
+                        v-validate="'required'"
+                        data-vv-validate-on="blur"
+                        name="type"
+                        label="Type"
+                        v-model="type"
+                        :closeOnSelect="true" 
+                        :options="['Maintenance','Office Expenses','Generator Purchase']" 
+                        :dir="$vs.rtl ? 'rtl' : 'ltr'" 
+                    />
+                        <span class="text-danger text-sm">{{errors.first('type')}}</span>
+                    </div>
+                </div>
                 <div class="vx-row mb-2">
                     <div class="vx-col w-full">
                         <vs-input class="w-full" label="Description" v-model="description" name="description" />
@@ -48,6 +64,7 @@
 
 <script>
 import Datepicker from 'vuejs-datepicker';
+import vSelect from 'vue-select'
 export default {
     props: {
         displayPrompt: {
@@ -56,13 +73,15 @@ export default {
         }
     },
     components: {
-        Datepicker
+        Datepicker,
+        vSelect
     },
     data() {
         return {
             name: '',
             unit: '',
             cost: '',
+            type: '',
             description: '',
             date_of_expense: ''
         }
@@ -73,6 +92,7 @@ export default {
              this.name !== '' &&
              this.unit !== '' &&
              this.cost !== '' &&
+             this.type !== '' &&
              this.date_of_expense !== '' &&
              this.description !== ''
         },
@@ -119,6 +139,7 @@ export default {
             cost: this.cost,
             description: this.description,
             unit: this.unit,
+            type: this.type,
             date_of_expense: this.date_of_expense
         }
         this.$vs.loading()
@@ -139,6 +160,7 @@ export default {
         this.unit = '',
         this.cost = '',
         this.name = ''
+        this.type = ''
         this.description = ''
         this.date_of_expense = ''
       },

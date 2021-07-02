@@ -82,6 +82,7 @@
         <vs-th sort-key="description">Description</vs-th>
         <vs-th sort-key="cost">Cost</vs-th>
         <vs-th sort-key="unit">Unit</vs-th>
+        <vs-th sort-key="type">Type</vs-th>
         <vs-th sort-key="date_of_expense">Date of Transaction</vs-th>
         <vs-th sort-key="createdAt">Date Created</vs-th>
         <vs-th>Action</vs-th>
@@ -112,11 +113,15 @@
               </vs-td>
 
               <vs-td>
+                <vs-chip :color="getOrderStatusColor(tr.type)" class="product-order-status">{{ tr.type }}</vs-chip>
+              </vs-td>
+
+              <vs-td>
                 <p class="product-price">{{ tr.date_of_expense | moment('ddd, MMMM Do YYYY') }}</p>
               </vs-td>
               
               <vs-td>
-                <p class="product-price">{{ tr.createdAt | moment('ddd, MMMM Do YYYY') }}</p>
+                <p class="product-price">{{ tr.createdAt | moment('DD/MM/YYYY, h:mma') }}</p>
               </vs-td>
               <vs-td class="whitespace-no-wrap">
                   <!-- <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" /> -->
@@ -244,9 +249,9 @@ export default {
       this.$store.dispatch('expense/fetchExpenses', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, filter: value })
     },
     getOrderStatusColor (type) {
-      if (type === 0)   return 'warning'
-      if (type === 1) return 'success'
-      if (type === 2)  return 'danger'
+      if (type === 'Maintenance')   return 'warning'
+      if (type === 'Office Maintenance') return 'success'
+      if (type === 'Generator Purchase')  return 'danger'
       return 'dark'
     },
     toggleDataSidebar (val = false) {

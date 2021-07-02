@@ -51,8 +51,8 @@ export default [
   },
   {
     url: "/app/payments",
-    name: "Payments",
-    slug: "payments",
+    name: "Income",
+    slug: "income",
     icon: "BriefcaseIcon",
   },
   {
