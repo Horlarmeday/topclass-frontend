@@ -128,7 +128,7 @@ export default {
     },
 
     viewData(id) {
-        this.$store.dispatch('invoice/fetchInvoiceItems', { ivid: id, label: 'all' })
+        this.$store.dispatch('invoice/fetchInvoiceItems', { ivid: id, label: 'spare part' })
         this.showDisplayPrompt()
     },
 
@@ -158,7 +158,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, dispense: 0 })
+    this.$store.dispatch('invoice/fetchInvoices', { currentPage: this.currentPage, itemsPerPage: this.itemsPerPage, dispense: 0, filter: 'invoice' })
   },
   mounted () {
     this.isMounted = true

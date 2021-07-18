@@ -5,6 +5,11 @@
             <tab-sales></tab-sales>
         </div>
     </vs-tab>
+    <vs-tab label="Invoices">
+        <div class="mt-6">
+            <tab-invoices></tab-invoices>
+        </div>
+    </vs-tab>
     <vs-tab label="Debtors">
         <div class="mt-6">
             <tab-creditors></tab-creditors>
@@ -22,11 +27,13 @@
 import TabSales from './TabSales'
 import TabAnalytics from './TabAnalytics'
 import TabCreditors from './TabCreditors'
+import TabInvoices from './TabInvoices.vue'
 export default {
     components: {
         TabAnalytics,
         TabCreditors,
         TabSales,
+        TabInvoices,
     }
 }
 </script>

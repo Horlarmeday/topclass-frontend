@@ -11,7 +11,7 @@
                     <div class="vx-col w-3/5">
                         <div class="vx-row mb-2">
                             <div class="vx-col w-full">
-                                <vs-input class="w-full" label="Name" v-model="name" name="name" />
+                                <vs-input class="w-full" label="Title" v-model="name" name="name" />
                                 <span class="text-danger text-sm">{{errors.first('name')}}</span>
                             </div>
                         </div>
@@ -157,43 +157,48 @@
 
                             </div>
                         </div>
-                        <div v-if="invoice_type === 'proforma invoice'">
-                            <div class="vx-row mb-2">
+                        <div v-if="invoice_type === 'proforma invoice' || invoice_type === 'quotation'">
+                            <div v-if="invoice_type === 'proforma invoice'" class="vx-row mb-2">
                                 <div class="vx-col w-full">
                                     <vs-input class="w-full" label="Country of Origin" v-model="country_of_origin" />
                                 </div>
                             </div>
-                            <div class="vx-row mb-2">
+                            <div v-if="invoice_type === 'proforma invoice'" class="vx-row mb-2">
                                 <div class="vx-col w-full">
                                     <vs-input class="w-full" label="Condition of Sale" v-model="condition_of_sale" />
                                 </div>
                             </div>
-                            <div class="vx-row mb-2">
+                            <div v-if="invoice_type === 'proforma invoice' || invoice_type === 'quotation'" class="vx-row mb-2">
                                 <div class="vx-col w-full">
                                     <vs-input class="w-full" label="Terms of Payment" v-model="terms_of_payment" />
                                 </div>
                             </div>
-                            <div class="vx-row mb-2">
+                            <div v-if="invoice_type === 'proforma invoice'" class="vx-row mb-2">
                                 <div class="vx-col w-full">
                                     <vs-input class="w-full" label="Delivery" v-model="delivery" />
                                 </div>
                             </div>
-                            <div class="vx-row mb-2">
+                            <div v-if="invoice_type === 'quotation'" class="vx-row mb-2">
+                                <div class="vx-col w-full">
+                                    <vs-input class="w-full" label="Completion Period" v-model="delivery" />
+                                </div>
+                            </div>
+                            <div v-if="invoice_type === 'proforma invoice' || invoice_type === 'quotation'" class="vx-row mb-2">
                                 <div class="vx-col w-full">
                                     <vs-input class="w-full" label="Validity" v-model="validity" />
                                 </div>
                             </div>
-                            <div class="vx-row mb-2">
+                            <div v-if="invoice_type === 'proforma invoice'" class="vx-row mb-2">
                                 <div class="vx-col w-full">
                                     <vs-input class="w-full" label="Installation" v-model="installation" />
                                 </div>
                             </div>
-                            <div class="vx-row mb-2">
+                            <div v-if="invoice_type === 'proforma invoice'" class="vx-row mb-2">
                                 <div class="vx-col w-full">
                                     <vs-input class="w-full" label="Place of Delivery" v-model="place_of_delivery" />
                                 </div>
                             </div>
-                            <div class="vx-row mb-2">
+                            <div v-if="invoice_type === 'proforma invoice' || invoice_type === 'quotation'" class="vx-row mb-2">
                                 <div class="vx-col w-full">
                                     <small class="ml-2">Bank</small>
                                     <v-select 
@@ -261,7 +266,7 @@ export default {
             installation: '',
             place_of_delivery: '',
             date_of_transaction: '',
-            bank_id: '',
+            bank_id: null,
             cid: '',
             quotation: '',
             product: [],
